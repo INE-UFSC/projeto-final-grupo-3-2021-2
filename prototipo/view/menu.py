@@ -21,3 +21,11 @@ class Menu(ABC):
     @property
     def tela_height(self):
         return self.__tela_height
+
+    @tela_width.setter
+    def tela_width(self, width):
+        self.__tela_width = width
+
+    @tela_height.setter
+    def tela_height(self, height):
+        self.__tela_height = height
