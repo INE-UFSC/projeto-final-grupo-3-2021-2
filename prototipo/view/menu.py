@@ -2,8 +2,7 @@ from abc import ABC, abstractclassmethod
 
 
 class Menu(ABC):
-    def __init__(self, pygame, tela_width: int, tela_height: int) -> None:
-        self.__pygame = pygame
+    def __init__(self, tela_width: int, tela_height: int) -> None:
         self.__tela_width = tela_width
         self.__tela_height = tela_height
 
@@ -14,10 +13,6 @@ class Menu(ABC):
     @abstractclassmethod
     def desenhar_menu():
         pass
-
-    @property
-    def pygame(self):
-        return self.__pygame
 
     @property
     def tela_width(self):
