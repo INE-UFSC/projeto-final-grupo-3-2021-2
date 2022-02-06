@@ -128,3 +128,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 /prototipo/view/testes.py
+/prototipo/model/testes.py
