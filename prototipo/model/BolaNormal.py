@@ -1,4 +1,5 @@
-from prototipo.model.Bola import Bola
+from prototipo.model.bola import Bola
+
 
 class BolaNormal(Bola):
     def __init__(self, cor: str, raio: float, valor: int, nome: str):
