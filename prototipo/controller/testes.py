@@ -12,7 +12,7 @@ def main():
     c.rodar_jogo()
     pygame.display.update()
     
-    while 1:
+    while c.checar_fim_de_jogo() == False:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()

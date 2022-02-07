@@ -1,8 +1,11 @@
+from random import randint
 import pygame
 from .bola import Bola
+from .bolaNormal import BolaNormal
 
 
 class Campo():
+
     def __init__(self, tela_width: int, tela_height: int) -> None:
         self.__capacidade = 20
         self.__campo = []
@@ -19,9 +22,9 @@ class Campo():
 
         self.__positions = [None] * self.__capacidade
 
-        campo_pos = (self.__tela_width/2, self.__tela_height/2)
-        campo = pygame.draw.circle(
-            background, (0, 0, 0), campo_pos, self.__raio, 5)
+        campo_pos = (self.__tela_width / 2, self.__tela_height / 2)
+        campo = pygame.draw.circle(background, (0, 0, 0), campo_pos,
+                                   self.__raio, 5)
 
         centro_campo = pygame.draw.circle(background, (0, 0, 0), campo_pos, 5)
 
@@ -32,6 +35,14 @@ class Campo():
 
             coors = (pt_x, pt_y)
 
+            fonte = pygame.font.SysFont(None, 50)
+
+            if i % 3 == 0:
+                bola = BolaNormal("#A89234", 35, randint(1, 5), "He")
+                bola_img = pygame.draw.circle(background, bola.cor, coors,
+                                              bola.raio)
+                """ bola_txt = fonte.render(bola.valor, True, (0, 0, 0)) """
+
             pygame.draw.circle(background, (255, 0, 0), coors, 10)
 
             self.__positions[i] = coors
@@ -39,6 +50,7 @@ class Campo():
             angulo += 360 / self.__capacidade
 
         screen.blit(background, (0, 0))
+        pygame.display.update()
 
     @property
     def campo(self):

@@ -1,15 +1,14 @@
 import pygame
 from abc import ABC
-import os
 import sys
 sys.path.append("/Users/Windows/Documents/GitHub/projeto-final-grupo-3-2021-2")
-import prototipo.model.campo
-import prototipo.model.bola
+import prototipo.model.campo as campo
+import prototipo.model.bola as bola
 
-class ControladorJogo:
+class ControladorJogo(ABC):
     def __init__(self, tela_width: int, tela_height: int, placar) -> None:
         self.__bola_central = {}
-        self.__campo = prototipo.model.campo.Campo(tela_width, tela_height)
+        self.__campo = campo.Campo(tela_width, tela_height)
         self.__nome = ''
         self.__placar = placar
         self.__tela_width = tela_width
@@ -54,7 +53,7 @@ class ControladorJogo:
         return self.__placar
 
     @bola_central.setter
-    def bola_central(self, bola: prototipo.model.bola.Bola):
+    def bola_central(self, bola: bola.Bola):
         self.__bola_central = bola
 
     @nome.setter
