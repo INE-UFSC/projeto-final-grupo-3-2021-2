@@ -1,4 +1,8 @@
-class Bola:
+from abc import ABC
+
+
+class Bola(ABC):
+
     def __init__(self, cor: str, raio: float):
         self.__cor = cor
         self.__raio = raio
