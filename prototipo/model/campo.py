@@ -1,5 +1,5 @@
 import pygame
-from Bola import Bola
+from .bola import Bola
 
 
 class Campo():

@@ -1,16 +1,20 @@
-from abc import ABC
-from prototipo.model.campo import Campo
 import pygame
-
+from abc import ABC
+import os
+import sys
+sys.path.append("/Users/Windows/Documents/GitHub/projeto-final-grupo-3-2021-2")
+import prototipo.model.campo
+import prototipo.model.bola
 
 class ControladorJogo:
-    def __init__(self, tela_width: int, tela_height: int, placar: Placar) -> None:
+    def __init__(self, tela_width: int, tela_height: int, placar) -> None:
         self.__bola_central = {}
-        self.__campo = Campo(tela_width, tela_height)
+        self.__campo = prototipo.model.campo.Campo(tela_width, tela_height)
         self.__nome = ''
         self.__placar = placar
         self.__tela_width = tela_width
         self.__tela_height = tela_height
+        
 
     def rodar_jogo(self):
 
@@ -22,8 +26,10 @@ class ControladorJogo:
         background = pygame.Surface(screen.get_size())
         background = background.convert()
         background.fill((250, 250, 250))
-
+        
         self.__campo.setar_campo(background, screen)
+        
+        screen.blit(background, (0, 0))
 
         running = True
         while running:
@@ -48,7 +54,7 @@ class ControladorJogo:
         return self.__placar
 
     @bola_central.setter
-    def bola_central(self, bola: bola):
+    def bola_central(self, bola: prototipo.model.bola.Bola):
         self.__bola_central = bola
 
     @nome.setter
