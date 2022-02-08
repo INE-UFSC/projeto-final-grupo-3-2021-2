@@ -1,4 +1,5 @@
 from prototipo.model.bolaEspecial import BolaEspecial
+from .bolaNormal import BolaNormal
 
 
 class BolaMais(BolaEspecial):
