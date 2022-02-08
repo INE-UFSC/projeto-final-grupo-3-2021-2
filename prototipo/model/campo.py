@@ -19,7 +19,7 @@ class Campo():
         if isinstance(bola, Bola):
             self.__campo.append(bola)
 
-    def setar_campo(self, background, screen, lista_inicial: list):
+    def setar_campo(self, background, screen):
 
         self.__campo = [None] * self.__capacidade
 
