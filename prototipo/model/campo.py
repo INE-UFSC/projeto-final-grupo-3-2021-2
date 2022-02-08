@@ -2,25 +2,26 @@ from random import randint
 import pygame
 from .bola import Bola
 from .bolaNormal import BolaNormal
+from .geraBola import GeraBola
 
 
 class Campo():
 
-    def __init__(self, tela_width: int, tela_height: int) -> None:
+    def __init__(self, tela_width: int, tela_height: int, geraBola: GeraBola) -> None:
         self.__capacidade = 20
         self.__campo = []
-        self.__positions = []
         self.__raio = 300
         self.__tela_width = tela_width
         self.__tela_height = tela_height
+        self.__gerador_bola = geraBola
 
     def add_bola(self, bola: Bola):
         if isinstance(bola, Bola):
             self.__campo.append(bola)
 
-    def setar_campo(self, background, screen):
+    def setar_campo(self, background, screen, lista_inicial: list):
 
-        self.__positions = [None] * self.__capacidade
+        self.__campo = [None] * self.__capacidade
 
         campo_pos = (self.__tela_width / 2, self.__tela_height / 2)
         campo = pygame.draw.circle(background, (0, 0, 0), campo_pos,
@@ -29,7 +30,7 @@ class Campo():
         centro_campo = pygame.draw.circle(background, (0, 0, 0), campo_pos, 5)
 
         angulo = 0
-        for i in range(len(self.__positions)):
+        for i in range(len(self.__campo)):
             vec = pygame.math.Vector2(0, -self.__raio * 0.8).rotate(angulo)
             pt_x, pt_y = campo_pos[0] + vec.x, campo_pos[1] + vec.y
 
@@ -38,14 +39,13 @@ class Campo():
             fonte = pygame.font.SysFont(None, 50)
 
             if i % 3 == 0:
-                bola = BolaNormal("#A89234", 35, randint(1, 5), "He")
-                bola_img = pygame.draw.circle(background, bola.cor, coors,
-                                              bola.raio)
+                self.__campo[i] = self.__gerador_bola.geraBola(
+                    background, coors)
+
                 """ bola_txt = fonte.render(bola.valor, True, (0, 0, 0)) """
-
-            pygame.draw.circle(background, (255, 0, 0), coors, 10)
-
-            self.__positions[i] = coors
+            else:
+                holder = pygame.draw.circle(background, (255, 0, 0), coors, 10)
+                self.__campo[i] = holder
 
             angulo += 360 / self.__capacidade
 
