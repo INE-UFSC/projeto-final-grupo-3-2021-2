@@ -2,7 +2,7 @@ from prototipo.model.bola import Bola
 
 
 class BolaNormal(Bola):
-    def __init__(self, raio: float, valor: int, nome: str, circle_obj):
+    def __init__(self, valor: int, nome: str, circle_obj, raio = 35):
         super().__init__(raio, circle_obj)
         self.__valor = valor
         self.__nome = nome
