@@ -18,7 +18,7 @@ class GeraBola():
 
     def geraBola(self, background, coors):
         bola_img = pygame.draw.circle(background, "#A89234", coors, 35)
-        bola = BolaNormal(35, randint(
+        bola = BolaNormal(randint(
             self.__min_bola, self.__max_bola), "He", bola_img)
 
         return bola

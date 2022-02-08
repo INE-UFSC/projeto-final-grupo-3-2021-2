@@ -2,7 +2,7 @@ from abc import ABC
 
 class Bola(ABC):
 
-    def __init__(self, raio: float, circle):
+    def __init__(self, raio, circle ):
         self.__raio = raio
         self.__circle_obj = circle
 

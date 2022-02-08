@@ -10,6 +10,7 @@ class Campo():
     def __init__(self, tela_width: int, tela_height: int, geraBola: GeraBola) -> None:
         self.__capacidade = 20
         self.__campo = []
+        self.__bola_central = {}
         self.__raio = 300
         self.__tela_width = tela_width
         self.__tela_height = tela_height
@@ -27,7 +28,7 @@ class Campo():
         campo = pygame.draw.circle(background, (0, 0, 0), campo_pos,
                                    self.__raio, 5)
 
-        centro_campo = pygame.draw.circle(background, (0, 0, 0), campo_pos, 5)
+        self.__bola_central = self.__gerador_bola.geraBola(background, campo_pos)
 
         angulo = 0
         for i in range(len(self.__campo)):
@@ -45,16 +46,26 @@ class Campo():
                 """ bola_txt = fonte.render(bola.valor, True, (0, 0, 0)) """
             else:
                 holder = pygame.draw.circle(background, (255, 0, 0), coors, 10)
-                self.__campo[i] = holder
+                bola_empty = BolaNormal(0, '', holder, 10)
+                self.__campo[i] = bola_empty
 
             angulo += 360 / self.__capacidade
 
         screen.blit(background, (0, 0))
-        pygame.display.update()
-
+        
+    def desloca_bola(self, bola):
+        x = bola.circle_obj.x
+        y = bola.circle_obj.y
+        
+        self.__bola_central.circle_obj.move_ip(30, 10)
+        
     @property
     def campo(self):
         return self.__campo
+    
+    @property
+    def bola_central(self):
+        return self.__bola_central
 
     @property
     def raio(self):
