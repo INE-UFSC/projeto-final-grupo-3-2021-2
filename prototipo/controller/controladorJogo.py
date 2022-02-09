@@ -1,12 +1,11 @@
+from abc import ABC
+import pygame
+import prototipo.model.campo as campo
+import prototipo.model.bola as bola
+from prototipo.model.geraBola import GeraBola
 from cmath import sqrt
 import sys
 sys.path.append("/Users/Windows/Documents/GitHub/projeto-final-grupo-3-2021-2")
-from prototipo.model.geraBola import GeraBola
-import prototipo.model.bola as bola
-import prototipo.model.campo as campo
-import pygame
-from abc import ABC
-
 
 
 class ControladorJogo(ABC):
@@ -29,10 +28,8 @@ class ControladorJogo(ABC):
         background = pygame.Surface(screen.get_size())
         background = background.convert()
         background.fill((250, 250, 250))
-
-        self.__campo.setar_campo(background, screen)
-
         screen.blit(background, (0, 0))
+        self.__campo.setar_campo(screen, background)
 
         running = True
         while running:
@@ -41,24 +38,26 @@ class ControladorJogo(ABC):
                     running = False
                 elif event.type == pygame.MOUSEBUTTONUP:
                     (x, y) = pygame.mouse.get_pos()
-                    
-                    min_dis = 1000
+
+                    min_dis = 10000
                     closest_obj = None
-                    
+
                     for bola in self.__campo.campo:
                         if bola.nome == '':
                             circle_pos = bola.circle_obj.center
-                            
-                            temp = abs(sqrt((x-circle_pos[0])**2 + (y-circle_pos[0])**2))
+
+                            temp = abs(
+                                sqrt((x-circle_pos[0])**2 + (y-circle_pos[0])**2))
                             if temp < min_dis:
                                 min_dis = temp
                                 closest_obj = bola
-                    
+
                     if closest_obj != None:
-                        self.__campo.desloca_bola(closest_obj)
-                        
+                        self.__campo.desloca_bola(
+                            closest_obj, screen, background)
+
                 pygame.display.update()
-        
+
         pygame.quit()
 
     @property
