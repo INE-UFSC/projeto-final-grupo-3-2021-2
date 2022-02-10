@@ -1,8 +1,8 @@
 from random import randint
 import pygame
-from .bola import Bola
-from .bolaNormal import BolaNormal
-from .geraBola import GeraBola
+from Bola import Bola
+from BolaNormal import BolaNormal
+from geraBola import GeraBola
 
 
 class Campo():
@@ -15,23 +15,21 @@ class Campo():
         self.__tela_width = tela_width
         self.__tela_height = tela_height
         self.__gerador_bola = geraBola
-        self.__surface = {}
 
     def add_bola(self, bola: Bola):
         if isinstance(bola, Bola):
             self.__campo.append(bola)
 
-    def setar_campo(self, screen, background):
+    def setar_campo(self, background, screen):
 
         self.__campo = [None] * self.__capacidade
 
         campo_pos = (self.__tela_width / 2, self.__tela_height / 2)
-
         campo = pygame.draw.circle(background, (0, 0, 0), campo_pos,
                                    self.__raio, 5)
 
-        self.__bola_central = self.__gerador_bola.geraBola(
-            background, campo_pos)
+
+        self.__bola_central = self.__gerador_bola.geraBola(background, campo_pos)
 
         angulo = 0
         for i in range(len(self.__campo)):
@@ -48,26 +46,24 @@ class Campo():
 
                 """ bola_txt = fonte.render(bola.valor, True, (0, 0, 0)) """
             else:
-                holder = pygame.draw.circle(
-                    background, (255, 0, 0), coors, 10)
+                holder = pygame.draw.circle(background, (255, 0, 0), coors, 10)
                 bola_empty = BolaNormal(0, '', holder, 10)
                 self.__campo[i] = bola_empty
 
             angulo += 360 / self.__capacidade
 
         screen.blit(background, (0, 0))
-
-    def desloca_bola(self, bola, screen, background):
-        x = bola.circle_obj.x - self.__bola_central.circle_obj.x
-        y = bola.circle_obj.y - self.__bola_central.circle_obj.y
-
-        pygame.Rect.move_ip(self.__bola_central.circle_obj, 10, 10)
-        pygame.display.update([self.__bola_central.circle_obj])
-
+        
+    def desloca_bola(self, bola):
+        x = bola.circle_obj.x
+        y = bola.circle_obj.y
+        
+        self.__bola_central.circle_obj.move_ip(30, 10)
+        
     @property
     def campo(self):
         return self.__campo
-
+    
     @property
     def bola_central(self):
         return self.__bola_central

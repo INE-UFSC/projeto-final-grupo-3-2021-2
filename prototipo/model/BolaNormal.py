@@ -1,4 +1,4 @@
-from prototipo.model.bola import Bola
+from Bola import Bola
 
 
 class BolaNormal(Bola):
