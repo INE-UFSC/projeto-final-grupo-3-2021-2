@@ -1,5 +1,5 @@
 import sys
-sys.path.append("C:/Users/kalle/Documents/projeto_final_gp3/prototipo/projeto-final-grupo-3-2021-2-main")
+sys.path.append("/home/jose/Documents/POO2/projeto-final-grupo-3-2021-2")
 from controller.controladorClassico import ControladorClassico as cont
 import pygame
 
