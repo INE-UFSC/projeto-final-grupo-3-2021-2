@@ -1,6 +1,5 @@
-from BolaEspecial import BolaEspecial
-from BolaNormal import BolaNormal
-
+from model.BolaEspecial import BolaEspecial
+from model.BolaNormal import BolaNormal
 
 
 class BolaBranca(BolaEspecial):

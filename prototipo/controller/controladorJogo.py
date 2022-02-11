@@ -1,23 +1,19 @@
+import model.campo as campo
+import model.bola as bola
+from model.geraBola import GeraBola
 from abc import ABC
 import pygame
 from cmath import sqrt
 import sys
-sys.path.append("/home/jose/Documents/POO2/projeto-final-grupo-3-2021-2/prototipo/model")
-
-import geraBola as GeraBola
-import Bola as bola
-import campo as campo
-
-
-
-
+sys.path.append(
+    "/home/jose/Documents/POO2/projeto-final-grupo-3-2021-2/prototipo/model")
 
 
 class ControladorJogo(ABC):
     def __init__(self, tela_width: int, tela_height: int, placar) -> None:
         self.__bola_central = {}
         self.__campo = campo.Campo(
-            tela_width, tela_height, GeraBola.GeraBola())
+            tela_width, tela_height, GeraBola())
         self.__nome = ''
         self.__placar = placar
         self.__tela_width = tela_width
@@ -45,24 +41,25 @@ class ControladorJogo(ABC):
                     running = False
                 elif event.type == pygame.MOUSEBUTTONUP:
                     (x, y) = pygame.mouse.get_pos()
-                    
+
                     min_dis = 1000
                     closest_obj = None
-                    
+
                     for bola in self.__campo.campo:
                         if bola.nome == '':
                             circle_pos = bola.circle_obj.center
-                            
-                            temp = abs(sqrt((x-circle_pos[0])**2 + (y-circle_pos[0])**2))
+
+                            temp = abs(
+                                sqrt((x-circle_pos[0])**2 + (y-circle_pos[0])**2))
                             if temp < min_dis:
                                 min_dis = temp
                                 closest_obj = bola
-                    
+
                     if closest_obj != None:
                         self.__campo.desloca_bola(closest_obj)
-                        
+
                 pygame.display.update()
-        
+
         pygame.quit()
 
     @property

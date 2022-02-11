@@ -1,8 +1,8 @@
 from random import randint
 import pygame
-from Bola import Bola
-from BolaNormal import BolaNormal
-from geraBola import GeraBola
+from model.bola import Bola
+from model.BolaNormal import BolaNormal
+from model.geraBola import GeraBola
 
 
 class Campo():
@@ -28,8 +28,8 @@ class Campo():
         campo = pygame.draw.circle(background, (0, 0, 0), campo_pos,
                                    self.__raio, 5)
 
-
-        self.__bola_central = self.__gerador_bola.geraBola(background, campo_pos)
+        self.__bola_central = self.__gerador_bola.geraBola(
+            background, campo_pos)
 
         angulo = 0
         for i in range(len(self.__campo)):
@@ -53,17 +53,17 @@ class Campo():
             angulo += 360 / self.__capacidade
 
         screen.blit(background, (0, 0))
-        
+
     def desloca_bola(self, bola):
         x = bola.circle_obj.x
         y = bola.circle_obj.y
-        
+
         self.__bola_central.circle_obj.move_ip(30, 10)
-        
+
     @property
     def campo(self):
         return self.__campo
-    
+
     @property
     def bola_central(self):
         return self.__bola_central
