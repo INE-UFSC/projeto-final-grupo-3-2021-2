@@ -1,9 +1,9 @@
-from random import randint
-from .bolaMais import BolaMais
-from .bolaMateriaNegra import BolaMateriaNegra
-from .bolaMenos import BolaMenos
-from .bolaBranca import BolaBranca
-from .bolaNormal import BolaNormal
+import random
+from model.BolaMais import BolaMais
+from model.BolaMateriaNegra import BolaMateriaNegra
+from model.BolaMenos import BolaMenos
+from model.BolaBranca import BolaBranca
+from model.BolaNormal import BolaNormal
 import pygame
 
 
@@ -18,8 +18,7 @@ class GeraBola():
 
     def geraBola(self, background, coors):
         bola_img = pygame.draw.circle(background, "#A89234", coors, 35)
-        bola = BolaNormal(randint(
-            self.__min_bola, self.__max_bola), "He", bola_img)
+        bola = BolaNormal(random.randint(self.__min_bola, self.__max_bola), "He", bola_img)
 
         return bola
 
