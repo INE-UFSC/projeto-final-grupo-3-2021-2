@@ -1,11 +1,12 @@
+import model.campo as campo
+import model.bola as bola
+from model.geraBola import GeraBola
 from abc import ABC
 import pygame
-import prototipo.model.campo as campo
-import prototipo.model.bola as bola
-from prototipo.model.geraBola import GeraBola
 from cmath import sqrt
 import sys
-sys.path.append("/Users/Windows/Documents/GitHub/projeto-final-grupo-3-2021-2")
+sys.path.append(
+    "/home/jose/Documents/POO2/projeto-final-grupo-3-2021-2/prototipo/model")
 
 
 class ControladorJogo(ABC):
@@ -28,8 +29,10 @@ class ControladorJogo(ABC):
         background = pygame.Surface(screen.get_size())
         background = background.convert()
         background.fill((250, 250, 250))
+
+        self.__campo.setar_campo(background, screen)
+
         screen.blit(background, (0, 0))
-        self.__campo.setar_campo(screen, background)
 
         running = True
         while running:
@@ -39,7 +42,7 @@ class ControladorJogo(ABC):
                 elif event.type == pygame.MOUSEBUTTONUP:
                     (x, y) = pygame.mouse.get_pos()
 
-                    min_dis = 10000
+                    min_dis = 1000
                     closest_obj = None
 
                     for bola in self.__campo.campo:
@@ -53,8 +56,7 @@ class ControladorJogo(ABC):
                                 closest_obj = bola
 
                     if closest_obj != None:
-                        self.__campo.desloca_bola(
-                            closest_obj, screen, background)
+                        self.__campo.desloca_bola(closest_obj)
 
                 pygame.display.update()
 

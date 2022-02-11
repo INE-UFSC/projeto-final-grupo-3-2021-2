@@ -1,6 +1,6 @@
 import sys
-sys.path.append("/Users/Windows/Documents/GitHub/projeto-final-grupo-3-2021-2")
-import prototipo.controller.controladorClassico as cont
+sys.path.append("/home/jose/Documents/POO2/projeto-final-grupo-3-2021-2")
+from controller.controladorClassico import ControladorClassico as cont
 import pygame
 
 width = 1000
@@ -25,7 +25,7 @@ elem_dict = {
 def main():
     
     pygame.init()
-    c = cont.ControladorClassico(width, height, whatever)
+    c = cont(width, height, whatever)
     c.rodar_jogo()
 
 
