@@ -62,7 +62,7 @@ class MenuPrincipal(Menu):
 
 
             opc_mdj = pygame.draw.rect(self.__background, cor_fundo_mdj, (width/4, height/3, width/2, height/(15/2)))
-            legenda_mdj = fonte_opcoes.render('MODOS DE JOGO',1,(255, 255, 255))
+            legenda_mdj = fonte_opcoes.render('   GAME MODES',1,(255, 255, 255))
             self.__background.blit(legenda_mdj,(width/4 + 12 , height/3 + 18))
 
             opc_rank = pygame.draw.rect(self.__background, cor_fundo_rank, (width/4, 2*(height/3), width/2, height/(15/2)))
