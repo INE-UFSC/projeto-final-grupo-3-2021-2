@@ -39,6 +39,10 @@ class ControladorJogo(ABC):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        return
                 elif event.type == pygame.MOUSEBUTTONUP:
                     (x, y) = pygame.mouse.get_pos()
 

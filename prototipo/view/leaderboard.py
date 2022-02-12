@@ -1,6 +1,5 @@
-from menu import Menu
+from prototipo.model.menu import Menu
 import pygame
-
 
 class LeaderBoard(Menu):
     def __init__(self, tela_width, tela_height ,rank):
@@ -12,7 +11,7 @@ class LeaderBoard(Menu):
 
     def desenhar_menu(self, musica, som):
         pygame.init()
-        barulho_opc = pygame.mixer.Sound('sounds/sound_option.wav')
+        barulho_opc = pygame.mixer.Sound('/home/jose/Documents/POO2/projeto-final-grupo-3-2021-2/prototipo/controller/sounds/sound_option.wav')
         click = False
         if musica:
             cor_musica = (0, 255, 0)
@@ -65,7 +64,7 @@ class LeaderBoard(Menu):
             fonte_leader = pygame.font.SysFont('arial', 25, True, True)
             opc_volta = pygame.draw.polygon(self.__background, (0,0,0), (vertice1,vertice2, vertice3), borda_volta)
             legenda_rank_titulo = fonte_leader.render('LEADERBOARD', 1, (0, 0, 0))
-            self.__background.blit(legenda_rank_titulo, (width / 4 + 19 , height / 8 + 15))
+            self.__background.blit(legenda_rank_titulo, (width / 3 + 60 , height / 8 + 15))
 
             fonte_musica = pygame.font.SysFont('arial', 20, True, True)
             legenda_musica = fonte_musica.render('MUSIC', 1, cor_musica)

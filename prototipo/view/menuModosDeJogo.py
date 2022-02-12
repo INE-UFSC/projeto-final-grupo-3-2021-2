@@ -1,5 +1,5 @@
 import pygame
-from menu import Menu
+from prototipo.model.menu import Menu
 
 class menu_modos_de_jogo(Menu):
     def __init__(self, tela_width, tela_height):
@@ -10,7 +10,9 @@ class menu_modos_de_jogo(Menu):
 
     def desenhar_menu(self, musica, som):
         pygame.init()
-        barulho_opc = pygame.mixer.Sound('sounds/sound_option.wav')
+        w, h = pygame.display.get_surface().get_size()
+        print(w,h)
+        barulho_opc = pygame.mixer.Sound('/home/jose/Documents/POO2/projeto-final-grupo-3-2021-2/GUI/sounds/sound_option.wav')
         click = False
         if musica:
             cor_musica = (0, 255, 0)
@@ -66,7 +68,7 @@ class menu_modos_de_jogo(Menu):
             fonte_leader = pygame.font.SysFont('arial', 25, True, True)
             opc_volta = pygame.draw.polygon(self.__background, (0, 0, 0), (vertice1, vertice2, vertice3), borda_volta)
             legenda_rank_titulo = fonte_leader.render('GAME MODES', 1, (0, 0, 0))
-            self.__background.blit(legenda_rank_titulo, (width / 4 + 19, height / 8 + 15))
+            self.__background.blit(legenda_rank_titulo, (width / 3 + 80, height / 8 + 15))
 
             self.__background.blit(titulo, titulo_pos)
             fonte_opcoes = pygame.font.SysFont('arial', 25, True, True)
@@ -74,13 +76,13 @@ class menu_modos_de_jogo(Menu):
             opc_classic = pygame.draw.rect(self.__background, cor_fundo_classic,
                                        (width / 4, height / 3, width / 2, height / (15 / 2)))
             legenda_classic = fonte_opcoes.render('CLASSIC', 1, (255, 255, 255))
-            self.__background.blit(legenda_classic, (width / 4 + 65, height / 3 + 18))
+            self.__background.blit(legenda_classic, (width / 3 + 100, height / 3 + 25))
 
             opc_ta = pygame.draw.rect(self.__background, cor_fundo_ta,
                                         (width / 4, 2 * (height / 3), width / 2, height / (15 / 2)))
             legenda_ta= fonte_opcoes.render(escrita_ta, 1, (255, 255, 255))
 
-            self.__background.blit(legenda_ta, (width / 4 + 36, 2 * (height / 3) + 18))
+            self.__background.blit(legenda_ta, (width / 3 + 70, 2 * (height / 3) + 25))
 
             fonte_musica = pygame.font.SysFont('arial', 20, True, True)
             legenda_musica = fonte_musica.render('MUSIC', 1, cor_musica)

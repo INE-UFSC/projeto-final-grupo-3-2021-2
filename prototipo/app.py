@@ -22,17 +22,9 @@ elem_dict = {
    11: "Na", 
    12: "Mg" 
 }
-class Textos():
-    def __init__(self, val):
-        self.__val = val
 
-    def printMyText():
-        print("My Text")
 def main():
     
     pygame.init()
     c = cont(width, height, whatever)
     c.rodar_jogo()
-
-
-# main()

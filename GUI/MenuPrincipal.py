@@ -1,4 +1,4 @@
-from menu import Menu
+from prototipo.model.menu import Menu
 import pygame
 
 

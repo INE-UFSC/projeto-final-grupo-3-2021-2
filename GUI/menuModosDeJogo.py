@@ -1,5 +1,5 @@
 import pygame
-from menu import Menu
+from prototipo.model.menu import Menu
 
 class menu_modos_de_jogo(Menu):
     def __init__(self, tela_width, tela_height):

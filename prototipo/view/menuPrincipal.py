@@ -1,4 +1,4 @@
-from menu import Menu
+from prototipo.model.menu import Menu
 import pygame
 
 
@@ -11,7 +11,7 @@ class MenuPrincipal(Menu):
 
     def desenhar_menu(self, musica, som):
         pygame.init()
-        barulho_opc = pygame.mixer.Sound('sounds/sound_option.wav')
+        barulho_opc = pygame.mixer.Sound('/home/jose/Documents/POO2/projeto-final-grupo-3-2021-2/GUI/sounds/sound_option.wav')
         click = False
         if musica:
             cor_musica = (0, 255, 0)
@@ -63,12 +63,12 @@ class MenuPrincipal(Menu):
 
             opc_mdj = pygame.draw.rect(self.__background, cor_fundo_mdj, (width/4, height/3, width/2, height/(15/2)))
             legenda_mdj = fonte_opcoes.render('   GAME MODES',1,(255, 255, 255))
-            self.__background.blit(legenda_mdj,(width/4 + 12 , height/3 + 18))
+            self.__background.blit(legenda_mdj,(width/3 + 50 , height/3 + 25))
 
             opc_rank = pygame.draw.rect(self.__background, cor_fundo_rank, (width/4, 2*(height/3), width/2, height/(15/2)))
             legenda_rank = fonte_opcoes.render('RANKING',1,(255, 255, 255))
 
-            self.__background.blit(legenda_rank, (width/4 + 60, 2*(height/3)+ 18))
+            self.__background.blit(legenda_rank, (width/3 + 100, 2*(height/3)+ 25))
 
             fonte_musica = pygame.font.SysFont('arial', 20, True, True)
             legenda_musica = fonte_musica.render('MUSIC', 1, cor_musica)
