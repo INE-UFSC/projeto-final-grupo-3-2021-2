@@ -3,6 +3,7 @@ sys.path.append("/home/jose/Documents/POO2/projeto-final-grupo-3-2021-2")
 from controller.controladorClassico import ControladorClassico as cont
 import pygame
 
+
 width = 1000
 height = 600
 whatever = {}
@@ -21,7 +22,12 @@ elem_dict = {
    11: "Na", 
    12: "Mg" 
 }
+class Textos():
+    def __init__(self, val):
+        self.__val = val
 
+    def printMyText():
+        print("My Text")
 def main():
     
     pygame.init()
@@ -29,4 +35,4 @@ def main():
     c.rodar_jogo()
 
 
-main()
+# main()

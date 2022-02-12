@@ -1,6 +1,5 @@
 
-from model.bola import Bola
-
+from Bola import Bola
 
 class BolaEspecial(Bola):
     def __init__(self, cor: str, raio: float, chance: float, em_campo: bool):

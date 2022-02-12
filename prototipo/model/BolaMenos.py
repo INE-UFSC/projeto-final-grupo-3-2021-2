@@ -1,5 +1,5 @@
-from model.BolaEspecial import BolaEspecial
-from model.BolaNormal import BolaNormal
+from BolaEspecial import BolaEspecial
+from BolaNormal import BolaNormal
 
 
 class BolaMenos(BolaEspecial):

@@ -1,9 +1,9 @@
 import random
-from model.BolaMais import BolaMais
-from model.BolaMateriaNegra import BolaMateriaNegra
-from model.BolaMenos import BolaMenos
-from model.BolaBranca import BolaBranca
-from model.BolaNormal import BolaNormal
+from BolaMais import BolaMais
+from BolaMateriaNegra import BolaMateriaNegra
+from BolaMenos import BolaMenos
+from BolaBranca import BolaBranca
+from BolaNormal import BolaNormal
 import pygame
 
 

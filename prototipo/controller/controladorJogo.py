@@ -1,19 +1,19 @@
-import model.campo as campo
-import model.bola as bola
-from model.geraBola import GeraBola
 from abc import ABC
 import pygame
 from cmath import sqrt
 import sys
-sys.path.append(
-    "/home/jose/Documents/POO2/projeto-final-grupo-3-2021-2/prototipo/model")
+sys.path.append("/home/jose/Documents/POO2/projeto-final-grupo-3-2021-2/prototipo/model")
+
+import geraBola as GeraBola
+import Bola as bola
+import campo as campo
 
 
 class ControladorJogo(ABC):
     def __init__(self, tela_width: int, tela_height: int, placar) -> None:
         self.__bola_central = {}
         self.__campo = campo.Campo(
-            tela_width, tela_height, GeraBola())
+            tela_width, tela_height, GeraBola.GeraBola())
         self.__nome = ''
         self.__placar = placar
         self.__tela_width = tela_width
