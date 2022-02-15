@@ -20,12 +20,13 @@ elem_dict = {
     12: "Mg"
 }
 
+class App:
 
-def main():
+    def main():
 
-    pygame.init()
-    c = cont(width, height, whatever)
-    c.rodar_jogo()
+        pygame.init()
+        c = cont(width, height, whatever)
+        c.rodar_jogo()
 
 
-main()
+

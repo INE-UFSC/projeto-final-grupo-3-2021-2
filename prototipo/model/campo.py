@@ -1,6 +1,6 @@
 from random import randint
 import pygame
-from model.bola import Bola
+from model.Bola import Bola
 from model.BolaNormal import BolaNormal
 from model.geraBola import GeraBola
 
