@@ -1,4 +1,4 @@
-from model.bola import Bola
+from model.Bola import Bola
 
 
 class BolaNormal(Bola):

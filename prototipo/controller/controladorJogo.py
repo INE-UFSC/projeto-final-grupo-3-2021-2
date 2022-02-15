@@ -1,5 +1,5 @@
 import model.campo as campo
-import model.bola as bola
+import model.Bola as bola
 from model.geraBola import GeraBola
 from abc import ABC
 import pygame
@@ -40,6 +40,8 @@ class ControladorJogo(ABC):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                    pygame.quit()
+                    exit()
                 elif event.type == pygame.MOUSEBUTTONUP:
                     (x, y) = pygame.mouse.get_pos()
 
