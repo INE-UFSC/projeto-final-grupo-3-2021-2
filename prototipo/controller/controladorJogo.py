@@ -5,8 +5,9 @@ from abc import ABC
 import pygame
 from cmath import sqrt
 import sys
+import os
 sys.path.append(
-    "/home/jose/Documents/POO2/projeto-final-grupo-3-2021-2/prototipo/model")
+    os.path.dirname(os.path.realpath(__file__)))
 
 
 class ControladorJogo(ABC):
