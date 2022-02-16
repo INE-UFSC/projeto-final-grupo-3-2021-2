@@ -1,5 +1,5 @@
 import pygame
-from view.Menu import Menu
+from view.menu import Menu
 class LeaderBoard(Menu):
     def __init__(self, tela_width, tela_height ,rank):
         super().__init__(tela_width, tela_height)
