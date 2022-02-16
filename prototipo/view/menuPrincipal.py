@@ -1,4 +1,4 @@
-from view.Menu import Menu
+from view.menu import Menu
 import pygame
 
 
