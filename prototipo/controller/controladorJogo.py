@@ -9,6 +9,8 @@ import os
 sys.path.append(
     os.path.dirname(os.path.realpath(__file__)))
 
+clock = pygame.time.Clock()
+
 
 class ControladorJogo(ABC):
     def __init__(self, tela_width: int, tela_height: int, placar) -> None:
@@ -62,6 +64,7 @@ class ControladorJogo(ABC):
                         self.__campo.desloca_bola(closest_obj)
 
                 pygame.display.update()
+                clock.tick(40)
 
         pygame.quit()
 
