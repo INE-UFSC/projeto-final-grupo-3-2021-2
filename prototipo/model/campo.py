@@ -58,7 +58,11 @@ class Campo():
         x = bola.circle_obj.x
         y = bola.circle_obj.y
 
-        self.__bola_central.circle_obj.move_ip(30, 10)
+        obj = self.__bola_central.circle_obj
+
+        pygame.Rect.move_ip(obj, x-obj.x, y-obj.y)
+        pygame.display.update(obj)
+        print(obj)
 
     @property
     def campo(self):
