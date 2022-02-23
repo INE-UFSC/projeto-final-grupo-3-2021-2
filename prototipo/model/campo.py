@@ -54,15 +54,14 @@ class Campo():
 
         screen.blit(background, (0, 0))
 
-    def desloca_bola(self, bola):
+    def desloca_bola(self, bola, background):
         x = bola.circle_obj.x
         y = bola.circle_obj.y
 
         obj = self.__bola_central.circle_obj
 
         pygame.Rect.move_ip(obj, x-obj.x, y-obj.y)
-        pygame.display.update(obj)
-        print(obj)
+        pygame.draw.rect(background, "#A89234", obj)
 
     @property
     def campo(self):
