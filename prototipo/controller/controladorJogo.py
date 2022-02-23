@@ -33,21 +33,18 @@ class ControladorJogo(ABC):
         background = background.convert()
         background.fill((250, 250, 250))
 
-        self.__campo.setar_campo(background, screen)
-
-        screen.blit(background, (0, 0))
-
         running = True
         while running:
+            self.__campo.setar_campo(background, screen)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                     pygame.quit()
                     exit()
-                elif event.type == pygame.MOUSEBUTTONUP:
+                elif event.type == pygame.MOUSEBUTTONDOWN:
                     (x, y) = pygame.mouse.get_pos()
 
-                    min_dis = 1000
+                    min_dis = 10000
                     closest_obj = None
 
                     for bola in self.__campo.campo:
@@ -61,10 +58,11 @@ class ControladorJogo(ABC):
                                 closest_obj = bola
 
                     if closest_obj != None:
-                        self.__campo.desloca_bola(closest_obj)
+                        self.__campo.desloca_bola(closest_obj, background)
 
-                pygame.display.update()
-                clock.tick(40)
+            screen.blit(background, (0, 0))
+            pygame.display.update()
+            clock.tick(40)
 
         pygame.quit()
 
