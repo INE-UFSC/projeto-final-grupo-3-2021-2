@@ -61,7 +61,9 @@ class Campo():
         obj = self.__bola_central.circle_obj
 
         pygame.Rect.move_ip(obj, x-obj.x, y-obj.y)
-        pygame.draw.rect(background, "#A89234", obj)
+
+        pygame.draw.circle(background, "#A89234",
+                           (obj.x, obj.y), obj.height / 2)
 
     @property
     def campo(self):
