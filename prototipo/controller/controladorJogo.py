@@ -43,11 +43,12 @@ class ControladorJogo(ABC):
                     exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     (x, y) = pygame.mouse.get_pos()
-
+                    print(x,y)
                     min_dis = 10000
                     closest_obj = None
 
                     for bola in self.__campo.campo:
+                        print(bola.circle_obj)
                         if bola.nome == '':
                             circle_pos = bola.circle_obj.center
 
@@ -58,8 +59,10 @@ class ControladorJogo(ABC):
                                 closest_obj = bola
 
                     if closest_obj != None:
+                        print(closest_obj.circle_obj.x)
                         self.__campo.desloca_bola(closest_obj, background)
-
+                    font = pygame.font.SysFont('Arial', 25)
+                    background.blit(font.render('1', True, (0,0,0)), (closest_obj.circle_obj.x, closest_obj.circle_obj.y))
             screen.blit(background, (0, 0))
             pygame.display.update()
             clock.tick(40)

@@ -43,9 +43,9 @@ class Campo():
             if i % 3 == 0:
                 self.__campo[i] = self.__gerador_bola.geraBola(
                     background, coors)
-
-                """ bola_txt = fonte.render(bola.valor, True, (0, 0, 0)) """
+                background.blit(fonte.render(self.__campo[i].nome, True, (0, 0, 0)), (self.__campo[i].circle_obj.x + 12,self.__campo[i].circle_obj.y + 20))
             else:
+                # Gera espaços vazios (bolas vermelhas)
                 holder = pygame.draw.circle(background, (255, 0, 0), coors, 10)
                 bola_empty = BolaNormal(0, '', holder, 10)
                 self.__campo[i] = bola_empty
