@@ -16,6 +16,7 @@ class GeraBola():
             BolaMais, BolaMenos, BolaBranca, BolaMateriaNegra
         ]
 
+    #  Gera bolas de HE no campo
     def geraBola(self, background, coors):
         bola_img = pygame.draw.circle(background, "#A89234", coors, 35)
         bola = BolaNormal(random.randint(self.__min_bola, self.__max_bola), "He", bola_img)
