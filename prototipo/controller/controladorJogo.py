@@ -34,8 +34,8 @@ class ControladorJogo(ABC):
         background.fill((250, 250, 250))
 
         running = True
+        self.__campo.setar_campo(background, screen)
         while running:
-            self.__campo.setar_campo(background, screen)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
@@ -61,8 +61,8 @@ class ControladorJogo(ABC):
                     if closest_obj != None:
                         print(closest_obj.circle_obj.x)
                         self.__campo.desloca_bola(closest_obj, background)
-                    font = pygame.font.SysFont('Arial', 25)
-                    background.blit(font.render('1', True, (0,0,0)), (closest_obj.circle_obj.x, closest_obj.circle_obj.y))
+                    fonte = pygame.font.SysFont('Arial', 25)
+                    background.blit(fonte.render('1', True, (0,0,0)), (closest_obj.circle_obj.x, closest_obj.circle_obj.y))
             screen.blit(background, (0, 0))
             pygame.display.update()
             clock.tick(40)

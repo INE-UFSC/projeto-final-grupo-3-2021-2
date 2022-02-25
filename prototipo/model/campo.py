@@ -15,6 +15,20 @@ class Campo():
         self.__tela_width = tela_width
         self.__tela_height = tela_height
         self.__gerador_bola = geraBola
+        self.__elem_dict = {
+                                1: "H",
+                                2: "He",
+                                3: "Li",
+                                4: "Be",
+                                5: "B",
+                                6: "C",
+                                7: "N",
+                                8: "O",
+                                9: "F",
+                                10: "Ne",
+                                11: "Na",
+                                12: "Mg"
+                            }
 
     def add_bola(self, bola: Bola):
         if isinstance(bola, Bola):
@@ -30,6 +44,8 @@ class Campo():
 
         self.__bola_central = self.__gerador_bola.geraBola(
             background, campo_pos)
+        fonte = pygame.font.SysFont(None, 50)
+        background.blit(fonte.render(self.__elem_dict.get(self.__bola_central.valor), True, (0, 0, 0)), (self.__bola_central.circle_obj.x - 10 + 0,self.__bola_central.circle_obj.y - 8))
 
         angulo = 0
         for i in range(len(self.__campo)):
@@ -57,13 +73,18 @@ class Campo():
     def desloca_bola(self, bola, background):
         x = bola.circle_obj.x
         y = bola.circle_obj.y
-
+        print("bola ",self.__bola_central.__dict__)
         obj = self.__bola_central.circle_obj
-
         pygame.Rect.move_ip(obj, x-obj.x, y-obj.y)
 
         pygame.draw.circle(background, "#A89234",
-                           (obj.x, obj.y), obj.height / 2)
+                           (obj.x + 10, obj.y + 10), obj.height / 2)
+        fonte = pygame.font.SysFont(None, 50)
+        background.blit(fonte.render(self.__elem_dict.get(self.__bola_central.valor), True, (0, 0, 0)), (x - 10 + 0,y - 8))
+        # 
+        campo_pos = (self.__tela_width / 2, self.__tela_height / 2)
+        self.__bola_central = self.__gerador_bola.geraBola(
+            background, campo_pos)
 
     @property
     def campo(self):
