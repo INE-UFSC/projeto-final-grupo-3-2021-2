@@ -1,6 +1,6 @@
 import pygame
 from view.menu import Menu
-
+import os
 class menu_modos_de_jogo(Menu):
     def __init__(self, tela_width, tela_height):
         super().__init__(tela_width, tela_height)
@@ -10,7 +10,7 @@ class menu_modos_de_jogo(Menu):
 
     def desenhar_menu(self, musica, som):
         pygame.init()
-        # barulho_opc = pygame.mixer.Sound('controller\sounds\sound_option.wav')
+        barulho_opc = pygame.mixer.Sound(os.path.join('prototipo','controller','sounds','sound_option.wav'))
         click = False
         if musica:
             cor_musica = (0, 255, 0)
@@ -21,10 +21,10 @@ class menu_modos_de_jogo(Menu):
 
         if som:
             cor_som = (0, 255, 0)
-            # barulho_opc.set_volume(4)
+            barulho_opc.set_volume(4)
         else:
             cor_som = (255, 0, 0)
-            # barulho_opc.set_volume(0)
+            barulho_opc.set_volume(0)
 
 
 
