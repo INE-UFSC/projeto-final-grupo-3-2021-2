@@ -15,11 +15,27 @@ class GeraBola():
         self.__lista_bola_especial = [
             BolaMais, BolaMenos, BolaBranca, BolaMateriaNegra
         ]
+        self.__elem_dict = {
+                                1: "H",
+                                2: "He",
+                                3: "Li",
+                                4: "Be",
+                                5: "B",
+                                6: "C",
+                                7: "N",
+                                8: "O",
+                                9: "F",
+                                10: "Ne",
+                                11: "Na",
+                                12: "Mg"
+                            }
 
+    #  Gera bolas de HE no campo
     def geraBola(self, background, coors):
         bola_img = pygame.draw.circle(background, "#A89234", coors, 35)
-        bola = BolaNormal(random.randint(self.__min_bola, self.__max_bola), "He", bola_img)
-
+        rand_val = random.randint(self.__min_bola, self.__max_bola)
+        bola = BolaNormal(rand_val, self.__elem_dict.get(rand_val), bola_img)
+        
         return bola
 
     @property

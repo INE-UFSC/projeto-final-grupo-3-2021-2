@@ -10,7 +10,7 @@ class menu_modos_de_jogo(Menu):
 
     def desenhar_menu(self, musica, som):
         pygame.init()
-        barulho_opc = pygame.mixer.Sound('controller\sounds\sound_option.wav')
+        # barulho_opc = pygame.mixer.Sound('controller\sounds\sound_option.wav')
         click = False
         if musica:
             cor_musica = (0, 255, 0)
@@ -21,10 +21,10 @@ class menu_modos_de_jogo(Menu):
 
         if som:
             cor_som = (0, 255, 0)
-            barulho_opc.set_volume(4)
+            # barulho_opc.set_volume(4)
         else:
             cor_som = (255, 0, 0)
-            barulho_opc.set_volume(0)
+            # barulho_opc.set_volume(0)
 
 
 
@@ -122,7 +122,7 @@ class menu_modos_de_jogo(Menu):
             if opc_classic.collidepoint((mx, my)):
                 cor_fundo_classic = (153, 102, 204)
                 if click:
-                    barulho_opc.play()
+                    # barulho_opc.play()
                     return 'classic', musica, som
             else:
                 cor_fundo_classic = (148, 0, 211)
@@ -131,7 +131,7 @@ class menu_modos_de_jogo(Menu):
                 escrita_ta = '  NOT READY'
                 cor_fundo_ta = (255, 0, 0)
                 if click:
-                    barulho_opc.play()
+                    # barulho_opc.play()
                     return self.voltar(musica, som)
             else:
                 escrita_ta = 'TIME ATTACK'
