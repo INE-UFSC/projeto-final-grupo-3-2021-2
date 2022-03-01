@@ -1,5 +1,6 @@
 import pygame
 from view.menu import Menu
+import os
 class LeaderBoard(Menu):
     def __init__(self, tela_width, tela_height ,rank):
         super().__init__(tela_width, tela_height)
@@ -10,7 +11,7 @@ class LeaderBoard(Menu):
 
     def desenhar_menu(self, musica, som):
         pygame.init()
-        barulho_opc = pygame.mixer.Sound('controller\sounds\sound_option.wav')
+        barulho_opc = pygame.mixer.Sound(os.path.join('prototipo','controller','sounds','sound_option.wav'))
         click = False
         if musica:
             cor_musica = (0, 255, 0)

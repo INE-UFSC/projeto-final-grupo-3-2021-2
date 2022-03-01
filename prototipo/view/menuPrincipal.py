@@ -1,6 +1,6 @@
 from view.menu import Menu
 import pygame
-
+import os
 
 class MenuPrincipal(Menu):
     def __init__(self, tela_width, tela_height):
@@ -11,7 +11,7 @@ class MenuPrincipal(Menu):
 
     def desenhar_menu(self, musica, som):
         pygame.init()
-        # barulho_opc = pygame.mixer.Sound('controller\sounds\sound_option.wav')
+        barulho_opc = pygame.mixer.Sound(os.path.join('prototipo','controller','sounds','sound_option.wav'))
         click = False
         if musica:
             cor_musica = (0, 255, 0)
@@ -22,10 +22,10 @@ class MenuPrincipal(Menu):
 
         if som:
             cor_som = (0, 255, 0)
-            # barulho_opc.set_volume(4)
+            barulho_opc.set_volume(4)
         else:
             cor_som = (255, 0, 0)
-            # barulho_opc.set_volume(0)
+            barulho_opc.set_volume(0)
 
         cor_fundo_rank = (148, 0, 211)
         cor_fundo_mdj = (148, 0, 211)
@@ -110,7 +110,7 @@ class MenuPrincipal(Menu):
                 cor_fundo_mdj = (153, 102, 204)
 
                 if click:
-                    # barulho_opc.play()
+                    barulho_opc.play()
                     return 'mdj', musica, som
             else:
                 cor_fundo_mdj = (148, 0, 211)
@@ -119,7 +119,7 @@ class MenuPrincipal(Menu):
                 cor_fundo_rank = (153, 102, 204)
 
                 if click:
-                    # barulho_opc.play()
+                    barulho_opc.play()
                     return 'rank', musica, som
             else:
                 cor_fundo_rank = (148, 0, 211)
