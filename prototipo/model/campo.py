@@ -63,7 +63,10 @@ class Campo():
             else:
                 # Gera espaços vazios (bolas vermelhas)
                 holder = pygame.draw.circle(background, (255, 0, 0), coors, 10)
+                fonte = pygame.font.SysFont('Arial', 25)
+                background.blit(fonte.render('%d x %d' % (coors), True, (0,0,0)), (holder.x, holder.y))
                 bola_empty = BolaNormal(0, '', holder, 10)
+                print(bola_empty.circle_obj)
                 self.__campo[i] = bola_empty
 
             angulo += 360 / self.__capacidade
@@ -73,7 +76,7 @@ class Campo():
     def desloca_bola(self, bola, background):
         x = bola.circle_obj.x
         y = bola.circle_obj.y
-        print("bola ",self.__bola_central.__dict__)
+        # print("bola ",self.__bola_central.__dict__)
         obj = self.__bola_central.circle_obj
         pygame.Rect.move_ip(obj, x-obj.x, y-obj.y)
 
