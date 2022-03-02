@@ -16,19 +16,19 @@ class Campo():
         self.__tela_height = tela_height
         self.__gerador_bola = geraBola
         self.__elem_dict = {
-                                1: "H",
-                                2: "He",
-                                3: "Li",
-                                4: "Be",
-                                5: "B",
-                                6: "C",
-                                7: "N",
-                                8: "O",
-                                9: "F",
-                                10: "Ne",
-                                11: "Na",
-                                12: "Mg"
-                            }
+            1: "H",
+            2: "He",
+            3: "Li",
+            4: "Be",
+            5: "B",
+            6: "C",
+            7: "N",
+            8: "O",
+            9: "F",
+            10: "Ne",
+            11: "Na",
+            12: "Mg"
+        }
 
     def add_bola(self, bola: Bola):
         if isinstance(bola, Bola):
@@ -45,7 +45,8 @@ class Campo():
         self.__bola_central = self.__gerador_bola.geraBola(
             background, campo_pos)
         fonte = pygame.font.SysFont(None, 50)
-        background.blit(fonte.render(self.__elem_dict.get(self.__bola_central.valor), True, (0, 0, 0)), (self.__bola_central.circle_obj.x - 10 + 0,self.__bola_central.circle_obj.y - 8))
+        background.blit(fonte.render(self.__elem_dict.get(self.__bola_central.valor), True, (0, 0, 0)),
+                        (self.__bola_central.circle_obj.x - 10 + 0, self.__bola_central.circle_obj.y - 8))
 
         angulo = 0
         for i in range(len(self.__campo)):
@@ -59,14 +60,16 @@ class Campo():
             if i % 3 == 0:
                 self.__campo[i] = self.__gerador_bola.geraBola(
                     background, coors)
-                background.blit(fonte.render(self.__campo[i].nome, True, (0, 0, 0)), (self.__campo[i].circle_obj.x + 12,self.__campo[i].circle_obj.y + 20))
+                background.blit(fonte.render(self.__campo[i].nome, True, (0, 0, 0)), (
+                    self.__campo[i].circle_obj.x + 12, self.__campo[i].circle_obj.y + 20))
             else:
                 # Gera espaços vazios (bolas vermelhas)
                 holder = pygame.draw.circle(background, (255, 0, 0), coors, 10)
                 fonte = pygame.font.SysFont('Arial', 25)
-                background.blit(fonte.render('%d x %d' % (coors), True, (0,0,0)), (holder.x, holder.y))
+                background.blit(fonte.render('%d x %d' %
+                                (coors), True, (0, 0, 0)), (holder.x, holder.y))
                 bola_empty = BolaNormal(0, '', holder, 10)
-                print(bola_empty.circle_obj)
+                # print(bola_empty.circle_obj)
                 self.__campo[i] = bola_empty
 
             angulo += 360 / self.__capacidade
@@ -83,8 +86,9 @@ class Campo():
         pygame.draw.circle(background, "#A89234",
                            (obj.x + 10, obj.y + 10), obj.height / 2)
         fonte = pygame.font.SysFont(None, 50)
-        background.blit(fonte.render(self.__elem_dict.get(self.__bola_central.valor), True, (0, 0, 0)), (x - 10 + 0,y - 8))
-        # 
+        background.blit(fonte.render(self.__elem_dict.get(
+            self.__bola_central.valor), True, (0, 0, 0)), (x - 10 + 0, y - 8))
+        #
         campo_pos = (self.__tela_width / 2, self.__tela_height / 2)
         self.__bola_central = self.__gerador_bola.geraBola(
             background, campo_pos)

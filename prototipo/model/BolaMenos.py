@@ -9,7 +9,5 @@ class BolaMenos(BolaEspecial):
 
     def acao(self, bola: BolaNormal):
         if self.__click == 0:
-            pass
-
-    def transformar_em_mais():
-        pass
+            self.circle_obj = bola.circle_obj
+            del bola
