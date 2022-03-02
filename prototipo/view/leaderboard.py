@@ -1,8 +1,10 @@
 import pygame
 from view.menu import Menu
 import os
+
+
 class LeaderBoard(Menu):
-    def __init__(self, tela_width, tela_height ,rank):
+    def __init__(self, tela_width, tela_height, rank):
         super().__init__(tela_width, tela_height)
         self.__tela = pygame.display.set_mode((tela_width, tela_height))
         self.__background = pygame.Surface(self.__tela.get_size())
@@ -11,7 +13,8 @@ class LeaderBoard(Menu):
 
     def desenhar_menu(self, musica, som):
         pygame.init()
-        barulho_opc = pygame.mixer.Sound(os.path.join('prototipo','controller','sounds','sound_option.wav'))
+        barulho_opc = pygame.mixer.Sound(os.path.join(
+            'controller', 'sounds', 'sound_option.wav'))
         click = False
         if musica:
             cor_musica = (0, 255, 0)
@@ -46,9 +49,9 @@ class LeaderBoard(Menu):
                     pygame.quit()
                     exit()
                 if event.type == 1025:
-                        click = True
+                    click = True
                 if event.type == 1026:
-                        click = False
+                    click = False
 
             fonte_titulo = pygame.font.SysFont('arial', 55, True, True)
             titulo = fonte_titulo.render("ATOMIKO", 1, (10, 10, 10))
@@ -57,25 +60,30 @@ class LeaderBoard(Menu):
 
             self.__background.blit(titulo, titulo_pos)
 
-            vertice1 =  (width/6 - 20, height/8 + 10)
-            vertice2 =  (width/6 - 20, height/8 + 47)
-            vertice3 =  (width/6 - 55, height/8 + 29)
+            vertice1 = (width/6 - 20, height/8 + 10)
+            vertice2 = (width/6 - 20, height/8 + 47)
+            vertice3 = (width/6 - 55, height/8 + 29)
 
             fonte_leader = pygame.font.SysFont('arial', 25, True, True)
-            opc_volta = pygame.draw.polygon(self.__background, (0,0,0), (vertice1,vertice2, vertice3), borda_volta)
-            legenda_rank_titulo = fonte_leader.render('LEADERBOARD', 1, (0, 0, 0))
-            self.__background.blit(legenda_rank_titulo, (width / 4 + 19 , height / 8 + 15))
+            opc_volta = pygame.draw.polygon(
+                self.__background, (0, 0, 0), (vertice1, vertice2, vertice3), borda_volta)
+            legenda_rank_titulo = fonte_leader.render(
+                'LEADERBOARD', 1, (0, 0, 0))
+            self.__background.blit(legenda_rank_titulo,
+                                   (width / 4 + 19, height / 8 + 15))
 
             fonte_musica = pygame.font.SysFont('arial', 20, True, True)
             legenda_musica = fonte_musica.render('MUSIC', 1, cor_musica)
 
-            opc_musica = pygame.draw.rect(self.__background, (255, 255, 255), (10, height - 26, 65, 15))
+            opc_musica = pygame.draw.rect(
+                self.__background, (255, 255, 255), (10, height - 26, 65, 15))
             self.__background.blit(legenda_musica, (10, height - 30))
 
             fonte_som = pygame.font.SysFont('arial', 20, True, True)
             legenda_som = fonte_som.render('SOUND', 1, cor_som)
 
-            opc_som = pygame.draw.rect(self.__background, (255, 255, 255), (92, height - 26, 70, 15))
+            opc_som = pygame.draw.rect(
+                self.__background, (255, 255, 255), (92, height - 26, 70, 15))
             self.__background.blit(legenda_som, (90, height - 30))
 
             self.__tela.blit(self.__background, (0, 0))
@@ -102,14 +110,14 @@ class LeaderBoard(Menu):
                         cor_musica = (0, 255, 0)
                         musica = True
 
-
-
             for i in range(1, len(self.__rank) + 1):
                 if i == 1:
-                    cor_rank = 	(255, 215, 0)
+                    cor_rank = (255, 215, 0)
                     fonte_size = 26
-                    fonte_rank = pygame.font.SysFont('arial', fonte_size, True, True)
-                    lista_rank = fonte_rank.render(f'{i} - {self.__rank[i-1]}',1,cor_rank )
+                    fonte_rank = pygame.font.SysFont(
+                        'arial', fonte_size, True, True)
+                    lista_rank = fonte_rank.render(
+                        f'{i} - {self.__rank[i-1]}', 1, cor_rank)
                     pos_x = (width / 4) + 55
                     pos_y = (height / 6) + 50
 
@@ -123,11 +131,12 @@ class LeaderBoard(Menu):
                     elif i == 3:
                         fonte_size = 22
                         cor_rank = (205, 127, 50)
-                    fonte_rank = pygame.font.SysFont('arial', fonte_size, True, True)
-                    lista_rank = fonte_rank.render(f'{i} - {self.__rank[i - 1]}', 1, cor_rank)
+                    fonte_rank = pygame.font.SysFont(
+                        'arial', fonte_size, True, True)
+                    lista_rank = fonte_rank.render(
+                        f'{i} - {self.__rank[i - 1]}', 1, cor_rank)
 
                 self.__background.blit(lista_rank, (pos_x, pos_y))
-
 
             if opc_volta.collidepoint((mx, my)):
                 borda_volta = 0

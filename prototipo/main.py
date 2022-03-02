@@ -5,12 +5,14 @@ from controller.app import App
 import os
 import pygame
 pygame.init()
-MenuPrincipal =  MenuPrincipal(480, 510)
-rank = LeaderBoard(480, 510, ['Jônata','Mateus','Thiago','José', 'Kalleo','Bernardo','','','',''])
+MenuPrincipal = MenuPrincipal(480, 510)
+rank = LeaderBoard(480, 510, [
+                   'Jônata', 'Mateus', 'Thiago', 'José', 'Kalleo', 'Bernardo', '', '', '', ''])
 mdj = menu_modos_de_jogo(480, 510)
 state = 'start'
 pygame.mixer.music.set_volume(0.5)
-musica_de_fundo = pygame.mixer.music.load(os.path.join('prototipo','controller','sounds','musica_menus.mp3'))
+musica_de_fundo = pygame.mixer.music.load(
+    os.path.join('controller', 'sounds', 'musica_menus.mp3'))
 pygame.mixer.music.play(-1)
 musica = True
 som = True
