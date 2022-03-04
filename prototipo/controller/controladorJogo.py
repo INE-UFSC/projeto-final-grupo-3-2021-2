@@ -69,8 +69,9 @@ class ControladorJogo(ABC):
                             #     closest_obj = bola
 
                     if closest_obj != None:
-                        # print(closest_obj.circle_obj.x)
+                        # print(closest_obj.__dict__)
                         self.__campo.desloca_bola(closest_obj, background)
+                        self.__campo.campo.append(closest_obj)
                     fonte = pygame.font.SysFont('Arial', 25)
                     # background.blit(fonte.render('1', True, (0,0,0)), (closest_obj.circle_obj.x, closest_obj.circle_obj.y))
             screen.blit(background, (0, 0))
