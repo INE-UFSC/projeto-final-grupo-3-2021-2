@@ -16,27 +16,50 @@ class GeraBola():
             BolaMais, BolaMenos, BolaBranca, BolaMateriaNegra
         ]
         self.__elem_dict = {
-                                1: "H",
-                                2: "He",
-                                3: "Li",
-                                4: "Be",
-                                5: "B",
-                                6: "C",
-                                7: "N",
-                                8: "O",
-                                9: "F",
-                                10: "Ne",
-                                11: "Na",
-                                12: "Mg"
-                            }
+            1: "H",
+            2: "He",
+            3: "Li",
+            4: "Be",
+            5: "B",
+            6: "C",
+            7: "N",
+            8: "O",
+            9: "F",
+            10: "Ne",
+            11: "Na",
+            12: "Mg"
+        }
 
     #  Gera bolas de HE no campo
     def geraBola(self, background, coors):
-        bola_img = pygame.draw.circle(background, "#A89234", coors, 35)
-        rand_val = random.randint(self.__min_bola, self.__max_bola)
-        bola = BolaNormal(rand_val, self.__elem_dict.get(rand_val), bola_img)
-        
-        return bola
+        if random.randint(1, 100) <= 10:
+            self.geraBolaEspecial(background, coors)
+        else:
+            bola_img = pygame.draw.circle(background, "#A89234", coors, 35)
+            rand_val = random.randint(self.__min_bola, self.__max_bola)
+            bola = BolaNormal(
+                rand_val, self.__elem_dict.get(rand_val), bola_img)
+
+            return bola
+
+    def geraBolaEspecial(self, background, coors):
+
+        if random.randint(1, 100) == 1:
+            circle_obj = pygame.draw.circle(background, "#888888", coors, 35)
+            bola = BolaMateriaNegra(circle_obj, False)
+            return bola
+        elif random.randint(1, 100) == 1:
+            circle_obj = pygame.draw.circle(background, "#888887", coors, 35)
+            bola = BolaBranca(circle_obj, False)
+            return bola
+        elif random.randint(1, 100) <= 30:
+            circle_obj = pygame.draw.circle(background, "#888887", coors, 35)
+            bola = BolaMenos(circle_obj, False)
+            return bola
+        else:
+            circle_obj = pygame.draw.circle(background, "#888887", coors, 35)
+            bola = BolaMais(circle_obj, False)
+            return bola
 
     @property
     def max_bola(self):
