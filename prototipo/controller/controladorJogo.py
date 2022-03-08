@@ -46,7 +46,6 @@ class ControladorJogo(ABC):
                     # print(x,y)
                     min_dis = 10000
                     closest_obj = None
-                    print("teste")
                     for bola in self.__campo.campo:
                         if bola.nome == '':
                             circle_pos = bola.circle_obj.center
