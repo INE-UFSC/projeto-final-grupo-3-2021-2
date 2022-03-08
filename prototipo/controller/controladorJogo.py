@@ -60,8 +60,11 @@ class ControladorJogo(ABC):
                                     closest_obj = bola
 
                     if closest_obj != None:
-                        count=0
+                        print(len(self.campo.campo))
+                        self.__campo.verificaCampo(self.__campo.campo)
                         obj = self.__campo.desloca_bola(closest_obj, background)
+                        for bola in self.__campo.campo:
+                            print(bola.__dict__)
                         self.__campo.campo.append(obj)
                         if(closest_obj.circle_obj.x == obj.circle_obj.x and closest_obj.circle_obj.y == obj.circle_obj.y):
                             self.__campo.campo.remove(closest_obj)

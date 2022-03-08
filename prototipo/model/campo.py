@@ -69,8 +69,8 @@ class Campo():
                 # Gera espaços vazios (bolas vermelhas)
                 holder = pygame.draw.circle(background, (255, 0, 0), coors, 10)
                 fonte = pygame.font.SysFont('Arial', 25)
-                background.blit(fonte.render('%d' %
-                                (count), True, (0, 0, 0)), (holder.x, holder.y))
+                background.blit(fonte.render('%d x %d' %
+                                (coors), True, (0, 0, 0)), (holder.x, holder.y))
                 count += 1
                 bola_empty = BolaNormal(0, '', holder, 10)
 
@@ -97,6 +97,19 @@ class Campo():
             background, campo_pos, False)
 
         return obj
+
+    # Funcao que verifica como esta campo para 
+    # encerrar o jogo caso esteja cheio
+    def verificaCampo(self, objList):
+        countBola = 1
+        for bola in objList:
+            if(bola.nome == ""):
+                countBola += 1
+        if(countBola > 0):
+            print("Ainda nao")
+            print(countBola)
+        else:
+            print("Acabou!")
 
     @property
     def campo(self):
