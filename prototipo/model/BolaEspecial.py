@@ -4,7 +4,8 @@ from abc import ABC, abstractmethod
 
 
 class BolaEspecial(Bola, ABC):
-    def __init__(self, circle_obj, raio: float, em_campo: bool):
+    # Interface agora pede apenas em_campo e o circle_obj, tamanho (raio) fixo para todas as bolas especiais
+    def __init__(self, circle_obj, em_campo: bool, raio=35):
         super().__init__(raio, circle_obj)
         self.__em_campo = em_campo
 
