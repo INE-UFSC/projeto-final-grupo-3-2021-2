@@ -1,3 +1,4 @@
+from itertools import count
 from random import randint
 import pygame
 from model.Bola import Bola
@@ -49,6 +50,7 @@ class Campo():
                         (self.__bola_central.circle_obj.x - 10 + 0, self.__bola_central.circle_obj.y - 8))
 
         angulo = 0
+        count = 1
         for i in range(len(self.__campo)):
             vec = pygame.math.Vector2(0, -self.__raio * 0.8).rotate(angulo)
             pt_x, pt_y = campo_pos[0] + vec.x, campo_pos[1] + vec.y
@@ -58,6 +60,7 @@ class Campo():
             fonte = pygame.font.SysFont(None, 50)
 
             if i % 3 == 0:
+                # Gera bolas inicialmente setadas no campo (menos a bola central)
                 self.__campo[i] = self.__gerador_bola.geraBola(
                     background, coors)
                 background.blit(fonte.render(self.__campo[i].nome, True, (0, 0, 0)), (
@@ -66,12 +69,12 @@ class Campo():
                 # Gera espaços vazios (bolas vermelhas)
                 holder = pygame.draw.circle(background, (255, 0, 0), coors, 10)
                 fonte = pygame.font.SysFont('Arial', 25)
-                background.blit(fonte.render('%d x %d' %
-                                (coors), True, (0, 0, 0)), (holder.x, holder.y))
+                background.blit(fonte.render('%d' %
+                                (count), True, (0, 0, 0)), (holder.x, holder.y))
+                count+=1
                 bola_empty = BolaNormal(0, '', holder, 10)
-                # print(bola_empty.circle_obj)
-                self.__campo[i] = bola_empty
 
+                self.__campo[i] = bola_empty
             angulo += 360 / self.__capacidade
 
         screen.blit(background, (0, 0))
@@ -79,19 +82,19 @@ class Campo():
     def desloca_bola(self, bola, background):
         x = bola.circle_obj.x
         y = bola.circle_obj.y
-        # print("bola ",self.__bola_central.__dict__)
-        obj = self.__bola_central.circle_obj
-        pygame.Rect.move_ip(obj, x-obj.x, y-obj.y)
+        obj = self.__bola_central
+        pygame.Rect.move_ip(obj.circle_obj, x-obj.circle_obj.x, y-obj.circle_obj.y)
 
         pygame.draw.circle(background, "#A89234",
-                           (obj.x + 10, obj.y + 10), obj.height / 2)
+                           (obj.circle_obj.x + 10, obj.circle_obj.y + 10), obj.circle_obj.height / 2)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(self.__elem_dict.get(
             self.__bola_central.valor), True, (0, 0, 0)), (x - 10 + 0, y - 8))
-        #
+        
         campo_pos = (self.__tela_width / 2, self.__tela_height / 2)
         self.__bola_central = self.__gerador_bola.geraBola(
             background, campo_pos)
+        return obj
 
     @property
     def campo(self):
