@@ -1,3 +1,4 @@
+from itertools import count
 import model.campo as campo
 import model.Bola as bola
 from model.geraBola import GeraBola
@@ -43,36 +44,28 @@ class ControladorJogo(ABC):
                     exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     (x, y) = pygame.mouse.get_pos()
-                    # print(x,y)
                     min_dis = 10000
                     closest_obj = None
+                    count = 0
                     for bola in self.__campo.campo:
+                        count+=1
                         if bola.nome == '':
                             circle_pos = bola.circle_obj.center
-                            # print("bola",bola.__dict__)
 
-                            # fonte = pygame.font.SysFont('Arial', 25)
-                            # background.blit(fonte.render('asdasdsa', True, (0,0,0)), (bola.circle_obj.x, bola.circle_obj.y))
                             temp = abs(
                                 sqrt((x-circle_pos[0])**2 + (y-circle_pos[0])**2))
-                            # print(temp)
-                            print(x,y)
+
                             if x <= bola.circle_obj.x + 10 + 30 and x >= bola.circle_obj.x + 10 - 30:
                                 if y <= bola.circle_obj.y + 10 + 30 and y >= bola.circle_obj.y + 10 - 30:
-                                # min_dis = temp
                                     closest_obj = bola
-                                    print("cls",closest_obj.__dict__)
-                                    # pygame.draw.circle(background, (255, 0, 0), (bola.circle_obj.x + 10, bola.circle_obj.y + 10), 40)
-                            # if temp < min_dis:
-                            #     min_dis = temp
-                            #     closest_obj = bola
 
                     if closest_obj != None:
-                        # print(closest_obj.__dict__)
-                        self.__campo.desloca_bola(closest_obj, background)
-                        self.__campo.campo.append(closest_obj)
-                    fonte = pygame.font.SysFont('Arial', 25)
-                    # background.blit(fonte.render('1', True, (0,0,0)), (closest_obj.circle_obj.x, closest_obj.circle_obj.y))
+                        count=0
+                        obj = self.__campo.desloca_bola(closest_obj, background)
+                        self.__campo.campo.append(obj)
+                        if(closest_obj.circle_obj.x == obj.circle_obj.x and closest_obj.circle_obj.y == obj.circle_obj.y):
+                            self.__campo.campo.remove(closest_obj)
+
             screen.blit(background, (0, 0))
             pygame.display.update()
             clock.tick(40)
