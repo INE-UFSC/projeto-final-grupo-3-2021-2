@@ -44,7 +44,7 @@ class Campo():
                                    self.__raio, 5)
 
         self.__bola_central = self.__gerador_bola.geraBola(
-            background, campo_pos)
+            background, campo_pos, True)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(self.__elem_dict.get(self.__bola_central.valor), True, (0, 0, 0)),
                         (self.__bola_central.circle_obj.x - 10 + 0, self.__bola_central.circle_obj.y - 8))
@@ -62,7 +62,7 @@ class Campo():
             if i % 3 == 0:
                 # Gera bolas inicialmente setadas no campo (menos a bola central)
                 self.__campo[i] = self.__gerador_bola.geraBola(
-                    background, coors)
+                    background, coors, True)
                 background.blit(fonte.render(self.__campo[i].nome, True, (0, 0, 0)), (
                     self.__campo[i].circle_obj.x + 12, self.__campo[i].circle_obj.y + 20))
             else:
@@ -71,7 +71,7 @@ class Campo():
                 fonte = pygame.font.SysFont('Arial', 25)
                 background.blit(fonte.render('%d' %
                                 (count), True, (0, 0, 0)), (holder.x, holder.y))
-                count+=1
+                count += 1
                 bola_empty = BolaNormal(0, '', holder, 10)
 
                 self.__campo[i] = bola_empty
@@ -83,17 +83,19 @@ class Campo():
         x = bola.circle_obj.x
         y = bola.circle_obj.y
         obj = self.__bola_central
-        pygame.Rect.move_ip(obj.circle_obj, x-obj.circle_obj.x, y-obj.circle_obj.y)
+        pygame.Rect.move_ip(obj.circle_obj, x -
+                            obj.circle_obj.x, y-obj.circle_obj.y)
 
         pygame.draw.circle(background, "#A89234",
                            (obj.circle_obj.x + 10, obj.circle_obj.y + 10), obj.circle_obj.height / 2)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(self.__elem_dict.get(
             self.__bola_central.valor), True, (0, 0, 0)), (x - 10 + 0, y - 8))
-        
+
         campo_pos = (self.__tela_width / 2, self.__tela_height / 2)
         self.__bola_central = self.__gerador_bola.geraBola(
-            background, campo_pos)
+            background, campo_pos, False)
+
         return obj
 
     @property
