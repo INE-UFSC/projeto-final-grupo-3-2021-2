@@ -4,8 +4,8 @@ import pygame
 
 
 class BolaMais(BolaEspecial):
-    def __init__(self, circle_obj, raio: float, em_campo: bool):
-        super().__init__(circle_obj, raio, em_campo)
+    def __init__(self, circle_obj, em_campo: bool):
+        super().__init__(circle_obj, em_campo)
 
     def acao(bola1: BolaNormal, bola2: BolaNormal):
         if bola1.valor == bola2.valor:
