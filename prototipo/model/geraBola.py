@@ -29,7 +29,7 @@ class GeraBola():
                                 11: "Na",
                                 12: "Mg"
                             }
-    print("teste")
+
     #  Gera bolas de HE no campo
     def geraBola(self, background, coors):
         bola_img = pygame.draw.circle(background, "#A89234", coors, 35)
