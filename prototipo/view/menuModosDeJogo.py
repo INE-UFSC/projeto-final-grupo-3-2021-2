@@ -1,5 +1,7 @@
 import pygame
-from prototipo.model.menu import Menu
+from view.menu import Menu
+import os
+
 
 class menu_modos_de_jogo(Menu):
     def __init__(self, tela_width, tela_height):
@@ -10,9 +12,8 @@ class menu_modos_de_jogo(Menu):
 
     def desenhar_menu(self, musica, som):
         pygame.init()
-        w, h = pygame.display.get_surface().get_size()
-        print(w,h)
-        barulho_opc = pygame.mixer.Sound('/home/jose/Documents/POO2/projeto-final-grupo-3-2021-2/GUI/sounds/sound_option.wav')
+        barulho_opc = pygame.mixer.Sound(os.path.join(
+            'controller', 'sounds', 'sound_option.wav'))
         click = False
         if musica:
             cor_musica = (0, 255, 0)
@@ -27,8 +28,6 @@ class menu_modos_de_jogo(Menu):
         else:
             cor_som = (255, 0, 0)
             barulho_opc.set_volume(0)
-
-
 
         cor_fundo_ta = (148, 0, 211)
         cor_fundo_classic = (148, 0, 211)
@@ -66,36 +65,43 @@ class menu_modos_de_jogo(Menu):
             vertice3 = (width / 6 - 55, height / 8 + 29)
 
             fonte_leader = pygame.font.SysFont('arial', 25, True, True)
-            opc_volta = pygame.draw.polygon(self.__background, (0, 0, 0), (vertice1, vertice2, vertice3), borda_volta)
-            legenda_rank_titulo = fonte_leader.render('GAME MODES', 1, (0, 0, 0))
-            self.__background.blit(legenda_rank_titulo, (width / 3 + 80, height / 8 + 15))
+            opc_volta = pygame.draw.polygon(
+                self.__background, (0, 0, 0), (vertice1, vertice2, vertice3), borda_volta)
+            legenda_rank_titulo = fonte_leader.render(
+                'GAME MODES', 1, (0, 0, 0))
+            self.__background.blit(legenda_rank_titulo,
+                                   (width / 4 + 19, height / 8 + 15))
 
             self.__background.blit(titulo, titulo_pos)
             fonte_opcoes = pygame.font.SysFont('arial', 25, True, True)
 
             opc_classic = pygame.draw.rect(self.__background, cor_fundo_classic,
-                                       (width / 4, height / 3, width / 2, height / (15 / 2)))
-            legenda_classic = fonte_opcoes.render('CLASSIC', 1, (255, 255, 255))
-            self.__background.blit(legenda_classic, (width / 3 + 100, height / 3 + 25))
+                                           (width / 4, height / 3, width / 2, height / (15 / 2)))
+            legenda_classic = fonte_opcoes.render(
+                'CLASSIC', 1, (255, 255, 255))
+            self.__background.blit(
+                legenda_classic, (width / 4 + 65, height / 3 + 18))
 
             opc_ta = pygame.draw.rect(self.__background, cor_fundo_ta,
-                                        (width / 4, 2 * (height / 3), width / 2, height / (15 / 2)))
-            legenda_ta= fonte_opcoes.render(escrita_ta, 1, (255, 255, 255))
+                                      (width / 4, 2 * (height / 3), width / 2, height / (15 / 2)))
+            legenda_ta = fonte_opcoes.render(escrita_ta, 1, (255, 255, 255))
 
-            self.__background.blit(legenda_ta, (width / 3 + 70, 2 * (height / 3) + 25))
+            self.__background.blit(
+                legenda_ta, (width / 4 + 36, 2 * (height / 3) + 18))
 
             fonte_musica = pygame.font.SysFont('arial', 20, True, True)
             legenda_musica = fonte_musica.render('MUSIC', 1, cor_musica)
 
-            opc_musica = pygame.draw.rect(self.__background, (255, 255, 255), (10, height - 26, 65, 15))
+            opc_musica = pygame.draw.rect(
+                self.__background, (255, 255, 255), (10, height - 26, 65, 15))
             self.__background.blit(legenda_musica, (10, height - 30))
 
             fonte_som = pygame.font.SysFont('arial', 20, True, True)
             legenda_som = fonte_som.render('SOUND', 1, cor_som)
 
-            opc_som = pygame.draw.rect(self.__background, (255, 255, 255), (92, height - 26, 70, 15))
+            opc_som = pygame.draw.rect(
+                self.__background, (255, 255, 255), (92, height - 26, 70, 15))
             self.__background.blit(legenda_som, (90, height - 30))
-
 
             if opc_som.collidepoint((mx, my)):
                 if click:
@@ -120,11 +126,10 @@ class menu_modos_de_jogo(Menu):
                         cor_musica = (0, 255, 0)
                         musica = True
 
-
             if opc_classic.collidepoint((mx, my)):
                 cor_fundo_classic = (153, 102, 204)
                 if click:
-                    barulho_opc.play()
+                    # barulho_opc.play()
                     return 'classic', musica, som
             else:
                 cor_fundo_classic = (148, 0, 211)
@@ -133,7 +138,7 @@ class menu_modos_de_jogo(Menu):
                 escrita_ta = '  NOT READY'
                 cor_fundo_ta = (255, 0, 0)
                 if click:
-                    barulho_opc.play()
+                    # barulho_opc.play()
                     return self.voltar(musica, som)
             else:
                 escrita_ta = 'TIME ATTACK'
@@ -153,10 +158,11 @@ class menu_modos_de_jogo(Menu):
 
     def voltar(self, musica, som):
         return 'start', musica, som
+
     @property
     def modos_de_jogo(self):
         return self.__modos_de_jogo
-    
+
     @modos_de_jogo.setter
     def modos_de_jogo(self, modos):
         self.__modos_de_jogo = modos
