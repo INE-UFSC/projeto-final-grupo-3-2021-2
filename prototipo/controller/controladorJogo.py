@@ -7,6 +7,11 @@ import pygame
 from cmath import sqrt
 import sys
 import os
+from model.BolaBranca import BolaBranca
+
+from model.BolaEspecial import BolaEspecial
+from model.BolaMais import BolaMais
+from model.BolaMenos import BolaMenos
 sys.path.append(
     os.path.dirname(os.path.realpath(__file__)))
 
@@ -44,26 +49,41 @@ class ControladorJogo(ABC):
                     exit()
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     (x, y) = pygame.mouse.get_pos()
-                    min_dis = 10000
+
                     closest_obj = None
                     count = 0
+
                     for bola in self.__campo.campo:
-                        count+=1
+                        count += 1
+
                         if bola.nome == '':
-                            circle_pos = bola.circle_obj.center
 
-                            temp = abs(
-                                sqrt((x-circle_pos[0])**2 + (y-circle_pos[0])**2))
-
+                            if x <= bola.circle_obj.x + 10 + 30 and x >= bola.circle_obj.x + 10 - 30:
+                                if y <= bola.circle_obj.y + 10 + 30 and y >= bola.circle_obj.y + 10 - 30:
+                                    closest_obj = bola
+                        elif not isinstance(bola, BolaEspecial) and (isinstance(self.__campo.bola_central, BolaMenos) or isinstance(self.__campo.bola_central, BolaBranca)):
                             if x <= bola.circle_obj.x + 10 + 30 and x >= bola.circle_obj.x + 10 - 30:
                                 if y <= bola.circle_obj.y + 10 + 30 and y >= bola.circle_obj.y + 10 - 30:
                                     closest_obj = bola
 
                     if closest_obj != None:
-                        obj = self.__campo.desloca_bola(closest_obj, background)
-                        self.__campo.campo.append(obj)
-                        if(closest_obj.circle_obj.x == obj.circle_obj.x and closest_obj.circle_obj.y == obj.circle_obj.y):
-                            self.__campo.campo.remove(closest_obj)
+                        if closest_obj.nome == "" and not (isinstance(self.__campo.bola_central, BolaMenos) or isinstance(self.__campo.bola_central, BolaBranca)):
+                            obj = self.__campo.desloca_bola(
+                                closest_obj, background)
+
+                            # Essa função compara e atualiza as bolas na lista
+                            self.__campo.atualizaSelfCampo(obj, closest_obj)
+                        elif closest_obj.nome != "":
+                            if isinstance(self.__campo.bola_central, BolaMenos):
+                                obj = self.__campo.bola_central.acao(
+                                    closest_obj)
+                                self.__campo.bola_central = obj
+
+                                pygame.draw.circle(
+                                    background, "#A89234", (obj.circle_obj.x + 35, obj.circle_obj.y + 35), obj.circle_obj.height / 2)
+                                fonte = pygame.font.SysFont(None, 50)
+                                background.blit(fonte.render(obj.nome,
+                                                True, (0, 0, 0)), (obj.circle_obj.x + 20, obj.circle_obj.y + 15))
 
             screen.blit(background, (0, 0))
             pygame.display.update()

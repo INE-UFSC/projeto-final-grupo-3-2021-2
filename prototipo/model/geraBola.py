@@ -47,7 +47,7 @@ class GeraBola():
     def geraBolaEspecial(self, background, coors):
 
         if random.randint(1, 100) == 1:
-            circle_obj = pygame.draw.circle(background, "#888888", coors, 35)
+            circle_obj = pygame.draw.circle(background, "#000000", coors, 35)
             bola = BolaMateriaNegra("#", circle_obj, False)
             return bola
         elif random.randint(1, 100) == 1:
