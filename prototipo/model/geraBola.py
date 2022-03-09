@@ -33,7 +33,7 @@ class GeraBola():
     #  Gera bolas de HE no campo
     def geraBola(self, background, coors, start: bool):
         # não podemos gerar bolas especiais no início do jogo
-        if random.randint(1, 100) <= 10 and not start:
+        if random.randint(1, 100) <= 40 and not start:
             bola = self.geraBolaEspecial(background, coors)
             return bola
         else:
@@ -51,15 +51,15 @@ class GeraBola():
             bola = BolaMateriaNegra("#", circle_obj, False)
             return bola
         elif random.randint(1, 100) == 1:
-            circle_obj = pygame.draw.circle(background, "#888887", coors, 35)
+            circle_obj = pygame.draw.circle(background, "#f2efda", coors, 35)
             bola = BolaBranca("*", circle_obj, False)
             return bola
         elif random.randint(1, 100) <= 30:
-            circle_obj = pygame.draw.circle(background, "#888886", coors, 35)
+            circle_obj = pygame.draw.circle(background, "#277edb", coors, 35)
             bola = BolaMenos("-", circle_obj, False)
             return bola
         else:
-            circle_obj = pygame.draw.circle(background, "#888885", coors, 35)
+            circle_obj = pygame.draw.circle(background, "#d13d32", coors, 35)
             bola = BolaMais("+", circle_obj, False)
             return bola
 

@@ -50,7 +50,6 @@ class Campo():
                         (self.__bola_central.circle_obj.x - 10 + 0, self.__bola_central.circle_obj.y - 8))
 
         angulo = 0
-        count = 1
         for i in range(len(self.__campo)):
             vec = pygame.math.Vector2(0, -self.__raio * 0.8).rotate(angulo)
             pt_x, pt_y = campo_pos[0] + vec.x, campo_pos[1] + vec.y
@@ -69,9 +68,6 @@ class Campo():
                 # Gera espaços vazios (bolas vermelhas)
                 holder = pygame.draw.circle(background, (255, 0, 0), coors, 10)
                 fonte = pygame.font.SysFont('Arial', 25)
-                background.blit(fonte.render('%d x %d' %
-                                (coors), True, (0, 0, 0)), (holder.x, holder.y))
-                count += 1
                 bola_empty = BolaNormal(0, '', holder, 10)
 
                 self.__campo[i] = bola_empty
@@ -85,12 +81,23 @@ class Campo():
         obj = self.__bola_central
         pygame.Rect.move_ip(obj.circle_obj, x -
                             obj.circle_obj.x, y-obj.circle_obj.y)
-
-        pygame.draw.circle(background, "#A89234",
-                           (obj.circle_obj.x + 10, obj.circle_obj.y + 10), obj.circle_obj.height / 2)
+        if(obj.nome == "+"):
+            pygame.draw.circle(background, "#d13d32",
+                            (obj.circle_obj.x + 10, obj.circle_obj.y + 10), obj.circle_obj.height / 2)
+        elif(obj.nome == "-"):
+            pygame.draw.circle(background, "#277edb",
+                            (obj.circle_obj.x + 10, obj.circle_obj.y + 10), obj.circle_obj.height / 2)
+        elif(obj.nome == "*"):
+            pygame.draw.circle(background, "#f2efda",
+                            (obj.circle_obj.x + 10, obj.circle_obj.y + 10), obj.circle_obj.height / 2)
+        elif(obj.nome == "#"):
+            pygame.draw.circle(background, "#888888",
+                            (obj.circle_obj.x + 10, obj.circle_obj.y + 10), obj.circle_obj.height / 2)
+        else:
+            pygame.draw.circle(background, "#A89234",
+                            (obj.circle_obj.x + 10, obj.circle_obj.y + 10), obj.circle_obj.height / 2)
         fonte = pygame.font.SysFont(None, 50)
-        background.blit(fonte.render(self.__elem_dict.get(
-            self.__bola_central.valor), True, (0, 0, 0)), (x - 10 + 0, y - 8))
+        background.blit(fonte.render(self.__bola_central.nome, True, (0, 0, 0)), (x - 10 + 0, y - 8))
 
         campo_pos = (self.__tela_width / 2, self.__tela_height / 2)
         self.__bola_central = self.__gerador_bola.geraBola(
