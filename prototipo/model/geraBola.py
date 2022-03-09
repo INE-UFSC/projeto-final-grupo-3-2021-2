@@ -34,7 +34,8 @@ class GeraBola():
     def geraBola(self, background, coors, start: bool):
         # não podemos gerar bolas especiais no início do jogo
         if random.randint(1, 100) <= 10 and not start:
-            self.geraBolaEspecial(background, coors)
+            bola = self.geraBolaEspecial(background, coors)
+            return bola
         else:
             bola_img = pygame.draw.circle(background, "#A89234", coors, 35)
             rand_val = random.randint(self.__min_bola, self.__max_bola)
@@ -47,19 +48,19 @@ class GeraBola():
 
         if random.randint(1, 100) == 1:
             circle_obj = pygame.draw.circle(background, "#888888", coors, 35)
-            bola = BolaMateriaNegra(circle_obj, False)
+            bola = BolaMateriaNegra("#", circle_obj, False)
             return bola
         elif random.randint(1, 100) == 1:
             circle_obj = pygame.draw.circle(background, "#888887", coors, 35)
-            bola = BolaBranca(circle_obj, False)
+            bola = BolaBranca("*", circle_obj, False)
             return bola
         elif random.randint(1, 100) <= 30:
             circle_obj = pygame.draw.circle(background, "#888886", coors, 35)
-            bola = BolaMenos(circle_obj, False)
+            bola = BolaMenos("-", circle_obj, False)
             return bola
         else:
             circle_obj = pygame.draw.circle(background, "#888885", coors, 35)
-            bola = BolaMais(circle_obj, False)
+            bola = BolaMais("+", circle_obj, False)
             return bola
 
     @property
