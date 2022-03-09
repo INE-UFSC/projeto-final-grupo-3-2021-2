@@ -1,4 +1,4 @@
-from itertools import count
+import time
 import model.campo as campo
 import model.Bola as bola
 from model.geraBola import GeraBola
@@ -60,11 +60,7 @@ class ControladorJogo(ABC):
                                     closest_obj = bola
 
                     if closest_obj != None:
-                        print(len(self.campo.campo))
-                        self.__campo.verificaCampo(self.__campo.campo)
                         obj = self.__campo.desloca_bola(closest_obj, background)
-                        for bola in self.__campo.campo:
-                            print(bola.__dict__)
                         self.__campo.campo.append(obj)
                         if(closest_obj.circle_obj.x == obj.circle_obj.x and closest_obj.circle_obj.y == obj.circle_obj.y):
                             self.__campo.campo.remove(closest_obj)
@@ -72,6 +68,12 @@ class ControladorJogo(ABC):
             screen.blit(background, (0, 0))
             pygame.display.update()
             clock.tick(40)
+
+            if(self.__campo.verificaCampo(self.__campo.campo) == False):
+                time.sleep(2)
+                running = False
+                pygame.quit()
+                exit()
 
         pygame.quit()
 

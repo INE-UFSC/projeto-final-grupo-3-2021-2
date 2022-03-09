@@ -101,15 +101,14 @@ class Campo():
     # Funcao que verifica como esta campo para 
     # encerrar o jogo caso esteja cheio
     def verificaCampo(self, objList):
-        countBola = 1
+        countBola = 0
         for bola in objList:
             if(bola.nome == ""):
                 countBola += 1
         if(countBola > 0):
-            print("Ainda nao")
-            print(countBola)
+            return True
         else:
-            print("Acabou!")
+            return False
 
     @property
     def campo(self):
