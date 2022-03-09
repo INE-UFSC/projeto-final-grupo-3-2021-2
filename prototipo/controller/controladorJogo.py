@@ -1,19 +1,23 @@
+import time
+import model.campo as campo
+import model.Bola as bola
+from model.geraBola import GeraBola
 from abc import ABC
 import pygame
 from cmath import sqrt
 import sys
-sys.path.append("/home/jose/Documents/POO2/projeto-final-grupo-3-2021-2/prototipo/model")
+import os
+sys.path.append(
+    os.path.dirname(os.path.realpath(__file__)))
 
-import geraBola as GeraBola
-import Bola as bola
-import campo as campo
+clock = pygame.time.Clock()
 
 
 class ControladorJogo(ABC):
     def __init__(self, tela_width: int, tela_height: int, placar) -> None:
         self.__bola_central = {}
         self.__campo = campo.Campo(
-            tela_width, tela_height, GeraBola.GeraBola())
+            tela_width, tela_height, GeraBola())
         self.__nome = ''
         self.__placar = placar
         self.__tela_width = tela_width
@@ -30,39 +34,46 @@ class ControladorJogo(ABC):
         background = background.convert()
         background.fill((250, 250, 250))
 
-        self.__campo.setar_campo(background, screen)
-
-        screen.blit(background, (0, 0))
-
         running = True
+        self.__campo.setar_campo(background, screen)
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        pygame.quit()
-                        return
-                elif event.type == pygame.MOUSEBUTTONUP:
+                    pygame.quit()
+                    exit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
                     (x, y) = pygame.mouse.get_pos()
-
-                    min_dis = 1000
+                    min_dis = 10000
                     closest_obj = None
-
+                    count = 0
                     for bola in self.__campo.campo:
+                        count+=1
                         if bola.nome == '':
                             circle_pos = bola.circle_obj.center
 
                             temp = abs(
                                 sqrt((x-circle_pos[0])**2 + (y-circle_pos[0])**2))
-                            if temp < min_dis:
-                                min_dis = temp
-                                closest_obj = bola
+
+                            if x <= bola.circle_obj.x + 10 + 30 and x >= bola.circle_obj.x + 10 - 30:
+                                if y <= bola.circle_obj.y + 10 + 30 and y >= bola.circle_obj.y + 10 - 30:
+                                    closest_obj = bola
 
                     if closest_obj != None:
-                        self.__campo.desloca_bola(closest_obj)
+                        obj = self.__campo.desloca_bola(closest_obj, background)
+                        self.__campo.campo.append(obj)
+                        if(closest_obj.circle_obj.x == obj.circle_obj.x and closest_obj.circle_obj.y == obj.circle_obj.y):
+                            self.__campo.campo.remove(closest_obj)
 
-                pygame.display.update()
+            screen.blit(background, (0, 0))
+            pygame.display.update()
+            clock.tick(40)
+
+            if(self.__campo.verificaCampo(self.__campo.campo) == False):
+                time.sleep(2)
+                running = False
+                pygame.quit()
+                exit()
 
         pygame.quit()
 

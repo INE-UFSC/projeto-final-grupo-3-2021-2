@@ -1,19 +1,14 @@
 
-from Bola import Bola
+from model.Bola import Bola
+from abc import ABC, abstractmethod
 
-class BolaEspecial(Bola):
-    def __init__(self, cor: str, raio: float, chance: float, em_campo: bool):
-        super().__init__(cor, raio)
-        self.__chance = chance
+
+class BolaEspecial(Bola, ABC):
+    # Interface agora pede apenas em_campo e o circle_obj, tamanho (raio) fixo para todas as bolas especiais
+    def __init__(self, nome: str, circle_obj, em_campo: bool, raio=35):
+        super().__init__(raio, circle_obj)
         self.__em_campo = em_campo
-
-    @property
-    def chance(self):
-        return self.__chance
-
-    @chance.setter
-    def chance(self, nova_chance: float):
-        self.__chance = nova_chance
+        self.__nome = nome
 
     @property
     def em_campo(self):
@@ -22,3 +17,16 @@ class BolaEspecial(Bola):
     @em_campo.setter
     def em_campo(self, novo_em_campo: bool):
         self.__em_campo = novo_em_campo
+
+    @property
+    def nome(self):
+        return self.__nome
+
+    @nome.setter
+    def nome(self, novo_nome: str):
+        self.__nome = novo_nome
+
+    " Cada bola especial implementa a sua ação com esse método, para haver polimorfismo "
+    @abstractmethod
+    def acao(self):
+        pass
