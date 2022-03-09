@@ -4,8 +4,8 @@ import pygame
 
 
 class BolaMateriaNegra(BolaEspecial):
-    def __init__(self, circle_obj, em_campo: bool):
-        super().__init__(circle_obj, em_campo)
+    def __init__(self, nome: str, circle_obj, em_campo: bool):
+        super().__init__(nome, circle_obj, em_campo)
 
     def acao(bola1: BolaNormal, bola2: BolaNormal):
         new_value = (bola1.valor + bola2.valor) // 2 + 1
