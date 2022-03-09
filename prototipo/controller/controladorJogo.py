@@ -71,6 +71,23 @@ class ControladorJogo(ABC):
                             obj = self.__campo.desloca_bola(
                                 closest_obj, background)
 
+                            if isinstance(obj, BolaMais):
+                                index = self.__campo.campo.index(obj)
+
+                                if index == 0:
+                                    bola1 = self.__campo.campo[len(
+                                        self.__campo.campo) - 1]
+                                    bola2 = self.__campo.campo[index + 1]
+                                elif index == len(self.__campo.campo) - 1:
+                                    bola1 = self.__campo.campo[index - 1]
+                                    bola2 = self.__campo.campo[0]
+                                else:
+                                    bola1 = self.__campo.campo[index - 1]
+                                    bola2 = self.__campo.campo[index + 1]
+
+                                lista_com_valor_e_coors = obj.acao(
+                                    bola1, bola2)
+
                             # Essa função compara e atualiza as bolas na lista
                             self.__campo.atualizaSelfCampo(obj, closest_obj)
                         elif closest_obj.nome != "":
@@ -79,11 +96,7 @@ class ControladorJogo(ABC):
                                     closest_obj)
                                 self.__campo.bola_central = obj
 
-                                pygame.draw.circle(
-                                    background, "#A89234", (obj.circle_obj.x + 35, obj.circle_obj.y + 35), obj.circle_obj.height / 2)
-                                fonte = pygame.font.SysFont(None, 50)
-                                background.blit(fonte.render(obj.nome,
-                                                True, (0, 0, 0)), (obj.circle_obj.x + 20, obj.circle_obj.y + 15))
+                                self.__campo.desenhaBola(background, obj)
 
             screen.blit(background, (0, 0))
             pygame.display.update()

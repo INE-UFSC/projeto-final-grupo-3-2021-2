@@ -1,3 +1,4 @@
+from turtle import circle
 from model.BolaEspecial import BolaEspecial
 from model.BolaNormal import BolaNormal
 import pygame
@@ -7,14 +8,13 @@ class BolaMais(BolaEspecial):
     def __init__(self, nome: str, circle_obj, em_campo: bool):
         super().__init__(nome, circle_obj, em_campo)
 
-    def acao(bola1: BolaNormal, bola2: BolaNormal):
+    def acao(self, bola1: BolaNormal, bola2: BolaNormal):
         if bola1.valor == bola2.valor:
             new_value = (bola1.valor + bola2.valor) // 2 + 1
 
-            bola_obj = BolaNormal(new_value, "holder",
-                                  pygame.bola1.circle_obj.copy())
+            lista = [new_value, (self.circle_obj.x, self.circle_obj.y)]
         else:
-            bola_obj = None
+            lista = None
 
-        " O circle_obj da bola retornada pode ser que precise ser atualizado (usando draw.circle) "
-        return bola_obj
+        " Retorna lista com valor e posiçao da bola a ser criada "
+        return lista
