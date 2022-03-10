@@ -81,12 +81,15 @@ class ControladorJogo(ABC):
 
                         elif closest_obj.nome != "":
                             if isinstance(self.__campo.bola_central, BolaMenos):
+                                
+                                coors_no_campo = closest_obj.circle_obj.center
+                                
                                 obj = self.__campo.bola_central.acao(
                                     closest_obj)
                                 self.__campo.bola_central = obj
 
                                 self.__campo.desenhaBolaAoAcaoMenos(
-                                    background, obj)
+                                    background, obj, coors_no_campo)
 
             screen.blit(background, (0, 0))
             pygame.display.update()
