@@ -66,9 +66,8 @@ class Campo():
                     self.__campo[i].circle_obj.x + 12, self.__campo[i].circle_obj.y + 20))
             else:
                 # Gera espaços vazios (bolas vermelhas)
-                holder = pygame.draw.circle(background, (255, 0, 0), coors, 10)
-                fonte = pygame.font.SysFont('Arial', 25)
-                bola_empty = BolaNormal(0, '', holder, 10)
+                holder = pygame.draw.circle(background, "#808080", coors, 35)
+                bola_empty = BolaNormal(0, '', holder)
 
                 self.__campo[i] = bola_empty
             angulo += 360 / self.__capacidade
@@ -76,11 +75,11 @@ class Campo():
         screen.blit(background, (0, 0))
 
     def desloca_bola(self, bola, background):
-        x = bola.circle_obj.x
-        y = bola.circle_obj.y
         obj = self.__bola_central
-        pygame.Rect.move_ip(obj.circle_obj, x -
-                            obj.circle_obj.x, y-obj.circle_obj.y)
+        x = bola.circle_obj.x - obj.circle_obj.x
+        y = bola.circle_obj.y - obj.circle_obj.y
+
+        pygame.Rect.move_ip(obj.circle_obj, x + 25, y + 25)
         if(obj.nome == "+"):
             pygame.draw.circle(background, "#d13d32",
                                (obj.circle_obj.x + 10, obj.circle_obj.y + 10), obj.circle_obj.height / 2)
@@ -100,7 +99,7 @@ class Campo():
                                (obj.circle_obj.x + 10, obj.circle_obj.y + 10), obj.circle_obj.height / 2)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(self.__bola_central.nome,
-                        True, (0, 0, 0)), (x - 10, y - 10))
+                        True, (0, 0, 0)), (bola.circle_obj.x + 15, bola.circle_obj.y + 15))
 
         campo_pos = (self.__tela_width / 2, self.__tela_height / 2)
         self.__bola_central = self.__gerador_bola.geraBola(
@@ -127,7 +126,7 @@ class Campo():
         index = self.__campo.index(obj_remove)
         self.__campo[index] = obj_add
 
-    def desenhaBola(self, background, bola):
+    def desenhaBolaAoAcaoMenos(self, background, bola):
         pygame.draw.circle(
             background, "#A89234", (bola.circle_obj.x + 35, bola.circle_obj.y + 35), bola.circle_obj.height / 2)
         fonte = pygame.font.SysFont(None, 50)
@@ -135,8 +134,72 @@ class Campo():
                                      True, (0, 0, 0)), (bola.circle_obj.x + 20, bola.circle_obj.y + 15))
 
     # criação a partir da junção de bolas (por causa da BolaMais)
-    def criaEDesenhaBola(self, background, valor: int, coors: tuple):
-        pass
+    def desenhaBolaAoAcaoMais(self, background, bolaMais):
+        index = self.__campo.index(bolaMais)
+
+        caso1 = False
+        caso2 = False
+        caso3 = False
+
+        if index == 0:
+            bola1 = self.__campo[len(
+                self.__campo) - 1]
+            bola2 = self.__campo[index + 1]
+            caso1 = True
+        elif index == len(self.__campo) - 1:
+            bola1 = self.__campo[index - 1]
+            bola2 = self.__campo[0]
+            caso2 = True
+        else:
+            bola1 = self.__campo[index - 1]
+            bola2 = self.__campo[index + 1]
+            caso3 = True
+
+        lista_com_valor_e_coors = bolaMais.acao(
+            bola1, bola2)
+
+        if lista_com_valor_e_coors != None:
+            new_value = lista_com_valor_e_coors[0]
+            # em cima da BolaMais
+            circle = pygame.draw.circle(
+                background, "#A89234", (bolaMais.circle_obj.x + 10, bolaMais.circle_obj.y + 10), bolaMais.circle_obj.height / 2)
+            nova_bola = BolaNormal(
+                new_value, self.__elem_dict[new_value], circle)
+            fonte = pygame.font.SysFont(None, 50)
+            background.blit(fonte.render(nova_bola.nome,
+                                         True, (0, 0, 0)), (nova_bola.circle_obj.x + 20, nova_bola.circle_obj.y + 15))
+
+            self.__campo[index] = nova_bola
+            if caso1:
+                holder1 = pygame.draw.circle(
+                    background, "#808080", bola1.circle_obj.center, 35)
+                bola_empty1 = BolaNormal(0, '', holder1)
+                self.__campo[len(self.__campo) - 1] = bola_empty1
+
+                holder2 = pygame.draw.circle(
+                    background, "#808080", bola2.circle_obj.center, 35)
+                bola_empty2 = BolaNormal(0, '', holder2)
+                self.__campo[index + 1] = bola_empty2
+            elif caso2:
+                holder1 = pygame.draw.circle(
+                    background, "#808080", bola1.circle_obj.center, 35)
+                bola_empty1 = BolaNormal(0, '', holder1)
+                self.__campo[index - 1] = bola_empty1
+
+                holder2 = pygame.draw.circle(
+                    background, "#808080", bola2.circle_obj.center, 35)
+                bola_empty2 = BolaNormal(0, '', holder2)
+                self.__campo[0] = bola_empty2
+            elif caso3:
+                holder1 = pygame.draw.circle(
+                    background, "#808080", bola1.circle_obj.center, 35)
+                bola_empty1 = BolaNormal(0, '', holder1)
+                self.__campo[index - 1] = bola_empty1
+
+                holder2 = pygame.draw.circle(
+                    background, "#808080", bola2.circle_obj.center, 35)
+                bola_empty2 = BolaNormal(0, '', holder2)
+                self.__campo[index + 1] = bola_empty2
 
     @property
     def campo(self):

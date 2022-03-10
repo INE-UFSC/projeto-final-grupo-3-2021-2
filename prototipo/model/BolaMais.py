@@ -9,7 +9,9 @@ class BolaMais(BolaEspecial):
         super().__init__(nome, circle_obj, em_campo)
 
     def acao(self, bola1: BolaNormal, bola2: BolaNormal):
-        if bola1.valor == bola2.valor:
+        if isinstance(bola1, BolaMais) or isinstance(bola2, BolaMais):
+            return None
+        elif bola1.valor == bola2.valor:
             new_value = (bola1.valor + bola2.valor) // 2 + 1
 
             lista = [new_value, (self.circle_obj.x, self.circle_obj.y)]

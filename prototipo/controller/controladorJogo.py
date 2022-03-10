@@ -71,32 +71,22 @@ class ControladorJogo(ABC):
                             obj = self.__campo.desloca_bola(
                                 closest_obj, background)
 
-                            if isinstance(obj, BolaMais):
-                                index = self.__campo.campo.index(obj)
-
-                                if index == 0:
-                                    bola1 = self.__campo.campo[len(
-                                        self.__campo.campo) - 1]
-                                    bola2 = self.__campo.campo[index + 1]
-                                elif index == len(self.__campo.campo) - 1:
-                                    bola1 = self.__campo.campo[index - 1]
-                                    bola2 = self.__campo.campo[0]
-                                else:
-                                    bola1 = self.__campo.campo[index - 1]
-                                    bola2 = self.__campo.campo[index + 1]
-
-                                lista_com_valor_e_coors = obj.acao(
-                                    bola1, bola2)
-
                             # Essa função compara e atualiza as bolas na lista
                             self.__campo.atualizaSelfCampo(obj, closest_obj)
+
+                            if isinstance(obj, BolaMais):
+
+                                self.__campo.desenhaBolaAoAcaoMais(
+                                    background, obj)
+
                         elif closest_obj.nome != "":
                             if isinstance(self.__campo.bola_central, BolaMenos):
                                 obj = self.__campo.bola_central.acao(
                                     closest_obj)
                                 self.__campo.bola_central = obj
 
-                                self.__campo.desenhaBola(background, obj)
+                                self.__campo.desenhaBolaAoAcaoMenos(
+                                    background, obj)
 
             screen.blit(background, (0, 0))
             pygame.display.update()
