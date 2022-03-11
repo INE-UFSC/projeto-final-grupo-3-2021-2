@@ -66,8 +66,7 @@ class Campo():
                     self.__campo[i].circle_obj.x + 12, self.__campo[i].circle_obj.y + 20))
             else:
                 # Gera espaços vazios (bolas vermelhas)
-                holder = pygame.draw.circle(background, "#808080", coors, 35)
-                bola_empty = BolaNormal(0, '', holder)
+                bola_empty = self.desenhaBolaHolder(coors, background)
 
                 self.__campo[i] = bola_empty
             angulo += 360 / self.__capacidade
@@ -133,9 +132,7 @@ class Campo():
         background.blit(fonte.render(bola.nome,
                                      True, (0, 0, 0)), (bola.circle_obj.x + 20, bola.circle_obj.y + 15))
 
-        holder = pygame.draw.circle(
-            background, "#808080", coors_no_campo, bola.circle_obj.height / 2)
-        bola_empty = BolaNormal(0, '', holder)
+        bola_empty = self.desenhaBolaHolder(coors_no_campo, background)
 
         self.atualizaSelfCampo(bola_empty, bola)
 
@@ -178,35 +175,34 @@ class Campo():
 
             self.__campo[index] = nova_bola
             if caso1:
-                holder1 = pygame.draw.circle(
-                    background, "#808080", bola1.circle_obj.center, 35)
-                bola_empty1 = BolaNormal(0, '', holder1)
+                coors = bola1.circle_obj.center
+                bola_empty1 = self.desenhaBolaHolder(coors, background)
                 self.__campo[len(self.__campo) - 1] = bola_empty1
 
-                holder2 = pygame.draw.circle(
-                    background, "#808080", bola2.circle_obj.center, 35)
-                bola_empty2 = BolaNormal(0, '', holder2)
+                coors = bola2.circle_obj.center
+                bola_empty2 = self.desenhaBolaHolder(coors, background)
                 self.__campo[index + 1] = bola_empty2
             elif caso2:
-                holder1 = pygame.draw.circle(
-                    background, "#808080", bola1.circle_obj.center, 35)
-                bola_empty1 = BolaNormal(0, '', holder1)
+                coors = bola1.circle_obj.center
+                bola_empty1 = self.desenhaBolaHolder(coors, background)
                 self.__campo[index - 1] = bola_empty1
 
-                holder2 = pygame.draw.circle(
-                    background, "#808080", bola2.circle_obj.center, 35)
-                bola_empty2 = BolaNormal(0, '', holder2)
+                coors = bola2.circle_obj.center
+                bola_empty2 = self.desenhaBolaHolder(coors, background)
                 self.__campo[0] = bola_empty2
             elif caso3:
-                holder1 = pygame.draw.circle(
-                    background, "#808080", bola1.circle_obj.center, 35)
-                bola_empty1 = BolaNormal(0, '', holder1)
+                coors = bola1.circle_obj.center
+                bola_empty1 = self.desenhaBolaHolder(coors, background)
                 self.__campo[index - 1] = bola_empty1
 
-                holder2 = pygame.draw.circle(
-                    background, "#808080", bola2.circle_obj.center, 35)
-                bola_empty2 = BolaNormal(0, '', holder2)
+                coors = bola2.circle_obj.center
+                bola_empty2 = self.desenhaBolaHolder(coors, background)
                 self.__campo[index + 1] = bola_empty2
+
+    def desenhaBolaHolder(self, coors, background):
+        holder = pygame.draw.circle(
+            background, "#808080", coors, 35)
+        return BolaNormal(0, '', holder)
 
     @property
     def campo(self):
