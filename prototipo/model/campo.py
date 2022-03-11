@@ -16,20 +16,10 @@ class Campo():
         self.__tela_width = tela_width
         self.__tela_height = tela_height
         self.__gerador_bola = geraBola
-        self.__elem_dict = {
-            1: "H",
-            2: "He",
-            3: "Li",
-            4: "Be",
-            5: "B",
-            6: "C",
-            7: "N",
-            8: "O",
-            9: "F",
-            10: "Ne",
-            11: "Na",
-            12: "Mg"
-        }
+        dic_elementos = {}
+        for i in range(1, 100):
+            dic_elementos[i] = f'{i}'
+        self.__elem_dict = dic_elementos
 
     def add_bola(self, bola: Bola):
         if isinstance(bola, Bola):
@@ -44,7 +34,7 @@ class Campo():
                                    self.__raio, 5)
 
         self.__bola_central = self.__gerador_bola.geraBola(
-            background, campo_pos, True)
+            self.__elem_dict, background, campo_pos, True)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(self.__elem_dict.get(self.__bola_central.valor), True, (0, 0, 0)),
                         (campo_pos[0] - 15, campo_pos[1] - 20))
@@ -61,7 +51,7 @@ class Campo():
             if i % 3 == 0:
                 # Gera bolas inicialmente setadas no campo (menos a bola central)
                 self.__campo[i] = self.__gerador_bola.geraBola(
-                    background, coors, True)
+                    self.__elem_dict, background, coors, True)
                 background.blit(fonte.render(self.__campo[i].nome, True, (0, 0, 0)), (
                     self.__campo[i].circle_obj.x + 12, self.__campo[i].circle_obj.y + 20))
             else:
@@ -102,7 +92,7 @@ class Campo():
 
         campo_pos = (self.__tela_width / 2, self.__tela_height / 2)
         self.__bola_central = self.__gerador_bola.geraBola(
-            background, campo_pos, False)
+            self.__elem_dict,background, campo_pos, False)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(self.__bola_central.nome,
                         True, (0, 0, 0)), (campo_pos[0] - 15, campo_pos[1] - 20))
@@ -144,6 +134,7 @@ class Campo():
         casais = list()
         casais_index = list()
         procurar = True
+        pontos = 0
         tm_lista = len(self.__campo)
         while procurar:
             campo_lista = []
@@ -213,6 +204,12 @@ class Campo():
                     valor = casais[i].valor
                     
             new_value = (valor+1) + (len(casais)/2 - 1)
+            
+            #pontuação para o placar
+            pontos = 0
+            for i in casais:
+                pontos += i.valor
+            
             circle = pygame.draw.circle(
                     background, "#A89234", (bolaMais.circle_obj.x + 10, bolaMais.circle_obj.y + 10), bolaMais.circle_obj.height / 2)
             nova_bola = BolaNormal(
@@ -234,53 +231,19 @@ class Campo():
                 coors = casais[i+1].circle_obj.center
                 bola_empty2 = self.desenhaBolaHolder(coors, background)
                 self.__campo[casais_index[i+1]] = bola_empty2
-        print('4')
-        campo_lista = []
-        for i in self.__campo:
-            boleta = i.nome
-            campo_lista.append(boleta)
-        print(campo_lista)
-        print('index : ', index)
+            print('4')
+            campo_lista = []
+            for i in self.__campo:
+                boleta = i.nome
+                campo_lista.append(boleta)
+                print(campo_lista)
+                print('index : ', index)    
+        return pontos
+   
+        
+            
         
         
-        
-        '''if len(casais) != 0:
-            for i in range(0,len(casais),+2):
-                print(casais[i].nome, casais[i + 1].nome)
-                lista_com_valor_e_coors = bolaMais.acao(
-                    casais[i], casais[i+1])'''
-                
-        '''if lista_com_valor_e_coors != None:
-                print(lista_com_valor_e_coors)
-                new_value = lista_com_valor_e_coors[0]
-                # em cima da BolaMais
-                circle = pygame.draw.circle(
-                    background, "#A89234", (bolaMais.circle_obj.x + 10, bolaMais.circle_obj.y + 10), bolaMais.circle_obj.height / 2)
-                nova_bola = BolaNormal(
-                    new_value, self.__elem_dict[new_value], circle)
-                fonte = pygame.font.SysFont(None, 50)
-                background.blit(fonte.render(nova_bola.nome,
-                                            True, (0, 0, 0)), (nova_bola.circle_obj.x + 20, nova_bola.circle_obj.y + 15))
-
-                self.__campo[index] = nova_bola
-                
-                holder1 = pygame.draw.circle(
-                    background, "#808080", bola_d.circle_obj.center, 35)
-                bola_empty1 = BolaNormal(0, '', holder1)
-                self.__campo[casais_index[i]] = bola_empty1
-
-                holder2 = pygame.draw.circle(
-                     background, "#808080", bola_e.circle_obj.center, 35)
-                bola_empty2 = BolaNormal(0, '', holder2)
-                self.__campo[casais_index[i+1]] = bola_empty2
-
-                coors = bola_d.circle_obj.center
-                bola_empty1 = self.desenhaBolaHolder(coors, background)
-                self.__campo[casais_index[i]] = bola_empty1
-
-                coors = bola_e.circle_obj.center
-                bola_empty2 = self.desenhaBolaHolder(coors, background)
-                self.__campo[casais_index[i+1]] = bola_empty2'''
            
     def desenhaBolaHolder(self, coors, background):
         holder = pygame.draw.circle(

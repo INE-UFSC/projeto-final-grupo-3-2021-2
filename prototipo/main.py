@@ -7,7 +7,7 @@ import pygame
 pygame.init()
 MenuPrincipal = MenuPrincipal(480, 510)
 rank = LeaderBoard(480, 510, [
-                   'Jônata', 'Mateus', 'Thiago', 'José', 'Kalleo', 'Bernardo', '', '', '', ''])
+                   'Jônata', 'Mateus', 'Thiago', 'José', 'Kalleo', '', '', '', '', ''])
 mdj = menu_modos_de_jogo(480, 510)
 state = 'start'
 pygame.mixer.music.set_volume(0.5)

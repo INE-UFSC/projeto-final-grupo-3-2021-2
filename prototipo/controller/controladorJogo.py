@@ -8,7 +8,7 @@ from cmath import sqrt
 import sys
 import os
 from model.BolaBranca import BolaBranca
-
+from view.score import Placar
 from model.BolaEspecial import BolaEspecial
 from model.BolaMais import BolaMais
 from model.BolaMenos import BolaMenos
@@ -38,7 +38,9 @@ class ControladorJogo(ABC):
         background = pygame.Surface(screen.get_size())
         background = background.convert()
         background.fill((250, 250, 250))
-
+        #Inicializando placar
+        self.__placar = Placar(background, self.__tela_width, self.__tela_height)
+        
         running = True
         self.__campo.setar_campo(background, screen)
         while running:
@@ -65,6 +67,9 @@ class ControladorJogo(ABC):
                             if x <= bola.circle_obj.x + 10 + 30 and x >= bola.circle_obj.x + 10 - 30:
                                 if y <= bola.circle_obj.y + 10 + 30 and y >= bola.circle_obj.y + 10 - 30:
                                     closest_obj = bola
+                                    
+                     
+                              
                     #Se tiver alguma bola vermelha no campo ele ativa
                     count = 0
                     while True:
@@ -87,9 +92,9 @@ class ControladorJogo(ABC):
 
                             if isinstance(obj, BolaMais):
                                 
-                                self.__campo.desenhaBolaAoAcaoMais(
+                                new_value = self.__campo.desenhaBolaAoAcaoMais(
                                     background, obj)
-
+                                self.__placar.pontuar(int(new_value))
                         elif closest_obj.nome != "":
                             if isinstance(self.__campo.bola_central, BolaMenos):
                                 
@@ -101,7 +106,8 @@ class ControladorJogo(ABC):
 
                                 self.__campo.desenhaBolaAoAcaoMenos(
                                     background, obj, coors_no_campo)
-
+                                
+            self.__placar.desenha_placar()   
             screen.blit(background, (0, 0))
             pygame.display.update()
             clock.tick(40)
