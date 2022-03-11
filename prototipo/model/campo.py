@@ -139,66 +139,101 @@ class Campo():
     # criação a partir da junção de bolas (por causa da BolaMais)
 
     def desenhaBolaAoAcaoMais(self, background, bolaMais):
+
         index = self.__campo.index(bolaMais)
+        casais = list()
+        casais_index = list()
+        procurar = True
+        tm_lista = len(self.__campo)
+        while procurar:
+            campo_lista = []
+            for i in self.__campo:
+                boleta = i.nome
+                campo_lista.append(boleta)
+            print(campo_lista)
+            print('index : ', index)
+            bola_d = None
+            bola_e = None
+            count = index
+            while True:
+                count =  count + 1
+                if count == index:
+                    break
+                if count == tm_lista:
+                    count = 0  
+                if self.__campo[count].nome != '':
+                    bola_d = self.__campo[count]
+                    index_d = count
+                    break
+    
+            count = index   
+            while True:
+                count =  count - 1
+                if count == index:
+                    break
+                if count == -1:
+                    count = tm_lista -1 
+                if self.__campo[count].nome != '':
+                    bola_e = self.__campo[count]
+                    index_e = count
+                    break
+            print('2')
+            campo_lista = []
+            for i in self.__campo:
+                boleta = i.nome
+                campo_lista.append(boleta)
+            print(campo_lista)
+            print('index : ', index)
+            if bola_e == None or bola_d == None:
+                procurar = False
+            elif bola_e.nome != bola_d.nome:
+                procurar = False
+            else:
+                casais_index.append(index_d)
+                casais_index.append(index_e)
+                casais.append(bola_d)
+                casais.append(bola_e)
+                bola_d.nome = ''
+                bola_e.nome = ''
+        
+        if len(casais) != 0:
+            for i in range(0,len(casais),+2):
+                print(casais[i].nome, casais[i + 1].nome)
+                lista_com_valor_e_coors = bolaMais.acao(
+                    casais[i], casais[i+1])
+                
+            if lista_com_valor_e_coors != None:
+                print(lista_com_valor_e_coors)
+                new_value = lista_com_valor_e_coors[0]
+                # em cima da BolaMais
+                circle = pygame.draw.circle(
+                    background, "#A89234", (bolaMais.circle_obj.x + 10, bolaMais.circle_obj.y + 10), bolaMais.circle_obj.height / 2)
+                nova_bola = BolaNormal(
+                    new_value, self.__elem_dict[new_value], circle)
+                fonte = pygame.font.SysFont(None, 50)
+                background.blit(fonte.render(nova_bola.nome,
+                                            True, (0, 0, 0)), (nova_bola.circle_obj.x + 20, nova_bola.circle_obj.y + 15))
 
-        caso1 = False
-        caso2 = False
-        caso3 = False
+                self.__campo[index] = nova_bola
+                
+                '''holder1 = pygame.draw.circle(
+                    background, "#808080", bola_d.circle_obj.center, 35)
+                bola_empty1 = BolaNormal(0, '', holder1)
+                self.__campo[casais_index[i]] = bola_empty1
 
-        if index == 0:
-            bola1 = self.__campo[len(
-                self.__campo) - 1]
-            bola2 = self.__campo[index + 1]
-            caso1 = True
-        elif index == len(self.__campo) - 1:
-            bola1 = self.__campo[index - 1]
-            bola2 = self.__campo[0]
-            caso2 = True
-        else:
-            bola1 = self.__campo[index - 1]
-            bola2 = self.__campo[index + 1]
-            caso3 = True
+                holder2 = pygame.draw.circle(
+                     background, "#808080", bola_e.circle_obj.center, 35)
+                bola_empty2 = BolaNormal(0, '', holder2)
+                self.__campo[casais_index[i+1]] = bola_empty2'''
 
-        lista_com_valor_e_coors = bolaMais.acao(
-            bola1, bola2)
-
-        if lista_com_valor_e_coors != None:
-            new_value = lista_com_valor_e_coors[0]
-            # em cima da BolaMais
-            circle = pygame.draw.circle(
-                background, "#A89234", (bolaMais.circle_obj.x + 10, bolaMais.circle_obj.y + 10), bolaMais.circle_obj.height / 2)
-            nova_bola = BolaNormal(
-                new_value, self.__elem_dict[new_value], circle)
-            fonte = pygame.font.SysFont(None, 50)
-            background.blit(fonte.render(nova_bola.nome,
-                                         True, (0, 0, 0)), (nova_bola.circle_obj.x + 20, nova_bola.circle_obj.y + 15))
-
-            self.__campo[index] = nova_bola
-            if caso1:
-                coors = bola1.circle_obj.center
+                coors = bola_d.circle_obj.center
                 bola_empty1 = self.desenhaBolaHolder(coors, background)
-                self.__campo[len(self.__campo) - 1] = bola_empty1
+                self.__campo[casais_index[i]] = bola_empty1
 
-                coors = bola2.circle_obj.center
+                coors = bola_e.circle_obj.center
                 bola_empty2 = self.desenhaBolaHolder(coors, background)
-                self.__campo[index + 1] = bola_empty2
-            elif caso2:
-                coors = bola1.circle_obj.center
-                bola_empty1 = self.desenhaBolaHolder(coors, background)
-                self.__campo[index - 1] = bola_empty1
-
-                coors = bola2.circle_obj.center
-                bola_empty2 = self.desenhaBolaHolder(coors, background)
-                self.__campo[0] = bola_empty2
-            elif caso3:
-                coors = bola1.circle_obj.center
-                bola_empty1 = self.desenhaBolaHolder(coors, background)
-                self.__campo[index - 1] = bola_empty1
-
-                coors = bola2.circle_obj.center
-                bola_empty2 = self.desenhaBolaHolder(coors, background)
-                self.__campo[index + 1] = bola_empty2
-
+                self.__campo[casais_index[i+1]] = bola_empty2
+           
     def desenhaBolaHolder(self, coors, background):
         holder = pygame.draw.circle(
             background, "#808080", coors, 35)
