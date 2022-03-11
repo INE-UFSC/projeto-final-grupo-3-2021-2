@@ -284,7 +284,7 @@ class Campo():
            
     def desenhaBolaHolder(self, coors, background):
         holder = pygame.draw.circle(
-            background, "#808080", coors, 35)
+             background, "#808080", coors, 35)
         return BolaNormal(0, '', holder)
 
     @property
