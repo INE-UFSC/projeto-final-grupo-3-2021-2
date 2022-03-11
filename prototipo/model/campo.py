@@ -65,7 +65,7 @@ class Campo():
                 background.blit(fonte.render(self.__campo[i].nome, True, (0, 0, 0)), (
                     self.__campo[i].circle_obj.x + 12, self.__campo[i].circle_obj.y + 20))
             else:
-                # Gera espaços vazios (bolas vermelhas)
+                # Gera espaços vazios (bolas cinzas)
                 bola_empty = self.desenhaBolaHolder(coors, background)
 
                 self.__campo[i] = bola_empty
