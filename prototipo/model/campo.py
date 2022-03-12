@@ -73,14 +73,10 @@ class Campo():
                     self.__elem_dict, background, coors, True)
                 background.blit(fonte.render(self.__campo[i].nome, True, (0, 0, 0)), (
                     self.__campo[i].circle_obj.x + 12, self.__campo[i].circle_obj.y + 20))
-                background.blit(fonte.render('%d x %d' %
-                                (coors), True, (0, 0, 0)), (coors))
                 self.__list_coors[i] = coors
             else:
                 # Gera espaços vazios (bolas cinzas)
                 bola_empty = self.desenhaBolaHolder(coors, background)
-                background.blit(fonte.render('%d x %d' %
-                                (coors), True, (0, 0, 0)), (coors))
                 self.__list_coors[i] = coors
                 self.__campo[i] = bola_empty
             angulo += 360 / self.__capacidade
@@ -146,7 +142,9 @@ class Campo():
         background.blit(fonte.render(bola.nome,
                                      True, (0, 0, 0)), (bola.circle_obj.x + 20, bola.circle_obj.y + 15))
 
-        bola_empty = self.desenhaBolaHolder(coors_no_campo, background)
+        corrected_coors = self.corrigirCoors(coors_no_campo)
+
+        bola_empty = self.desenhaBolaHolder(corrected_coors, background)
 
         self.atualizaSelfCampo(bola_empty, bola)
 
@@ -221,10 +219,10 @@ class Campo():
 
             # novo valor da bola
             for i in range(0, len(casais), +2):
-                if i == 0:
+                if i == 0 and casais[i].nome != "+":
                     valor = casais[i].valor
 
-                elif casais[i].valor > valor:
+                elif casais[i].valor > valor and casais[i].nome != "+":
                     valor = casais[i].valor
 
             new_value = (valor+1) + (len(casais)/2 - 1)
@@ -251,25 +249,19 @@ class Campo():
                 coors = (casais[i].circle_obj.center[0],
                          casais[i].circle_obj.center[1])
                 corrected_coors = self.corrigirCoors(coors)
-                print("coors1", corrected_coors)
                 bola_empty1 = self.desenhaBolaHolder(
-                    corrected_coors, background, "#03fc13")
+                    corrected_coors, background)
                 self.__campo[casais_index[i]] = bola_empty1
 
                 coors = (casais[i+1].circle_obj.center[0],
                          casais[i+1].circle_obj.center[1])
                 corrected_coors = self.corrigirCoors(coors)
-                print("coors2", corrected_coors)
                 bola_empty2 = self.desenhaBolaHolder(
-                    corrected_coors, background, "#1c03fc")
+                    corrected_coors, background)
                 self.__campo[casais_index[i+1]] = bola_empty2
-            # print('4')
-            campo_lista = []
-            for i in self.__campo:
-                boleta = i.nome
-                campo_lista.append(boleta)
-                # print(campo_lista)
-                # print('index : ', index)
+
+        self.__gerador_bola.atualizaMinMaxBola(self.__campo)
+
         return pontos
 
     def desenhaBolaHolder(self, coors, background, cor="#808080"):
@@ -280,12 +272,12 @@ class Campo():
 
     def corrigirCoors(self, coors):
         lista = self.__list_coors
-        flag = False
+        flag = True
         for coor in lista:
-            if(int(coor[0] != coors[0]) and int(coor[1] != coors[1])):
-                flag = True
+            if(int(coor[0]) == coors[0] and int(coor[1]) == coors[1]):
+                flag = False
 
-        if(flag):
+        if flag:
             return (coors[0] - 25, coors[1] - 25)
         else:
             return coors

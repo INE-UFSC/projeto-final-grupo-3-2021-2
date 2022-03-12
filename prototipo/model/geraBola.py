@@ -4,6 +4,7 @@ from model.BolaMateriaNegra import BolaMateriaNegra
 from model.BolaMenos import BolaMenos
 from model.BolaBranca import BolaBranca
 from model.BolaNormal import BolaNormal
+from model.BolaEspecial import BolaEspecial
 import pygame
 
 
@@ -34,7 +35,7 @@ class GeraBola():
     def geraBolaEspecial(self, background, coors):
 
         if random.randint(1, 100) == 1:
-            circle_obj = pygame.draw.circle(background, "#000000", coors, 35)
+            circle_obj = pygame.draw.circle(background, "#080808", coors, 35)
             bola = BolaMateriaNegra("#", circle_obj, False)
             return bola
         elif random.randint(1, 100) == 1:
@@ -49,6 +50,15 @@ class GeraBola():
             circle_obj = pygame.draw.circle(background, "#d13d32", coors, 35)
             bola = BolaMais("+", circle_obj, False)
             return bola
+
+    def atualizaMinMaxBola(self, campo):
+        for bola in campo:
+            if not isinstance(bola, BolaEspecial):
+                if bola.valor > 0 and bola.valor > self.__max_bola:
+                    self.__max_bola = bola.valor
+
+                if bola.valor > 0 and bola.valor < self.__min_bola:
+                    self.__min_bola = bola.valor
 
     @property
     def max_bola(self):

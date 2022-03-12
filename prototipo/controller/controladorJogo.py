@@ -38,9 +38,10 @@ class ControladorJogo(ABC):
         background = pygame.Surface(screen.get_size())
         background = background.convert()
         background.fill((250, 250, 250))
-        #Inicializando placar
-        self.__placar = Placar(background, self.__tela_width, self.__tela_height)
-        
+        # Inicializando placar
+        self.__placar = Placar(
+            background, self.__tela_width, self.__tela_height)
+
         running = True
         self.__campo.setar_campo(background, screen)
         while running:
@@ -67,21 +68,18 @@ class ControladorJogo(ABC):
                             if x <= bola.circle_obj.x + 10 + 30 and x >= bola.circle_obj.x + 10 - 30:
                                 if y <= bola.circle_obj.y + 10 + 30 and y >= bola.circle_obj.y + 10 - 30:
                                     closest_obj = bola
-                                    
-                     
-                              
-                    #Se tiver alguma bola vermelha no campo ele ativa
+
+                    # Se tiver alguma bola vermelha no campo ele ativa
                     count = 0
                     while True:
                         if count == len(self.__campo.campo):
                             break
                         elif self.__campo.campo[count].nome == '+':
                             self.__campo.desenhaBolaAoAcaoMais(
-                                    background, self.__campo.campo[count])
-                        
+                                background, self.__campo.campo[count])
+
                         count += 1
-                    
-                    
+
                     if closest_obj != None:
                         if closest_obj.nome == "" and not (isinstance(self.__campo.bola_central, BolaMenos) or isinstance(self.__campo.bola_central, BolaBranca)):
                             obj = self.__campo.desloca_bola(
@@ -91,23 +89,24 @@ class ControladorJogo(ABC):
                             self.__campo.atualizaSelfCampo(obj, closest_obj)
 
                             if isinstance(obj, BolaMais):
-                                
+
                                 new_value = self.__campo.desenhaBolaAoAcaoMais(
                                     background, obj)
                                 self.__placar.pontuar(int(new_value))
+
                         elif closest_obj.nome != "":
                             if isinstance(self.__campo.bola_central, BolaMenos):
-                                
+
                                 coors_no_campo = closest_obj.circle_obj.center
-                                
+
                                 obj = self.__campo.bola_central.acao(
                                     closest_obj)
                                 self.__campo.bola_central = obj
 
                                 self.__campo.desenhaBolaAoAcaoMenos(
                                     background, obj, coors_no_campo)
-                                
-            self.__placar.desenha_placar()   
+
+            self.__placar.desenha_placar()
             screen.blit(background, (0, 0))
             pygame.display.update()
             clock.tick(40)
