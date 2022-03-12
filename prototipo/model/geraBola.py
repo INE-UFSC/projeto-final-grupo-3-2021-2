@@ -15,10 +15,10 @@ class GeraBola():
         self.__lista_bola_especial = [
             BolaMais, BolaMenos, BolaBranca, BolaMateriaNegra
         ]
-        
 
     #  Gera bolas de HE no campo
-    def geraBola(self, elementos,background, coors, start: bool):
+
+    def geraBola(self, elementos, background, coors, start: bool):
         # não podemos gerar bolas especiais no início do jogo
         if random.randint(1, 100) <= 40 and not start:
             bola = self.geraBolaEspecial(background, coors)
