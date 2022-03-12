@@ -16,9 +16,6 @@ class Campo():
         self.__tela_width = tela_width
         self.__tela_height = tela_height
         self.__gerador_bola = geraBola
-        dic_elementos = {}
-        for i in range(1, 100):
-            dic_elementos[i] = f'{i}'
         self.__elem_dict = {
             1: "H",
             2: "He",
@@ -41,6 +38,7 @@ class Campo():
             19: "K",
             20: "Ca",
         }
+        self.__list_coors = [None] * self.__capacidade
 
     def add_bola(self, bola: Bola):
         if isinstance(bola, Bola):
@@ -75,10 +73,15 @@ class Campo():
                     self.__elem_dict, background, coors, True)
                 background.blit(fonte.render(self.__campo[i].nome, True, (0, 0, 0)), (
                     self.__campo[i].circle_obj.x + 12, self.__campo[i].circle_obj.y + 20))
+                background.blit(fonte.render('%d x %d' %
+                                (coors), True, (0, 0, 0)), (coors))
+                self.__list_coors[i] = coors
             else:
                 # Gera espaços vazios (bolas cinzas)
                 bola_empty = self.desenhaBolaHolder(coors, background)
-
+                background.blit(fonte.render('%d x %d' %
+                                (coors), True, (0, 0, 0)), (coors))
+                self.__list_coors[i] = coors
                 self.__campo[i] = bola_empty
             angulo += 360 / self.__capacidade
 
@@ -162,8 +165,8 @@ class Campo():
             for i in self.__campo:
                 boleta = i.nome
                 campo_lista.append(boleta)
-            print(campo_lista)
-            print('index : ', index)
+            # print(campo_lista)
+            # print('index : ', index)
             bola_d = None
             bola_e = None
             count = index
@@ -189,13 +192,13 @@ class Campo():
                     bola_e = self.__campo[count]
                     index_e = count
                     break
-            print('2')
+            # print('2')
             campo_lista = []
             for i in self.__campo:
                 boleta = i.nome
                 campo_lista.append(boleta)
-            print(campo_lista)
-            print('index : ', index)
+            # print(campo_lista)
+            # print('index : ', index)
             if bola_e == None or bola_d == None:
                 procurar = False
             elif bola_e.nome != bola_d.nome:
@@ -207,13 +210,13 @@ class Campo():
                 casais.append(bola_e)
                 bola_d.nome = ''
                 bola_e.nome = ''
-        print('3')
+        # print('3')
         campo_lista = []
         for i in self.__campo:
             boleta = i.nome
             campo_lista.append(boleta)
-        print(campo_lista)
-        print('index : ', index)
+        # print(campo_lista)
+        # print('index : ', index)
         if len(casais) != 0:
 
             # novo valor da bola
@@ -245,26 +248,47 @@ class Campo():
                 casais_index[i], casais_index[i+1]
                 casais[i], casais[i+1]
 
-                coors = casais[i].circle_obj.center
-                bola_empty1 = self.desenhaBolaHolder(coors, background)
+                coors = (casais[i].circle_obj.center[0],
+                         casais[i].circle_obj.center[1])
+                corrected_coors = self.corrigirCoors(coors)
+                print("coors1", corrected_coors)
+                bola_empty1 = self.desenhaBolaHolder(
+                    corrected_coors, background, "#03fc13")
                 self.__campo[casais_index[i]] = bola_empty1
 
-                coors = casais[i+1].circle_obj.center
-                bola_empty2 = self.desenhaBolaHolder(coors, background)
+                coors = (casais[i+1].circle_obj.center[0],
+                         casais[i+1].circle_obj.center[1])
+                corrected_coors = self.corrigirCoors(coors)
+                print("coors2", corrected_coors)
+                bola_empty2 = self.desenhaBolaHolder(
+                    corrected_coors, background, "#1c03fc")
                 self.__campo[casais_index[i+1]] = bola_empty2
-            print('4')
+            # print('4')
             campo_lista = []
             for i in self.__campo:
                 boleta = i.nome
                 campo_lista.append(boleta)
-                print(campo_lista)
-                print('index : ', index)
+                # print(campo_lista)
+                # print('index : ', index)
         return pontos
 
-    def desenhaBolaHolder(self, coors, background):
+    def desenhaBolaHolder(self, coors, background, cor="#808080"):
         holder = pygame.draw.circle(
-            background, "#808080", coors, 35)
+            background, cor, coors, 35)
+
         return BolaNormal(0, '', holder)
+
+    def corrigirCoors(self, coors):
+        lista = self.__list_coors
+        flag = False
+        for coor in lista:
+            if(int(coor[0] != coors[0]) and int(coor[1] != coors[1])):
+                flag = True
+
+        if(flag):
+            return (coors[0] - 25, coors[1] - 25)
+        else:
+            return coors
 
     @property
     def campo(self):
