@@ -104,6 +104,15 @@ class ControladorJogo(ABC):
                                 self.__campo.desenhaBolaAoAcaoMenos(
                                     background, obj, coors_no_campo)
 
+                                count = 0
+                                while True:
+                                    if count == len(self.__campo.campo):
+                                        break
+                                    elif self.__campo.campo[count].nome == '+':
+                                        self.__campo.desenhaBolaAoAcaoMais(
+                                            background, self.__campo.campo[count])
+                                    count += 1
+
                             elif isinstance(self.__campo.bola_central, BolaBranca) and not isinstance(closest_obj, BolaMais):
                                 obj = self.__campo.bola_central.acao(
                                     closest_obj)
