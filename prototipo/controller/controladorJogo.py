@@ -60,14 +60,11 @@ class ControladorJogo(ABC):
                         count += 1
 
                         if bola.nome == '':
-
-                            if x <= bola.circle_obj.x + 10 + 30 and x >= bola.circle_obj.x + 10 - 30:
-                                if y <= bola.circle_obj.y + 10 + 30 and y >= bola.circle_obj.y + 10 - 30:
-                                    closest_obj = bola
+                            if bola.circle_obj.x + 35 - 30 <= x <= bola.circle_obj.x + 35 + 30 and bola.circle_obj.y + 35 - 30 <= y <= bola.circle_obj.y + 35 + 30:
+                                closest_obj = bola
                         elif not isinstance(bola, BolaEspecial) and (isinstance(self.__campo.bola_central, BolaMenos) or isinstance(self.__campo.bola_central, BolaBranca)):
-                            if x <= bola.circle_obj.x + 10 + 30 and x >= bola.circle_obj.x + 10 - 30:
-                                if y <= bola.circle_obj.y + 10 + 30 and y >= bola.circle_obj.y + 10 - 30:
-                                    closest_obj = bola
+                            if bola.circle_obj.x + 35 - 30 <= x <= bola.circle_obj.x + 35 + 30 and bola.circle_obj.y + 35 - 30 <= y <= bola.circle_obj.y + 35 + 30:
+                                closest_obj = bola
 
                     # Se tiver alguma bola vermelha no campo ele ativa
                     count = 0
