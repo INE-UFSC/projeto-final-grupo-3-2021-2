@@ -67,17 +67,6 @@ class ControladorJogo(ABC):
                             if bola.circle_obj.x + 35 - 30 <= x <= bola.circle_obj.x + 35 + 30 and bola.circle_obj.y + 35 - 30 <= y <= bola.circle_obj.y + 35 + 30:
                                 closest_obj = bola
 
-                    # Se tiver alguma bola vermelha no campo ele ativa
-                    count = 0
-                    while True:
-                        if count == len(self.__campo.campo):
-                            break
-                        elif self.__campo.campo[count].nome == '+':
-                            self.__campo.desenhaBolaAoAcaoMais(
-                                background, self.__campo.campo[count])
-
-                        count += 1
-
                     if closest_obj != None:
                         if closest_obj.nome == "" and not (isinstance(self.__campo.bola_central, BolaMenos) or isinstance(self.__campo.bola_central, BolaBranca)):
                             obj = self.__campo.desloca_bola(
@@ -91,6 +80,17 @@ class ControladorJogo(ABC):
                                 new_value = self.__campo.desenhaBolaAoAcaoMais(
                                     background, obj)
                                 self.__placar.pontuar(int(new_value))
+
+                            # Se tiver alguma bola vermelha no campo ele ativa
+                            count = 0
+                            while True:
+                                if count == len(self.__campo.campo):
+                                    break
+                                elif self.__campo.campo[count].nome == '+':
+                                    self.__campo.desenhaBolaAoAcaoMais(
+                                        background, self.__campo.campo[count])
+
+                                count += 1
 
                         elif closest_obj.nome != "":
                             if isinstance(self.__campo.bola_central, BolaMenos):

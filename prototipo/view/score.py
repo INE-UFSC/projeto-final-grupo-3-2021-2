@@ -17,7 +17,7 @@ class Placar:
 
     def desenha_placar(self):
         fundo_placar = pygame.draw.rect(
-            self.__tela, "#ffffff", (20, 20, 250, 40))
+            self.__tela, (255, 255, 255), (20, 20, 250, 40))
         fonte_placar = pygame.font.SysFont('arial', 30, True, True)
         legenda_placar = fonte_placar.render(
             f'PONTOS: {self.__score}', 1, (0, 0, 0))
