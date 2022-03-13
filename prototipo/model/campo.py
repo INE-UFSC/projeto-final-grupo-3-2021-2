@@ -4,6 +4,7 @@ import pygame
 from model.Bola import Bola
 from model.BolaNormal import BolaNormal
 from model.geraBola import GeraBola
+from model.BolaMais import BolaMais
 
 
 class Campo():
@@ -219,10 +220,10 @@ class Campo():
 
             # novo valor da bola
             for i in range(0, len(casais), +2):
-                if i == 0 and casais[i].nome != "+":
+                if i == 0 and not isinstance(casais[i], BolaMais):
                     valor = casais[i].valor
 
-                elif casais[i].valor > valor and casais[i].nome != "+":
+                elif casais[i].valor > valor and not isinstance(casais[i], BolaMais):
                     valor = casais[i].valor
 
             new_value = (valor+1) + (len(casais)/2 - 1)
