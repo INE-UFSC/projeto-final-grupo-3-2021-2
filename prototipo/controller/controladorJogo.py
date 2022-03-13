@@ -1,3 +1,4 @@
+from copy import copy
 import time
 import model.campo as campo
 import model.Bola as bola
@@ -101,6 +102,16 @@ class ControladorJogo(ABC):
                                 self.__campo.bola_central = obj
 
                                 self.__campo.desenhaBolaAoAcaoMenos(
+                                    background, obj, coors_no_campo)
+
+                            elif isinstance(self.__campo.bola_central, BolaBranca):
+                                coors_no_campo = closest_obj.circle_obj.center
+
+                                obj = self.__campo.bola_central.acao(
+                                    closest_obj)
+                                self.__campo.bola_central = copy(obj)
+
+                                self.__campo.desenhaBolaAoAcaoBranca(
                                     background, obj, coors_no_campo)
 
             self.__placar.desenha_placar()
