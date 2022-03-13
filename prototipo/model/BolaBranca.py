@@ -12,7 +12,7 @@ class BolaBranca(BolaEspecial):
         if self.__click == 0:
             x = bola.circle_obj.x
             y = bola.circle_obj.y
-            pygame.Rect.move_ip(bola.circle_obj,
-                                self.circle_obj.x - x, self.circle_obj.y - y)
+            circle = pygame.Rect.move(bola.circle_obj,
+                                      self.circle_obj.x - x, self.circle_obj.y - y)
 
-            return bola
+            return BolaNormal(bola.valor, bola.nome, circle)

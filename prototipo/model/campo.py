@@ -179,14 +179,12 @@ class Campo():
 
         self.atualizaSelfCampo(bola_empty, bola)
 
-    def desenhaBolaAoAcaoBranca(self, background, bola, coors_no_campo):
+    def desenhaBolaAoAcaoBranca(self, background, bola):
         pygame.draw.circle(
             background, "#A89234", (bola.circle_obj.x + 35, bola.circle_obj.y + 35), bola.circle_obj.height / 2)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(bola.nome,
                                      True, (0, 0, 0)), (bola.circle_obj.x + 20, bola.circle_obj.y + 15))
-
-    # criação a partir da junção de bolas (por causa da BolaMais)
 
     def desenhaBolaAoAcaoMais(self, background, bolaMais):
 

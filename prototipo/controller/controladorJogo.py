@@ -104,15 +104,13 @@ class ControladorJogo(ABC):
                                 self.__campo.desenhaBolaAoAcaoMenos(
                                     background, obj, coors_no_campo)
 
-                            elif isinstance(self.__campo.bola_central, BolaBranca):
-                                coors_no_campo = closest_obj.circle_obj.center
-
+                            elif isinstance(self.__campo.bola_central, BolaBranca) and not isinstance(closest_obj, BolaMais):
                                 obj = self.__campo.bola_central.acao(
                                     closest_obj)
-                                self.__campo.bola_central = copy(obj)
+                                self.__campo.bola_central = obj
 
                                 self.__campo.desenhaBolaAoAcaoBranca(
-                                    background, obj, coors_no_campo)
+                                    background, obj)
 
             self.__placar.desenha_placar()
             screen.blit(background, (0, 0))
