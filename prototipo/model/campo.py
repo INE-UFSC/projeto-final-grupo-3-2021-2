@@ -279,9 +279,6 @@ class Campo():
             self.__campo[index] = nova_bola
 
             for i in range(0, len(casais), +2):
-                casais_index[i], casais_index[i+1]
-                casais[i], casais[i+1]
-
                 coors = (casais[i].circle_obj.center[0],
                          casais[i].circle_obj.center[1])
                 corrected_coors = self.corrigirCoors(coors)

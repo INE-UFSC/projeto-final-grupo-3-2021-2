@@ -82,16 +82,7 @@ class ControladorJogo(ABC):
                                 self.__placar.pontuar(int(new_value))
 
                             # Se tiver alguma bola vermelha no campo ele ativa
-                            count = 0
-                            while True:
-                                if count == len(self.__campo.campo):
-                                    break
-                                elif self.__campo.campo[count].nome == '+':
-                                    self.__campo.desenhaBolaAoAcaoMais(
-                                        background, self.__campo.campo[count])
-
-                                count += 1
-
+                            self.checkBolaMaisCampo(background)
                         elif closest_obj.nome != "":
                             if isinstance(self.__campo.bola_central, BolaMenos):
 
@@ -104,15 +95,7 @@ class ControladorJogo(ABC):
                                 self.__campo.desenhaBolaAoAcaoMenos(
                                     background, obj, coors_no_campo)
 
-                                count = 0
-                                while True:
-                                    if count == len(self.__campo.campo):
-                                        break
-                                    elif self.__campo.campo[count].nome == '+':
-                                        self.__campo.desenhaBolaAoAcaoMais(
-                                            background, self.__campo.campo[count])
-                                    count += 1
-
+                                self.checkBolaMaisCampo(background)
                             elif isinstance(self.__campo.bola_central, BolaBranca) and not isinstance(closest_obj, BolaMais):
                                 obj = self.__campo.bola_central.acao(
                                     closest_obj)
@@ -133,6 +116,17 @@ class ControladorJogo(ABC):
                 exit()
 
         pygame.quit()
+
+    def checkBolaMaisCampo(self, background):
+        count = 0
+        while True:
+            if count == len(self.__campo.campo):
+                break
+            elif self.__campo.campo[count].nome == '+':
+                self.__campo.desenhaBolaAoAcaoMais(
+                    background, self.__campo.campo[count])
+
+            count += 1
 
     @property
     def bola_central(self):
