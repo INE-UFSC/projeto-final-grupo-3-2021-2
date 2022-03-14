@@ -127,7 +127,7 @@ class Campo():
         elif(obj.nome == "-"):
             pygame.draw.circle(background, "#277edb",
                                (obj.circle_obj.x + 10, obj.circle_obj.y + 10), obj.circle_obj.height / 2)
-        elif(obj.nome == "*"):
+        elif(obj.nome == "="):
             pygame.draw.circle(background, "#f2efda",
                                (obj.circle_obj.x + 10, obj.circle_obj.y + 10), obj.circle_obj.height / 2)
         elif(obj.nome == "#"):
@@ -185,92 +185,54 @@ class Campo():
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(bola.nome,
                                      True, (0, 0, 0)), (bola.circle_obj.x + 20, bola.circle_obj.y + 15))
-
-    def desenhaBolaAoAcaoMais(self, background, bolaMais):
-
-        index = self.__campo.index(bolaMais)
-        casais = list()
-        casais_index = list()
-        procurar = True
-        pontos = 0
-        tm_lista = len(self.__campo)
-        while procurar:
-            campo_lista = []
-            for i in self.__campo:
-                boleta = i.nome
-                campo_lista.append(boleta)
-            # print(campo_lista)
-            # print('index : ', index)
-            bola_d = None
-            bola_e = None
-            count = index
-            while True:
-                count = count + 1
-                if count == index:
-                    break
-                if count == tm_lista:
-                    count = 0
-                if self.__campo[count].nome != '':
-                    bola_d = self.__campo[count]
-                    index_d = count
-                    break
-
-            count = index
-            while True:
-                count = count - 1
-                if count == index:
-                    break
-                if count == -1:
-                    count = tm_lista - 1
-                if self.__campo[count].nome != '':
-                    bola_e = self.__campo[count]
-                    index_e = count
-                    break
-            # print('2')
-            campo_lista = []
-            for i in self.__campo:
-                boleta = i.nome
-                campo_lista.append(boleta)
-            # print(campo_lista)
-            # print('index : ', index)
-            if bola_e == None or bola_d == None:
-                procurar = False
-            elif bola_e == bola_d:
-                procurar = False
-            elif isinstance(bola_d, BolaEspecial) or isinstance(bola_d, BolaEspecial):
-                procurar = False
-            elif bola_e.nome != bola_d.nome:
-                procurar = False
-            else:
-                casais_index.append(index_d)
-                casais_index.append(index_e)
-                casais.append(bola_d)
-                casais.append(bola_e)
-                bola_d.nome = ''
-                bola_e.nome = ''
-        # print('3')
+        
+    def desenhaBolaAcaoMateriaNega(self, background, bolaNegra):
+        print('1')
         campo_lista = []
         for i in self.__campo:
-            boleta = i.nome
-            campo_lista.append(boleta)
-        # print(campo_lista)
-        # print('index : ', index)
-        if len(casais) != 0:
+             boleta = i.nome
+             campo_lista.append(boleta)
+        print(campo_lista)
+            
+        index = self.__campo.index(bolaNegra)
+        rolou, pontos, new_value, lista_bolas, lib_index = bolaNegra.acao(index, self.__campo)
+        if rolou:
+            circle = pygame.draw.circle(
+                    background, "#A89234", (bolaNegra.circle_obj.x + 10, bolaNegra.circle_obj.y + 10), bolaNegra.circle_obj.height / 2)
+            nova_bola = BolaNormal(
+                    new_value, self.__elem_dict[new_value], circle)
+            fonte = pygame.font.SysFont(None, 50)
+            background.blit(fonte.render(nova_bola.nome,
+                                            True, (0, 0, 0)), (nova_bola.circle_obj.x + 20, nova_bola.circle_obj.y + 15))
+            
+            self.__campo[index] = nova_bola
 
-            # novo valor da bola
-            for i in range(0, len(casais), +2):
-                if i == 0 :
-                    valor = casais[i].valor
+            for i in range(0, len(lista_bolas)):
+                coors = (lista_bolas[i].circle_obj.center[0],
+                         lista_bolas[i].circle_obj.center[1])
+                corrected_coors = self.corrigirCoors(coors)
+                bola_empty1 = self.desenhaBolaHolder(
+                    corrected_coors, background)
+                self.__campo[lib_index[i]] = bola_empty1
 
-                elif casais[i].valor > valor:
-                    valor = casais[i].valor
+                
+        print('3')
+        campo_lista = []
+        for i in self.__campo:
+             boleta = i.nome
+             campo_lista.append(boleta)
+        print(campo_lista)
+        self.__gerador_bola.atualizaMinMaxBola(self.__campo)
 
-            new_value = (valor+1) + (len(casais)/2 - 1)
+        return pontos
+                
+        
 
-            # pontuação para o placar
-            pontos = 0
-            for i in casais:
-                pontos += i.valor
+    def desenhaBolaAoAcaoMais(self, background, bolaMais):
+        index = self.__campo.index(bolaMais)
+        rolou, pontos, new_value, casais, casais_index = bolaMais.acao(index, self.__campo)
+
+        if rolou:
 
             circle = pygame.draw.circle(
                 background, "#A89234", (bolaMais.circle_obj.x + 10, bolaMais.circle_obj.y + 10), bolaMais.circle_obj.height / 2)

@@ -13,6 +13,7 @@ from view.score import Placar
 from model.BolaEspecial import BolaEspecial
 from model.BolaMais import BolaMais
 from model.BolaMenos import BolaMenos
+from model.BolaMateriaNegra import BolaMateriaNegra
 sys.path.append(
     os.path.dirname(os.path.realpath(__file__)))
 
@@ -80,7 +81,15 @@ class ControladorJogo(ABC):
                                 new_value = self.__campo.desenhaBolaAoAcaoMais(
                                     background, obj)
                                 self.__placar.pontuar(int(new_value))
+                                
+                            if isinstance(obj, BolaMateriaNegra):
 
+                                new_value = self.__campo.desenhaBolaAcaoMateriaNega(
+                                    background, obj)
+                                self.__placar.pontuar(int(new_value))
+                            
+                            # Se tiver alguma bola materia negra no campo ele ativa
+                            self.checkBolaMateriaNegraCampo(background)
                             # Se tiver alguma bola vermelha no campo ele ativa
                             self.checkBolaMaisCampo(background)
                         elif closest_obj.nome != "":
@@ -116,7 +125,17 @@ class ControladorJogo(ABC):
                 exit()
 
         pygame.quit()
+        
+    def checkBolaMateriaNegraCampo(self, background):
+        count = 0
+        while True:
+            if count == len(self.__campo.campo):
+                break
+            elif self.__campo.campo[count].nome == '#':
+                self.__campo.desenhaBolaAoAcaoMais(
+                    background, self.__campo.campo[count])
 
+            count += 1
     def checkBolaMaisCampo(self, background):
         count = 0
         while True:
