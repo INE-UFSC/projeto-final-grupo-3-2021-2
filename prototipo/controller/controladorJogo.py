@@ -14,6 +14,7 @@ from model.BolaEspecial import BolaEspecial
 from model.BolaMais import BolaMais
 from model.BolaMenos import BolaMenos
 from model.BolaMateriaNegra import BolaMateriaNegra
+from view.score import Rank
 sys.path.append(
     os.path.dirname(os.path.realpath(__file__)))
 
@@ -21,12 +22,11 @@ clock = pygame.time.Clock()
 
 
 class ControladorJogo(ABC):
-    def __init__(self, tela_width: int, tela_height: int, placar) -> None:
+    def __init__(self, tela_width: int, tela_height: int) -> None:
         self.__bola_central = {}
         self.__campo = campo.Campo(
             tela_width, tela_height, GeraBola())
         self.__nome = ''
-        self.__placar = placar
         self.__tela_width = tela_width
         self.__tela_height = tela_height
 
@@ -43,7 +43,8 @@ class ControladorJogo(ABC):
         # Inicializando placar
         self.__placar = Placar(
             background, self.__tela_width, self.__tela_height)
-
+        #Inicializando Rank
+        self.__Rank = Rank()
         running = True
         self.__campo.setar_campo(background, screen)
         while running:
@@ -119,9 +120,10 @@ class ControladorJogo(ABC):
             clock.tick(40)
 
             if(self.__campo.verificaCampo(self.__campo.campo) == False):
-                time.sleep(2)
+                # time.sleep(2)
                 running = False
-                pygame.quit()
+                nome = self.__Rank.desenhar_input(self.__placar.score)
+                self.__Rank.escrever(self.__placar.score, nome)
                 exit()
 
         pygame.quit()

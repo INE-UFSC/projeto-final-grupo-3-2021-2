@@ -1,15 +1,24 @@
 import pygame
 from view.menu import Menu
+from view.score import Rank
 import os
 
 
 class LeaderBoard(Menu):
-    def __init__(self, tela_width, tela_height, rank):
+    def __init__(self, tela_width, tela_height):
         super().__init__(tela_width, tela_height)
         self.__tela = pygame.display.set_mode((tela_width, tela_height))
         self.__background = pygame.Surface(self.__tela.get_size())
         self.__dimensoes = [tela_width, tela_height]
-        self.__rank = rank
+        self.__memoria = Rank().carregar()
+        self.__rank = []
+        
+        for i in sorted(self.__memoria, key = self.__memoria.get, reverse=True):
+            print(i, self.__memoria[i])
+            self.__rank.append(i)
+
+      
+   
 
     def desenhar_menu(self, musica, som):
         pygame.init()
@@ -109,7 +118,7 @@ class LeaderBoard(Menu):
                         pygame.mixer.music.set_volume(0.5)
                         cor_musica = (0, 255, 0)
                         musica = True
-
+            #Desenhando rank
             for i in range(1, len(self.__rank) + 1):
                 if i == 1:
                     cor_rank = (255, 215, 0)
@@ -152,6 +161,7 @@ class LeaderBoard(Menu):
 
         return 'start', musica, som
 
+        
     @property
     def tela(self):
         return self.__tela
