@@ -7,6 +7,7 @@ from model.geraBola import GeraBola
 from model.BolaMais import BolaMais
 from model.BolaEspecial import BolaEspecial
 
+
 class Campo():
 
     def __init__(self, tela_width: int, tela_height: int, geraBola: GeraBola) -> None:
@@ -98,7 +99,7 @@ class Campo():
 
             fonte = pygame.font.SysFont(None, 50)
 
-            if i % 3 == 0:
+            if randint(1, 100) <= 30:
                 # Gera bolas inicialmente setadas no campo (menos a bola central)
                 self.__campo[i] = self.__gerador_bola.geraBola(
                     self.__elem_dict, background, coors, True)
@@ -185,26 +186,27 @@ class Campo():
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(bola.nome,
                                      True, (0, 0, 0)), (bola.circle_obj.x + 20, bola.circle_obj.y + 15))
-        
+
     def desenhaBolaAcaoMateriaNega(self, background, bolaNegra):
         print('1')
         campo_lista = []
         for i in self.__campo:
-             boleta = i.nome
-             campo_lista.append(boleta)
+            boleta = i.nome
+            campo_lista.append(boleta)
         print(campo_lista)
-            
+
         index = self.__campo.index(bolaNegra)
-        rolou, pontos, new_value, lista_bolas, lib_index = bolaNegra.acao(index, self.__campo)
+        rolou, pontos, new_value, lista_bolas, lib_index = bolaNegra.acao(
+            index, self.__campo)
         if rolou:
             circle = pygame.draw.circle(
-                    background, "#A89234", (bolaNegra.circle_obj.x + 10, bolaNegra.circle_obj.y + 10), bolaNegra.circle_obj.height / 2)
+                background, "#A89234", (bolaNegra.circle_obj.x + 10, bolaNegra.circle_obj.y + 10), bolaNegra.circle_obj.height / 2)
             nova_bola = BolaNormal(
-                    new_value, self.__elem_dict[new_value], circle)
+                new_value, self.__elem_dict[new_value], circle)
             fonte = pygame.font.SysFont(None, 50)
             background.blit(fonte.render(nova_bola.nome,
-                                            True, (0, 0, 0)), (nova_bola.circle_obj.x + 20, nova_bola.circle_obj.y + 15))
-            
+                                         True, (0, 0, 0)), (nova_bola.circle_obj.x + 20, nova_bola.circle_obj.y + 15))
+
             self.__campo[index] = nova_bola
 
             for i in range(0, len(lista_bolas)):
@@ -215,22 +217,20 @@ class Campo():
                     corrected_coors, background)
                 self.__campo[lib_index[i]] = bola_empty1
 
-                
         print('3')
         campo_lista = []
         for i in self.__campo:
-             boleta = i.nome
-             campo_lista.append(boleta)
+            boleta = i.nome
+            campo_lista.append(boleta)
         print(campo_lista)
         self.__gerador_bola.atualizaMinMaxBola(self.__campo)
 
         return pontos
-                
-        
 
     def desenhaBolaAoAcaoMais(self, background, bolaMais):
         index = self.__campo.index(bolaMais)
-        rolou, pontos, new_value, casais, casais_index = bolaMais.acao(index, self.__campo)
+        rolou, pontos, new_value, casais, casais_index = bolaMais.acao(
+            index, self.__campo)
 
         if rolou:
 

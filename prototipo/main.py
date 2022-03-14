@@ -2,7 +2,6 @@ from view.leaderboard import LeaderBoard
 from view.menuPrincipal import MenuPrincipal
 from view.menuModosDeJogo import menu_modos_de_jogo
 from controller.controladorClassico import ControladorClassico as cont
-from controller.app import App
 import os
 import pygame
 pygame.init()
@@ -15,9 +14,7 @@ pygame.mixer.music.play(-1)
 musica = True
 som = True
 while True:
-    
-    
-    
+
     if state == 'start':
         Menu_Principal = MenuPrincipal(480, 510)
         state, musica, som = Menu_Principal.desenhar_menu(musica, som)
@@ -34,5 +31,3 @@ while True:
         pygame.mixer.music.set_volume(0)
         controlador = cont(1000, 600)
         controlador.rodar_jogo()
-        
-        

@@ -1,5 +1,3 @@
-from copy import copy
-import time
 import model.campo as campo
 import model.Bola as bola
 from model.geraBola import GeraBola
@@ -9,12 +7,11 @@ from cmath import sqrt
 import sys
 import os
 from model.BolaBranca import BolaBranca
-from view.score import Placar
+from view.Placar import Placar
 from model.BolaEspecial import BolaEspecial
 from model.BolaMais import BolaMais
 from model.BolaMenos import BolaMenos
 from model.BolaMateriaNegra import BolaMateriaNegra
-from view.score import Rank
 sys.path.append(
     os.path.dirname(os.path.realpath(__file__)))
 
@@ -43,8 +40,7 @@ class ControladorJogo(ABC):
         # Inicializando placar
         self.__placar = Placar(
             background, self.__tela_width, self.__tela_height)
-        #Inicializando Rank
-        self.__Rank = Rank()
+        # Inicializando Rank
         running = True
         self.__campo.setar_campo(background, screen)
         while running:
@@ -82,13 +78,13 @@ class ControladorJogo(ABC):
                                 new_value = self.__campo.desenhaBolaAoAcaoMais(
                                     background, obj)
                                 self.__placar.pontuar(int(new_value))
-                                
+
                             if isinstance(obj, BolaMateriaNegra):
 
                                 new_value = self.__campo.desenhaBolaAcaoMateriaNega(
                                     background, obj)
                                 self.__placar.pontuar(int(new_value))
-                            
+
                             # Se tiver alguma bola materia negra no campo ele ativa
                             self.checkBolaMateriaNegraCampo(background)
                             # Se tiver alguma bola vermelha no campo ele ativa
@@ -122,12 +118,12 @@ class ControladorJogo(ABC):
             if(self.__campo.verificaCampo(self.__campo.campo) == False):
                 # time.sleep(2)
                 running = False
-                nome = self.__Rank.desenhar_input(self.__placar.score)
-                self.__Rank.escrever(self.__placar.score, nome)
+                nome = self.__placar.desenhar_input(self.__placar.score)
+                self.__placar.leaderboardDAO.add(nome, self.__placar.score)
                 exit()
 
         pygame.quit()
-        
+
     def checkBolaMateriaNegraCampo(self, background):
         count = 0
         while True:
@@ -138,6 +134,7 @@ class ControladorJogo(ABC):
                     background, self.__campo.campo[count])
 
             count += 1
+
     def checkBolaMaisCampo(self, background):
         count = 0
         while True:

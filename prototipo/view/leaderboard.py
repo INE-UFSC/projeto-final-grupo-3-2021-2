@@ -1,6 +1,6 @@
 import pygame
 from view.menu import Menu
-from view.score import Rank
+from view.LeaderboardDAO import LeaderboardDAO
 import os
 
 
@@ -10,15 +10,12 @@ class LeaderBoard(Menu):
         self.__tela = pygame.display.set_mode((tela_width, tela_height))
         self.__background = pygame.Surface(self.__tela.get_size())
         self.__dimensoes = [tela_width, tela_height]
-        self.__memoria = Rank().carregar()
+        self.__leaderboardDAO = LeaderboardDAO()
         self.__rank = []
-        
-        for i in sorted(self.__memoria, key = self.__memoria.get, reverse=True):
-            print(i, self.__memoria[i])
-            self.__rank.append(i)
 
-      
-   
+        dados = self.__leaderboardDAO.get_all()
+        for i in sorted(dados, key=dados.get, reverse=True):
+            self.__rank.append((i, dados[i]))
 
     def desenhar_menu(self, musica, som):
         pygame.init()
@@ -118,7 +115,7 @@ class LeaderBoard(Menu):
                         pygame.mixer.music.set_volume(0.5)
                         cor_musica = (0, 255, 0)
                         musica = True
-            #Desenhando rank
+            # Desenhando rank
             for i in range(1, len(self.__rank) + 1):
                 if i == 1:
                     cor_rank = (255, 215, 0)
@@ -126,7 +123,7 @@ class LeaderBoard(Menu):
                     fonte_rank = pygame.font.SysFont(
                         'arial', fonte_size, True, True)
                     lista_rank = fonte_rank.render(
-                        f'{i} - {self.__rank[i-1]}', 1, cor_rank)
+                        f'{i} - {self.__rank[i-1][0]}.....{self.__rank[i-1][1]}', 1, cor_rank)
                     pos_x = (width / 4) + 55
                     pos_y = (height / 6) + 50
 
@@ -143,7 +140,7 @@ class LeaderBoard(Menu):
                     fonte_rank = pygame.font.SysFont(
                         'arial', fonte_size, True, True)
                     lista_rank = fonte_rank.render(
-                        f'{i} - {self.__rank[i - 1]}', 1, cor_rank)
+                        f'{i} - {self.__rank[i-1][0]}.....{self.__rank[i-1][1]}', 1, cor_rank)
 
                 self.__background.blit(lista_rank, (pos_x, pos_y))
 
@@ -161,7 +158,6 @@ class LeaderBoard(Menu):
 
         return 'start', musica, som
 
-        
     @property
     def tela(self):
         return self.__tela
