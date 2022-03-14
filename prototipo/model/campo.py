@@ -5,7 +5,7 @@ from model.Bola import Bola
 from model.BolaNormal import BolaNormal
 from model.geraBola import GeraBola
 from model.BolaMais import BolaMais
-
+from model.BolaEspecial import BolaEspecial
 
 class Campo():
 
@@ -235,6 +235,10 @@ class Campo():
             # print('index : ', index)
             if bola_e == None or bola_d == None:
                 procurar = False
+            elif bola_e == bola_d:
+                procurar = False
+            elif isinstance(bola_d, BolaEspecial) or isinstance(bola_d, BolaEspecial):
+                procurar = False
             elif bola_e.nome != bola_d.nome:
                 procurar = False
             else:
@@ -255,10 +259,10 @@ class Campo():
 
             # novo valor da bola
             for i in range(0, len(casais), +2):
-                if i == 0 and not isinstance(casais[i], BolaMais):
+                if i == 0 :
                     valor = casais[i].valor
 
-                elif casais[i].valor > valor and not isinstance(casais[i], BolaMais):
+                elif casais[i].valor > valor:
                     valor = casais[i].valor
 
             new_value = (valor+1) + (len(casais)/2 - 1)
