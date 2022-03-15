@@ -70,6 +70,17 @@ class Campo():
             49: "In",
             50: "Sn",
         }
+        self.__elem_cor =  {1:'#00BFFF', 2:'#FFF0F5', 3:'#7FFFD4', 4:'#FFE4E1', 
+                            5:'#00FFFF', 6:'#B0C4DE', 7:'#7FFFD4', 8:'#5F9EA0', 
+                            9:'#F0FFF0', 10:'#00FF7F',  11:'#006400', 12:'#F0F8FF', 
+                            13:'#3CB371', 14:'#8FBC8F', 15:'#F0FFF0', 16:'#F5FFFA', 
+                            17:'#556B2F', 18:'#7FFF00', 19:'#FFFF00', 20:'#FFD700', 
+                            21:'#CD5C5C', 22:'#BC8F8F', 23:'#B8860B', 24:'#B22222',  
+                            25:'#F4A460', 26:'#FF4500', 27:'#FFFFFF', 28:'#FF8C00', 
+                            29:'#32CD32', 30:'#BDB76B', 31:'#FF00FF', 32:'#9370DB', 
+                            33:'#EE82EE' , 34:'#B03060', 35:'#FFC0CB' , 36:'#FF1493', 
+                            37:'#D2B48C',  38:'#FFFACD', 39:'#FFF5EE', 40:'#E6E6FA'}
+
         self.__list_coors = [None] * self.__capacidade
 
     def add_bola(self, bola: Bola):
