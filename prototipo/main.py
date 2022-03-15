@@ -14,7 +14,7 @@ pygame.mixer.music.play(-1)
 musica = True
 som = True
 while True:
-
+    
     if state == 'start':
         Menu_Principal = MenuPrincipal(480, 510)
         state, musica, som = Menu_Principal.desenhar_menu(musica, som)
@@ -30,4 +30,6 @@ while True:
     elif state == 'classic':
         pygame.mixer.music.set_volume(0)
         controlador = cont(1000, 600)
-        controlador.rodar_jogo()
+        state = controlador.rodar_jogo()
+        
+      

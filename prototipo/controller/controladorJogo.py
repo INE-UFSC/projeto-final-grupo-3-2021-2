@@ -120,7 +120,8 @@ class ControladorJogo(ABC):
                 running = False
                 nome = self.__placar.desenhar_input(self.__placar.score)
                 self.__placar.leaderboardDAO.add(nome, self.__placar.score)
-                exit()
+                pygame.quit()
+                return 'start'
 
         pygame.quit()
 

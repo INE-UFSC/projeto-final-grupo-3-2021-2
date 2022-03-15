@@ -32,6 +32,7 @@ class Placar:
             'Qual seu nome de campeão?'), sg.InputText()], [sg.Submit('Entrar para história!')]]
         window = sg.Window('GAMEOVER').Layout(layout)
         botao, nome = window.Read()
+        window.close()
         return nome[0]
 
     @property
