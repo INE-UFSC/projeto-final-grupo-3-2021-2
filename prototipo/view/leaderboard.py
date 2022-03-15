@@ -116,7 +116,10 @@ class LeaderBoard(Menu):
                         cor_musica = (0, 255, 0)
                         musica = True
             # Desenhando rank
-            for i in range(1, len(self.__rank) + 1):
+            tamanho = len(self.__rank)
+            if tamanho > 10:
+                tamanho = 10
+            for i in range(1, tamanho + 1):
                 if i == 1:
                     cor_rank = (255, 215, 0)
                     fonte_size = 26

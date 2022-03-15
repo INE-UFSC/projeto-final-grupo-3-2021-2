@@ -15,7 +15,6 @@ class MenuPrincipal(Menu):
         barulho_opc = pygame.mixer.Sound(os.path.join(
             'controller', 'sounds', 'sound_option.wav'))
         click = False
-        print(musica)
         if musica:
             cor_musica = (0, 255, 0)
             pygame.mixer.music.set_volume(0.5)

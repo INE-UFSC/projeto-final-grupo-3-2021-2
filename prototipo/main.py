@@ -31,5 +31,11 @@ while True:
         pygame.mixer.music.set_volume(0)
         controlador = cont(1000, 600)
         state = controlador.rodar_jogo()
+        pygame.mixer.init()
+        pygame.mixer.music.set_volume(0)
+        musica_de_fundo = pygame.mixer.music.load(
+        os.path.join('controller', 'sounds', 'musica_menus.mp3'))
+        pygame.mixer.music.play(-1)
+        
         
       
