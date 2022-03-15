@@ -70,14 +70,14 @@ class Campo():
             49: "In",
             50: "Sn",
         }
-        self.__elem_cor =  {1:'#00BFFF', 2:'#FFF0F5', 3:'#7FFFD4', 4:'#FFE4E1', 
+        self.__elem_cor =  {1:'#00FF7F', 2:'#FF00FF', 3:'#556B2F', 4:'#FF4500', 
                             5:'#00FFFF', 6:'#B0C4DE', 7:'#7FFFD4', 8:'#5F9EA0', 
-                            9:'#F0FFF0', 10:'#00FF7F',  11:'#006400', 12:'#F0F8FF', 
+                            9:'#F0FFF0', 10:'#00BFFF',  11:'#006400', 12:'#F0F8FF', 
                             13:'#3CB371', 14:'#8FBC8F', 15:'#F0FFF0', 16:'#F5FFFA', 
                             17:'#556B2F', 18:'#7FFF00', 19:'#FFFF00', 20:'#FFD700', 
                             21:'#CD5C5C', 22:'#BC8F8F', 23:'#B8860B', 24:'#B22222',  
                             25:'#F4A460', 26:'#FF4500', 27:'#FFFFFF', 28:'#FF8C00', 
-                            29:'#32CD32', 30:'#BDB76B', 31:'#FF00FF', 32:'#9370DB', 
+                            29:'#32CD32', 30:'#BDB76B', 31:'#FFF0F5', 32:'#9370DB', 
                             33:'#EE82EE' , 34:'#B03060', 35:'#FFC0CB' , 36:'#FF1493', 
                             37:'#D2B48C',  38:'#FFFACD', 39:'#FFF5EE', 40:'#E6E6FA'}
 
@@ -96,7 +96,7 @@ class Campo():
                                    self.__raio, 5)
 
         self.__bola_central = self.__gerador_bola.geraBola(
-            self.__elem_dict, background, campo_pos, True)
+            self.__elem_dict, background, campo_pos, True, self.__elem_cor)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(self.__elem_dict.get(self.__bola_central.valor), True, (0, 0, 0)),
                         (campo_pos[0] - 15, campo_pos[1] - 20))
@@ -113,7 +113,7 @@ class Campo():
             if randint(1, 100) <= 30:
                 # Gera bolas inicialmente setadas no campo (menos a bola central)
                 self.__campo[i] = self.__gerador_bola.geraBola(
-                    self.__elem_dict, background, coors, True)
+                    self.__elem_dict, background, coors, True, self.__elem_cor)
                 background.blit(fonte.render(self.__campo[i].nome, True, (0, 0, 0)), (
                     self.__campo[i].circle_obj.x + 12, self.__campo[i].circle_obj.y + 20))
                 self.__list_coors[i] = coors
@@ -130,7 +130,8 @@ class Campo():
         obj = self.__bola_central
         x = bola.circle_obj.x - obj.circle_obj.x
         y = bola.circle_obj.y - obj.circle_obj.y
-
+        
+            
         pygame.Rect.move_ip(obj.circle_obj, x + 25, y + 25)
         if(obj.nome == "+"):
             pygame.draw.circle(background, "#d13d32",
@@ -147,7 +148,12 @@ class Campo():
                                (obj.circle_obj.x + 10, obj.circle_obj.y + 10), obj.circle_obj.height / 2)
             obj.em_campo = True
         else:
-            pygame.draw.circle(background, "#A89234",
+            
+            for i in range(1, len(self.__elem_dict.values())+1):
+                if self.__elem_dict[i] == self.__bola_central.nome:
+                    cor = self.__elem_cor[i]
+            
+            pygame.draw.circle(background, cor,
                                (obj.circle_obj.x + 10, obj.circle_obj.y + 10), obj.circle_obj.height / 2)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(self.__bola_central.nome,
@@ -155,7 +161,7 @@ class Campo():
 
         campo_pos = (self.__tela_width / 2, self.__tela_height / 2)
         self.__bola_central = self.__gerador_bola.geraBola(
-            self.__elem_dict, background, campo_pos, False)
+            self.__elem_dict, background, campo_pos, False, self.__elem_cor)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(self.__bola_central.nome,
                         True, (0, 0, 0)), (campo_pos[0] - 15, campo_pos[1] - 20))
@@ -179,8 +185,11 @@ class Campo():
         self.__campo[index] = obj_add
 
     def desenhaBolaAoAcaoMenos(self, background, bola, coors_no_campo):
+        for i in range(1, len(self.__elem_dict.values())+1):
+                if self.__elem_dict[i] == bola.nome:
+                    cor = self.__elem_cor[i]
         pygame.draw.circle(
-            background, "#A89234", (bola.circle_obj.x + 35, bola.circle_obj.y + 35), bola.circle_obj.height / 2)
+            background, cor, (bola.circle_obj.x + 35, bola.circle_obj.y + 35), bola.circle_obj.height / 2)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(bola.nome,
                                      True, (0, 0, 0)), (bola.circle_obj.x + 20, bola.circle_obj.y + 15))
@@ -192,8 +201,12 @@ class Campo():
         self.atualizaSelfCampo(bola_empty, bola)
 
     def desenhaBolaAoAcaoBranca(self, background, bola):
+        for i in range(1, len(self.__elem_dict.values())+1):
+                if self.__elem_dict[i] == bola.nome:
+                    cor = self.__elem_cor[i]
+                    
         pygame.draw.circle(
-            background, "#A89234", (bola.circle_obj.x + 35, bola.circle_obj.y + 35), bola.circle_obj.height / 2)
+            background, cor, (bola.circle_obj.x + 35, bola.circle_obj.y + 35), bola.circle_obj.height / 2)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(bola.nome,
                                      True, (0, 0, 0)), (bola.circle_obj.x + 20, bola.circle_obj.y + 15))
@@ -211,7 +224,7 @@ class Campo():
             index, self.__campo)
         if rolou:
             circle = pygame.draw.circle(
-                background, "#A89234", (bolaNegra.circle_obj.x + 10, bolaNegra.circle_obj.y + 10), bolaNegra.circle_obj.height / 2)
+                background, self.__elem_cor[new_value], (bolaNegra.circle_obj.x + 10, bolaNegra.circle_obj.y + 10), bolaNegra.circle_obj.height / 2)
             nova_bola = BolaNormal(
                 new_value, self.__elem_dict[new_value], circle)
             fonte = pygame.font.SysFont(None, 50)
@@ -246,7 +259,7 @@ class Campo():
         if rolou:
 
             circle = pygame.draw.circle(
-                background, "#A89234", (bolaMais.circle_obj.x + 10, bolaMais.circle_obj.y + 10), bolaMais.circle_obj.height / 2)
+                background, self.__elem_cor[new_value], (bolaMais.circle_obj.x + 10, bolaMais.circle_obj.y + 10), bolaMais.circle_obj.height / 2)
             nova_bola = BolaNormal(
                 new_value, self.__elem_dict[new_value], circle)
             fonte = pygame.font.SysFont(None, 50)
