@@ -36,7 +36,7 @@ class ControladorJogo(ABC):
 
         background = pygame.Surface(screen.get_size())
         background = background.convert()
-        background.fill((250, 250, 250))
+        background.fill("#d08af8")
         # Inicializando placar
         self.__placar = Placar(
             background, self.__tela_width, self.__tela_height)
@@ -120,7 +120,6 @@ class ControladorJogo(ABC):
                 running = False
                 nome = self.__placar.desenhar_input(self.__placar.score)
                 self.__placar.leaderboardDAO.add(nome, self.__placar.score)
-                pygame.quit()
                 return 'start'
 
         pygame.quit()

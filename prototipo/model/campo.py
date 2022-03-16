@@ -92,13 +92,13 @@ class Campo():
         self.__campo = [None] * self.__capacidade
 
         campo_pos = (self.__tela_width / 2, self.__tela_height / 2)
-        campo = pygame.draw.circle(background, (0, 0, 0), campo_pos,
+        campo = pygame.draw.circle(background, (255, 255, 255), campo_pos,
                                    self.__raio, 5)
 
         self.__bola_central = self.__gerador_bola.geraBola(
             self.__elem_dict, background, campo_pos, True, self.__elem_cor)
         fonte = pygame.font.SysFont(None, 50)
-        background.blit(fonte.render(self.__elem_dict.get(self.__bola_central.valor), True, (0, 0, 0)),
+        background.blit(fonte.render(self.__elem_dict.get(self.__bola_central.valor), True, (255,255,255)),
                         (campo_pos[0] - 15, campo_pos[1] - 20))
 
         angulo = 0
@@ -114,7 +114,7 @@ class Campo():
                 # Gera bolas inicialmente setadas no campo (menos a bola central)
                 self.__campo[i] = self.__gerador_bola.geraBola(
                     self.__elem_dict, background, coors, True, self.__elem_cor)
-                background.blit(fonte.render(self.__campo[i].nome, True, (0, 0, 0)), (
+                background.blit(fonte.render(self.__campo[i].nome, True, (255,255,255)), (
                     self.__campo[i].circle_obj.x + 12, self.__campo[i].circle_obj.y + 20))
                 self.__list_coors[i] = coors
             else:
@@ -157,14 +157,14 @@ class Campo():
                                (obj.circle_obj.x + 10, obj.circle_obj.y + 10), obj.circle_obj.height / 2)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(self.__bola_central.nome,
-                        True, (0, 0, 0)), (bola.circle_obj.x + 15, bola.circle_obj.y + 15))
+                        True, (255,255,255)), (bola.circle_obj.x + 15, bola.circle_obj.y + 15))
 
         campo_pos = (self.__tela_width / 2, self.__tela_height / 2)
         self.__bola_central = self.__gerador_bola.geraBola(
             self.__elem_dict, background, campo_pos, False, self.__elem_cor)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(self.__bola_central.nome,
-                        True, (0, 0, 0)), (campo_pos[0] - 15, campo_pos[1] - 20))
+                        True, (255,255,255)), (campo_pos[0] - 15, campo_pos[1] - 20))
 
         return obj
 
@@ -192,7 +192,7 @@ class Campo():
             background, cor, (bola.circle_obj.x + 35, bola.circle_obj.y + 35), bola.circle_obj.height / 2)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(bola.nome,
-                                     True, (0, 0, 0)), (bola.circle_obj.x + 20, bola.circle_obj.y + 15))
+                                     True, (255,255,255)), (bola.circle_obj.x + 20, bola.circle_obj.y + 15))
 
         corrected_coors = self.corrigirCoors(coors_no_campo)
 
@@ -209,7 +209,7 @@ class Campo():
             background, cor, (bola.circle_obj.x + 35, bola.circle_obj.y + 35), bola.circle_obj.height / 2)
         fonte = pygame.font.SysFont(None, 50)
         background.blit(fonte.render(bola.nome,
-                                     True, (0, 0, 0)), (bola.circle_obj.x + 20, bola.circle_obj.y + 15))
+                                     True, (255,255,255)), (bola.circle_obj.x + 20, bola.circle_obj.y + 15))
 
     def desenhaBolaAcaoMateriaNega(self, background, bolaNegra):
         print('1')
@@ -229,7 +229,7 @@ class Campo():
                 new_value, self.__elem_dict[new_value], circle)
             fonte = pygame.font.SysFont(None, 50)
             background.blit(fonte.render(nova_bola.nome,
-                                         True, (0, 0, 0)), (nova_bola.circle_obj.x + 20, nova_bola.circle_obj.y + 15))
+                                         True, (255,255,255)), (nova_bola.circle_obj.x + 20, nova_bola.circle_obj.y + 15))
 
             self.__campo[index] = nova_bola
 
@@ -264,7 +264,7 @@ class Campo():
                 new_value, self.__elem_dict[new_value], circle)
             fonte = pygame.font.SysFont(None, 50)
             background.blit(fonte.render(nova_bola.nome,
-                                         True, (0, 0, 0)), (nova_bola.circle_obj.x + 20, nova_bola.circle_obj.y + 15))
+                                         True, (255,255,255)), (nova_bola.circle_obj.x + 20, nova_bola.circle_obj.y + 15))
 
             self.__campo[index] = nova_bola
 
@@ -287,7 +287,7 @@ class Campo():
 
         return pontos
 
-    def desenhaBolaHolder(self, coors, background, cor="#808080"):
+    def desenhaBolaHolder(self, coors, background, cor="#e9c2ff"):
         holder = pygame.draw.circle(
             background, cor, coors, 35)
 
