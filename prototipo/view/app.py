@@ -1,10 +1,18 @@
-from view.singleton import Singleton
 from view.leaderboard import LeaderBoard
 from view.menuPrincipal import MenuPrincipal
 from view.menuModosDeJogo import menu_modos_de_jogo
 from controller.controladorClassico import ControladorClassico as cont
 import os
 import pygame
+
+
+class Singleton(object):
+    __instance = None
+
+    def __new__(cls, *args):
+        if cls.__instance is None:
+            cls.__instance = object.__new__(cls, *args)
+        return cls.__instance
 
 
 class App(Singleton):
