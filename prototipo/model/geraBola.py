@@ -11,7 +11,7 @@ import pygame
 class GeraBola():
 
     def __init__(self) -> None:
-        self.__max_bola = 4
+        self.__max_bola = 3
         self.__min_bola = 1
 
     #  Gera bolas de HE no campo
@@ -19,12 +19,13 @@ class GeraBola():
     def geraBola(self, elementos, background, coors, start: bool, cores):
         # não podemos gerar bolas especiais no início do jogo
         print(elementos)
-        if random.randint(1, 100) <= 40 and not start:
+        if random.randint(1, 100) <= 45 and not start:
             bola = self.geraBolaEspecial(background, coors)
             return bola
         else:
             rand_val = random.randint(self.__min_bola, self.__max_bola)
-            bola_img = pygame.draw.circle(background, cores.get(rand_val), coors, 35)
+            bola_img = pygame.draw.circle(
+                background, cores.get(rand_val), coors, 35)
             bola = BolaNormal(
                 rand_val, elementos.get(rand_val), bola_img)
 
@@ -40,7 +41,7 @@ class GeraBola():
             circle_obj = pygame.draw.circle(background, "#f2efda", coors, 35)
             bola = BolaBranca("=", circle_obj, False)
             return bola
-        elif random.randint(1, 100) <= 30:
+        elif random.randint(1, 100) <= 20:
             circle_obj = pygame.draw.circle(background, "#277edb", coors, 35)
             bola = BolaMenos("-", circle_obj, False)
             return bola
