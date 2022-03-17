@@ -112,18 +112,18 @@ class Campo():
 
             fonte = pygame.font.SysFont(None, 50)
 
-            if randint(1, 100) <= 26:
-                # Gera bolas inicialmente setadas no campo (menos a bola central)
-                self.__campo[i] = self.__gerador_bola.geraBola(
-                    self.__elem_dict, background, coors, True, self.__elem_cor)
-                background.blit(fonte.render(self.__campo[i].nome, True, (255, 255, 255)), (
-                    self.__campo[i].circle_obj.x + 12, self.__campo[i].circle_obj.y + 20))
-                self.__list_coors[i] = coors
-            else:
-                # Gera espaços vazios (bolas cinzas)
-                bola_empty = self.desenhaBolaHolder(coors, background)
-                self.__list_coors[i] = coors
-                self.__campo[i] = bola_empty
+            # if randint(1, 100) <= 26:
+            #     # Gera bolas inicialmente setadas no campo (menos a bola central)
+            #     self.__campo[i] = self.__gerador_bola.geraBola(
+            #         self.__elem_dict, background, coors, True, self.__elem_cor)
+            #     background.blit(fonte.render(self.__campo[i].nome, True, (255, 255, 255)), (
+            #         self.__campo[i].circle_obj.x + 12, self.__campo[i].circle_obj.y + 20))
+            #     self.__list_coors[i] = coors
+            # else:
+            # Gera espaços vazios (bolas cinzas)
+            bola_empty = self.desenhaBolaHolder(coors, background)
+            self.__list_coors[i] = coors
+            self.__campo[i] = bola_empty
             angulo += 360 / self.__capacidade
 
         screen.blit(background, (0, 0))

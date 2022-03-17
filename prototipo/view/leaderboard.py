@@ -127,7 +127,7 @@ class LeaderBoard(Menu):
                         'arial', fonte_size, True, True)
                     lista_rank = fonte_rank.render(
                         f'{i} - {self.__rank[i-1][0]}.....{self.__rank[i-1][1]}', 1, cor_rank)
-                    pos_x = (width / 4) + 55
+                    pos_x = (width / 4) + 20
                     pos_y = (height / 6) + 50
 
                 else:
