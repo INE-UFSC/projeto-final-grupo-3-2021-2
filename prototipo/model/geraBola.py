@@ -47,7 +47,7 @@ class GeraBola():
             bola = BolaMateriaNegra("#", circle_obj, False)
             return bola
         elif random.randint(1, 100) <= 5:
-            circle_obj = pygame.draw.circle(background, "#f2efda", coors, 35)
+            circle_obj = pygame.draw.circle(background, "#f75f11", coors, 35)
             bola = BolaBranca("=", circle_obj, False)
             return bola
         elif random.randint(1, 100) <= 20:
