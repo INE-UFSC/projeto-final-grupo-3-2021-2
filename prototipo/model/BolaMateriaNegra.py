@@ -15,7 +15,6 @@ class BolaMateriaNegra(BolaEspecial):
         tm_lista = len(campo)
         lista_bolas = []
         lib_index = []
-        print('crash1')
         while True:
                 count = count + 1
                 if count == index:
@@ -25,7 +24,7 @@ class BolaMateriaNegra(BolaEspecial):
                 if campo[count].nome != '':
                     lista_bolas.append(campo[count])
                     lib_index.append(count)
-        print('crash2')           
+                             
         if len(lista_bolas) != 0 :
             rolou = True
             atribuiu = False
@@ -44,8 +43,6 @@ class BolaMateriaNegra(BolaEspecial):
                     
             new_value = (valor) + len(lista_bolas) - 1
             
-           
-        print('2')
         campo_lista = []
         for i in lista_bolas:
              boleta = i.nome

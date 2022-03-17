@@ -17,12 +17,6 @@ class BolaMais(BolaEspecial):
         procurar = True
         tm_lista = len(campo)
         while procurar:
-            # campo_lista = []
-            # for i in campo:
-            #     boleta = i.nome
-            #     campo_lista.append(boleta)
-            # print(campo_lista)
-            # print('index : ', index)
             bola_d = None
             bola_e = None
             count = index
@@ -48,13 +42,6 @@ class BolaMais(BolaEspecial):
                     bola_e = campo[count]
                     index_e = count
                     break
-            # print('2')
-            # campo_lista = []
-            # for i in self.__campo:
-            #     boleta = i.nome
-            #     campo_lista.append(boleta)
-            # print(campo_lista)
-            # print('index : ', index)
             if bola_e == None or bola_d == None:
                 procurar = False
             elif bola_e == bola_d:
@@ -88,10 +75,4 @@ class BolaMais(BolaEspecial):
                 pontos += i.valor
             
         return rolou, pontos, new_value, casais,casais_index
-        # print('3')
-        # campo_lista = []
-        # for i in self.__campo:
-        #     boleta = i.nome
-        #     campo_lista.append(boleta)
-        # print(campo_lista)
-        # print('index : ', index)
+      

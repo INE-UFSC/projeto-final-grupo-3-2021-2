@@ -213,12 +213,6 @@ class Campo():
                                      True, (255, 255, 255)), (bola.circle_obj.x + 20, bola.circle_obj.y + 15))
 
     def desenhaBolaAcaoMateriaNega(self, background, bolaNegra):
-        print('1')
-        campo_lista = []
-        for i in self.__campo:
-            boleta = i.nome
-            campo_lista.append(boleta)
-        print(campo_lista)
 
         index = self.__campo.index(bolaNegra)
         rolou, pontos, new_value, lista_bolas, lib_index = bolaNegra.acao(
@@ -242,12 +236,6 @@ class Campo():
                     corrected_coors, background)
                 self.__campo[lib_index[i]] = bola_empty1
 
-        print('3')
-        campo_lista = []
-        for i in self.__campo:
-            boleta = i.nome
-            campo_lista.append(boleta)
-        print(campo_lista)
         self.__gerador_bola.atualizaMinMaxBola(self.__campo)
 
         return pontos
