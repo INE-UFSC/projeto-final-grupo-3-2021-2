@@ -1,3 +1,4 @@
+from abc import ABC
 from view.leaderboard import LeaderBoard
 from view.menuPrincipal import MenuPrincipal
 from view.menuModosDeJogo import menu_modos_de_jogo
@@ -6,7 +7,7 @@ import os
 import pygame
 
 
-class Singleton(object):
+class Singleton(ABC, object):
     __instance = None
 
     def __new__(cls, *args):
@@ -20,7 +21,7 @@ class App(Singleton):
         pygame.init()
 
         self.__state = 'start'
-        self.__musica_de_fundo = pygame.mixer.music.load(
+        pygame.mixer.music.load(
             os.path.join('controller', 'sounds', 'musica_menus.mp3'))
         self.__musica = True
         self.__som = True
@@ -51,6 +52,6 @@ class App(Singleton):
                 self.__state = controlador.rodar_jogo()
                 pygame.mixer.init()
                 pygame.mixer.music.set_volume(0)
-                self.__musica_de_fundo = pygame.mixer.music.load(
+                pygame.mixer.music.load(
                     os.path.join('controller', 'sounds', 'musica_menus.mp3'))
                 pygame.mixer.music.play(-1)
