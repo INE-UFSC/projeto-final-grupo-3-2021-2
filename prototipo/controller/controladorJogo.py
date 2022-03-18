@@ -1,10 +1,8 @@
-from tabnanny import check
 import model.campo as campo
 import model.Bola as bola
 from model.geraBola import GeraBola
-from abc import ABC
+from abc import ABC, abstractmethod
 import pygame
-from cmath import sqrt
 import sys
 import os
 from model.BolaBranca import BolaBranca
@@ -17,10 +15,8 @@ from view.Timer import Timer
 sys.path.append(
     os.path.dirname(os.path.realpath(__file__)))
 
-clock = pygame.time.Clock()
 
-
-class ControladorJogo:
+class ControladorJogo(ABC):
     def __init__(self, tela_width: int, tela_height: int) -> None:
         self.__bola_central = {}
         self.__campo = campo.Campo(
@@ -38,17 +34,16 @@ class ControladorJogo:
         background = pygame.Surface(self.__screen.get_size())
         background = background.convert()
         background.fill("#d08af8")
-        
+
         # Inicializando placar
         self.__placar = Placar(
             background, self.__tela_width, self.__tela_height)
-        
-     
-        #Inicializando timer
-        if self.checkModoDeJogo() ==  'timeattack':
-            
-            self.__timer =  Timer(background)
-        
+
+        # Inicializando timer
+        if self.checkModoDeJogo() == 'timeattack':
+
+            self.__timer = Timer(background)
+
         # Inicializando Rank
         running = True
         self.__campo.setar_campo(background, self.__screen)
@@ -86,22 +81,24 @@ class ControladorJogo:
 
                                 pontos, tempo_timer = self.__campo.desenhaBolaAoAcaoMais(
                                     background, obj)
-                                print('Pontos +',int(pontos))
+                                print('Pontos +', int(pontos))
                                 self.__placar.pontuar(int(pontos))
-                                
-                                #somando no tempo acumulado
-                                if pontos != 0 and self.checkModoDeJogo() ==  'timeattack':
-                                    self.__timer.aumentar_tempo(int(tempo_timer))
+
+                                # somando no tempo acumulado
+                                if pontos != 0 and self.checkModoDeJogo() == 'timeattack':
+                                    self.__timer.aumentar_tempo(
+                                        int(tempo_timer))
 
                             if isinstance(obj, BolaMateriaNegra):
 
                                 pontos, tempo_timer = self.__campo.desenhaBolaAcaoMateriaNega(
                                     background, obj)
                                 self.__placar.pontuar(int(pontos))
-                                
-                                #somando no tempo acumulado
-                                if pontos != 0 and self.checkModoDeJogo() ==  'timeattack':
-                                    self.__timer.aumentar_tempo(int(tempo_timer))
+
+                                # somando no tempo acumulado
+                                if pontos != 0 and self.checkModoDeJogo() == 'timeattack':
+                                    self.__timer.aumentar_tempo(
+                                        int(tempo_timer))
 
                             # Se tiver alguma bola materia negra no campo ele ativa
                             self.checkBolaMateriaNegraCampo(background)
@@ -127,33 +124,31 @@ class ControladorJogo:
 
                                 self.__campo.desenhaBolaAoAcaoBranca(
                                     background, obj)
-                                
-            if self.checkModoDeJogo() == 'timeattack':                
+
+            if self.checkModoDeJogo() == 'timeattack':
                 self.__timer.desenhar_timer()
-                
+
             self.__placar.desenha_placar()
             self.__screen.blit(background, (0, 0))
             pygame.display.update()
-            clock.tick(40)
-            
+
             if self.checar_fim_de_jogo():
-                # if(self.__campo.verificaCampo(self.__campo.campo) == False):
-                # time.sleep(2)
+
                 running = False
                 nome = self.__placar.desenhar_input(self.__placar.score)
                 self.__placar.leaderboardDAO.add(nome, self.__placar.score)
                 return 'start'
 
         pygame.quit()
-        
+
+    @abstractmethod
     def checar_fim_de_jogo(self):
         pass
 
+    @abstractmethod
     def checkModoDeJogo(self):
         pass
-    
-    
-    
+
     def checkBolaMateriaNegraCampo(self, background):
         count = 0
         while True:
@@ -219,7 +214,7 @@ class ControladorJogo:
     @tela_height.setter
     def tela_height(self, height):
         self.__tela_height = height
-        
+
     @property
     def timer(self):
         return self.__timer

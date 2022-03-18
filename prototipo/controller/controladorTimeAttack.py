@@ -1,22 +1,8 @@
-import model.campo as campo
-import model.Bola as bola
-from model.geraBola import GeraBola
-from abc import ABC
-import pygame
 import sys
 import os
-from model.BolaBranca import BolaBranca
-from view.Placar import Placar
-from model.BolaEspecial import BolaEspecial
-from model.BolaMais import BolaMais
-from model.BolaMenos import BolaMenos
-from model.BolaMateriaNegra import BolaMateriaNegra
 from controller.controladorJogo import ControladorJogo as CJ
-from view.Timer import Timer
 sys.path.append(
     os.path.dirname(os.path.realpath(__file__)))
-
-clock = pygame.time.Clock()
 
 
 class ControladorTimeAttack(CJ):

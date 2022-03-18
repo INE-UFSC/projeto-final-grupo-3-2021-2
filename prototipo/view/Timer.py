@@ -9,7 +9,6 @@ class Timer:
         self.__x = 574
         self.__y = 0  
         self.__clock_values = ['00', '00', '10']
-        self.__cv =  self.__clock_values
         self.__surface = surface
         self.__font = pygame.font.SysFont('Arial', 85)
         self.__change = True
