@@ -1,6 +1,7 @@
 from itertools import count
 from random import randint
 import pygame
+import math
 from model.Bola import Bola
 from model.BolaNormal import BolaNormal
 from model.geraBola import GeraBola
@@ -237,8 +238,9 @@ class Campo():
                 self.__campo[lib_index[i]] = bola_empty1
 
         self.__gerador_bola.atualizaMinMaxBola(self.__campo)
+        tempo_timer = (math.ceil(len(lista_bolas)/2))*5
 
-        return pontos
+        return pontos, tempo_timer
 
     def desenhaBolaAoAcaoMais(self, background, bolaMais):
         index = self.__campo.index(bolaMais)
@@ -271,10 +273,11 @@ class Campo():
                 bola_empty2 = self.desenhaBolaHolder(
                     corrected_coors, background)
                 self.__campo[casais_index[i+1]] = bola_empty2
-
+        print('Pontos bola mais', pontos)
         self.__gerador_bola.atualizaMinMaxBola(self.__campo)
-
-        return pontos
+        tempo_timer = ((len(casais)/2)*5)
+        print('tempo_timer', tempo_timer)
+        return pontos, tempo_timer
 
     def desenhaBolaHolder(self, coors, background, cor="#e9c2ff"):
         holder = pygame.draw.circle(

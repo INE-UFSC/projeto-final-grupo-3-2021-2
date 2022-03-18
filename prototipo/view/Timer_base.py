@@ -64,7 +64,7 @@ WHITE = (255, 255, 255)
 AQUA = (0, 255, 255)
 DARK_WHITE = (250, 250, 250)
 
-size = [10, 10]
+size = [10, 100]
 size_start = [150, 60]
 x_start = 250 - size_start[0]//2
 y_start = 225 - size_start[1]//2
@@ -128,8 +128,8 @@ while runLoop == True:
     for i in range(3):
         pygame.draw.rect(surface, WHITE, (x+(i*150), y, size[0], size[1]))
         pygame.draw.rect(surface, WHITE, (x+65+(i*150), y, size[0], size[1]))
-        text_renderer(clock_values[i][0], font_n, pygame.Rect(x+(i*100)+8, y+5, size[0], size[1]))
-        text_renderer(clock_values[i][1], font_n,pygame.Rect(x+65+(i*100)+8, y+5, size[0], size[1]))
+        text_renderer(clock_values[i][0], font_n, pygame.Rect(x+(i*150)+8, y+5, size[0], size[1]))
+        text_renderer(clock_values[i][1], font_n,pygame.Rect(x+65+(i*150)+8, y+5, size[0], size[1]))
                  
     for i in range(2):
         pygame.draw.rect(surface, WHITE, (x+132+(i*150), y+30, 10, 10))

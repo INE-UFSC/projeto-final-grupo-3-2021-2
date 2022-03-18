@@ -25,8 +25,6 @@ class GeraBola():
             self.__ultima_especial = True
             return bola
         else:
-            print(self.__max_bola)
-            print(self.__min_bola)
             self.__ultima_especial = False
             # gap = 5
             # if self.__min_bola + gap < self.__max_bola:
@@ -66,7 +64,6 @@ class GeraBola():
                 if count == 0 and bola.valor != 0:
                     maior = bola.valor
                     menor = bola.valor
-                    print('Entrou')
                     count = 1
                 elif count == 1 and bola.valor != 0:
                     if bola.valor > maior:
