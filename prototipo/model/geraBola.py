@@ -19,7 +19,7 @@ class GeraBola():
 
     def geraBola(self, elementos, background, coors, start: bool, cores):
         # não podemos gerar bolas especiais no início do jogo
-        if random.randint(1, 100) <= 40 and not start and not(self.__ultima_especial):
+        if random.randint(1, 100) <= 50 and not start and not(self.__ultima_especial):
             
             bola = self.geraBolaEspecial(background, coors)
             self.__ultima_especial = True

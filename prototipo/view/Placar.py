@@ -28,6 +28,7 @@ class Placar:
         self.__tela.blit(legenda_placar, (20, 20))
 
     def desenhar_input(self, pontos):
+        sg.theme('DarkPurple1')
         layout = [[sg.Text(f'Pontuação alcançada: {pontos}')], [sg.Text(
             'Qual seu nome de campeão?'), sg.InputText()], [sg.Submit('Entrar para história!')]]
         window = sg.Window('GAMEOVER').Layout(layout)

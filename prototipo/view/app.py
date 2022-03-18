@@ -3,6 +3,7 @@ from view.leaderboard import LeaderBoard
 from view.menuPrincipal import MenuPrincipal
 from view.menuModosDeJogo import menu_modos_de_jogo
 from controller.controladorClassico import ControladorClassico as cont
+from controller.controladorTimeAttack import ControladorTimeAttack as contta
 import os
 import pygame
 
@@ -49,6 +50,16 @@ class App(Singleton):
             elif self.__state == 'classic':
                 pygame.mixer.music.set_volume(0)
                 controlador = cont(1000, 600)
+                self.__state = controlador.rodar_jogo()
+                pygame.mixer.init()
+                pygame.mixer.music.set_volume(0)
+                pygame.mixer.music.load(
+                    os.path.join('controller', 'sounds', 'musica_menus.mp3'))
+                pygame.mixer.music.play(-1)
+
+            elif self.__state == 'timeattack':
+                pygame.mixer.music.set_volume(0)
+                controlador = contta(1000, 600)
                 self.__state = controlador.rodar_jogo()
                 pygame.mixer.init()
                 pygame.mixer.music.set_volume(0)

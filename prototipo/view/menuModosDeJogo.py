@@ -139,7 +139,7 @@ class menu_modos_de_jogo(Menu):
                 cor_fundo_ta = (255, 0, 0)
                 if click:
                     # barulho_opc.play()
-                    return self.voltar(musica, som)
+                    return 'timeattack', musica, som
             else:
                 escrita_ta = 'TIME ATTACK'
                 cor_fundo_ta = (148, 0, 211)
