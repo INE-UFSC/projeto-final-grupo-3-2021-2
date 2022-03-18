@@ -180,26 +180,34 @@ class ControladorJogo(ABC):
 
     def checkBolaMateriaNegraCampo(self, background):
         count = 0
+        tempo_timer = 0
+        pontos = 0
         while True:
             if count == len(self.__campo.campo):
                 break
             elif self.__campo.campo[count].nome == '#':
                 pontos, tempo_timer = self.__campo.desenhaBolaAcaoMateriaNegra(
                     background, self.__campo.campo[count])
-                return pontos, tempo_timer
+                pontos += pontos
+                tempo_timer += tempo_timer
+                
             count += 1
-        return 0, 0 
+        return pontos, tempo_timer
     def checkBolaMaisCampo(self, background):
         count = 0
+        tempo_timer = 0
+        pontos = 0
         while True:
             if count == len(self.__campo.campo):
                 break
             elif self.__campo.campo[count].nome == '+':
                 pontos, tempo_timer = self.__campo.desenhaBolaAoAcaoMais(
                     background, self.__campo.campo[count])
-                return pontos, tempo_timer
+                pontos += pontos
+                tempo_timer += tempo_timer
+                
             count += 1
-        return 0, 0
+        return pontos, tempo_timer
     @property
     def bola_central(self):
         return self.__bola_central
