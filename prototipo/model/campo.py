@@ -113,15 +113,6 @@ class Campo():
 
             fonte = pygame.font.SysFont(None, 50)
 
-            # if randint(1, 100) <= 26:
-            #     # Gera bolas inicialmente setadas no campo (menos a bola central)
-            #     self.__campo[i] = self.__gerador_bola.geraBola(
-            #         self.__elem_dict, background, coors, True, self.__elem_cor)
-            #     background.blit(fonte.render(self.__campo[i].nome, True, (255, 255, 255)), (
-            #         self.__campo[i].circle_obj.x + 12, self.__campo[i].circle_obj.y + 20))
-            #     self.__list_coors[i] = coors
-            # else:
-            # Gera espaços vazios (bolas cinzas)
             bola_empty = self.desenhaBolaHolder(coors, background)
             self.__list_coors[i] = coors
             self.__campo[i] = bola_empty
@@ -213,7 +204,7 @@ class Campo():
         background.blit(fonte.render(bola.nome,
                                      True, (255, 255, 255)), (bola.circle_obj.x + 20, bola.circle_obj.y + 15))
 
-    def desenhaBolaAcaoMateriaNega(self, background, bolaNegra):
+    def desenhaBolaAcaoMateriaNegra(self, background, bolaNegra):
 
         index = self.__campo.index(bolaNegra)
         rolou, pontos, new_value, lista_bolas, lib_index = bolaNegra.acao(
@@ -273,10 +264,9 @@ class Campo():
                 bola_empty2 = self.desenhaBolaHolder(
                     corrected_coors, background)
                 self.__campo[casais_index[i+1]] = bola_empty2
-        print('Pontos bola mais', pontos)
+        
         self.__gerador_bola.atualizaMinMaxBola(self.__campo)
         tempo_timer = ((len(casais)/2)*5)
-        print('tempo_timer', tempo_timer)
         return pontos, tempo_timer
 
     def desenhaBolaHolder(self, coors, background, cor="#e9c2ff"):

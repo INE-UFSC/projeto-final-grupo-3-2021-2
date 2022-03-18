@@ -78,10 +78,9 @@ class ControladorJogo(ABC):
                             self.__campo.atualizaSelfCampo(obj, closest_obj)
 
                             if isinstance(obj, BolaMais):
-
                                 pontos, tempo_timer = self.__campo.desenhaBolaAoAcaoMais(
                                     background, obj)
-                                print('Pontos +', int(pontos))
+                                
                                 self.__placar.pontuar(int(pontos))
 
                                 # somando no tempo acumulado
@@ -91,7 +90,7 @@ class ControladorJogo(ABC):
 
                             if isinstance(obj, BolaMateriaNegra):
 
-                                pontos, tempo_timer = self.__campo.desenhaBolaAcaoMateriaNega(
+                                pontos, tempo_timer = self.__campo.desenhaBolaAcaoMateriaNegra(
                                     background, obj)
                                 self.__placar.pontuar(int(pontos))
 
@@ -101,9 +100,25 @@ class ControladorJogo(ABC):
                                         int(tempo_timer))
 
                             # Se tiver alguma bola materia negra no campo ele ativa
-                            self.checkBolaMateriaNegraCampo(background)
-                            # Se tiver alguma bola vermelha no campo ele ativa
-                            self.checkBolaMaisCampo(background)
+                            pontos, tempo_timer  = self.checkBolaMateriaNegraCampo(background)
+                            self.__placar.pontuar(int(pontos))
+
+                            # somando no tempo acumulado
+                            if pontos != 0 and self.checkModoDeJogo() == 'timeattack':
+                                self.__timer.aumentar_tempo(
+                                    int(tempo_timer))
+                            
+            
+                            
+                            # Se tiver alguma bola mais no campo ele ativa
+                            pontos, tempo_timer  = self.checkBolaMaisCampo(background)
+                            self.__placar.pontuar(int(pontos))
+
+                            # somando no tempo acumulado
+                            if pontos != 0 and self.checkModoDeJogo() == 'timeattack':
+                                self.__timer.aumentar_tempo(
+                                    int(tempo_timer))
+                                
                         elif closest_obj.nome != "":
                             if isinstance(self.__campo.bola_central, BolaMenos):
 
@@ -155,22 +170,22 @@ class ControladorJogo(ABC):
             if count == len(self.__campo.campo):
                 break
             elif self.__campo.campo[count].nome == '#':
-                self.__campo.desenhaBolaAoAcaoMais(
+                pontos, tempo_timer = self.__campo.desenhaBolaAcaoMateriaNegra(
                     background, self.__campo.campo[count])
-
+                return pontos, tempo_timer
             count += 1
-
+        return 0, 0 
     def checkBolaMaisCampo(self, background):
         count = 0
         while True:
             if count == len(self.__campo.campo):
                 break
             elif self.__campo.campo[count].nome == '+':
-                self.__campo.desenhaBolaAoAcaoMais(
+                pontos, tempo_timer = self.__campo.desenhaBolaAoAcaoMais(
                     background, self.__campo.campo[count])
-
+                return pontos, tempo_timer
             count += 1
-
+        return 0, 0
     @property
     def bola_central(self):
         return self.__bola_central

@@ -129,19 +129,17 @@ class menu_modos_de_jogo(Menu):
             if opc_classic.collidepoint((mx, my)):
                 cor_fundo_classic = (153, 102, 204)
                 if click:
-                    # barulho_opc.play()
+                    barulho_opc.play()
                     return 'classic', musica, som
             else:
                 cor_fundo_classic = (148, 0, 211)
 
             if opc_ta.collidepoint((mx, my)):
-                escrita_ta = '  NOT READY'
-                cor_fundo_ta = (255, 0, 0)
+                cor_fundo_ta = (153, 102, 204)
                 if click:
-                    # barulho_opc.play()
+                    barulho_opc.play()
                     return 'timeattack', musica, som
             else:
-                escrita_ta = 'TIME ATTACK'
                 cor_fundo_ta = (148, 0, 211)
 
             if opc_volta.collidepoint((mx, my)):
