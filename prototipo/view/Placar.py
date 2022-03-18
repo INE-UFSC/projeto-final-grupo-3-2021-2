@@ -5,10 +5,11 @@ from view.LeaderboardDAO import LeaderboardDAO
 
 
 class Placar:
-    def __init__(self, tela, width, height):
+    def __init__(self, tela, width, height, cor_de_fundo):
         self.__tela = tela
         self.__width = width
         self.__height = height
+        self.__cor_de_fundo = cor_de_fundo
         self.__score = 0
         self.__leaderboardDAO = LeaderboardDAO()
 
@@ -21,7 +22,7 @@ class Placar:
 
     def desenha_placar(self):
         fundo_placar = pygame.draw.rect(
-            self.__tela, '#d08af8', (20, 20, 250, 40))
+            self.__tela, self.__cor_de_fundo, (20, 20, 250, 40))
         fonte_placar = pygame.font.SysFont('arial', 30, True, True)
         legenda_placar = fonte_placar.render(
             f'PONTOS: {self.__score}', 1, (255, 255,255))

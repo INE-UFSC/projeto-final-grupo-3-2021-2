@@ -11,10 +11,11 @@ from model.BolaEspecial import BolaEspecial
 
 class Campo():
 
-    def __init__(self, tela_width: int, tela_height: int, geraBola: GeraBola) -> None:
+    def __init__(self, tela_width: int, tela_height: int, geraBola: GeraBola, cor_bola_holder ) -> None:
         self.__capacidade = 20
         self.__campo = []
         self.__bola_central = {}
+        self.__cor_bola_holder = cor_bola_holder
         self.__raio = 300
         self.__tela_width = tela_width
         self.__tela_height = tela_height
@@ -269,9 +270,9 @@ class Campo():
         tempo_timer = ((len(casais)/2)*5)
         return pontos, tempo_timer
 
-    def desenhaBolaHolder(self, coors, background, cor="#e9c2ff"):
+    def desenhaBolaHolder(self, coors, background):
         holder = pygame.draw.circle(
-            background, cor, coors, 35)
+            background, self.__cor_bola_holder, coors, 35)
 
         return BolaNormal(0, '', holder)
 

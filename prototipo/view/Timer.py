@@ -3,7 +3,7 @@ import time
 from _thread import *
 import math
 class Timer:
-    def __init__(self, surface):
+    def __init__(self, surface, cor_de_fundo):
         self.__cor_fundo = (255, 255, 255)
         self.__size = [0, 0]
         self.__x = 574
@@ -14,6 +14,8 @@ class Timer:
         self.__change = True
         self.__tempo_somado = 0
         self.__over = False
+        self.__cor_fundo = cor_de_fundo
+        self.__cor_do_timer = (255, 255, 255)
     
     
     def timerOver(self):
@@ -32,7 +34,7 @@ class Timer:
                 self.__change = True
     def text_renderer(self, msg, font, rect):
 
-        text = font.render(msg, True, self.__cor_fundo)
+        text = font.render(msg, True, self.__cor_do_timer)
 
         self.__surface.blit(text, rect)
         
@@ -60,14 +62,14 @@ class Timer:
             self.aumentar_tempo(0)
             self.__change = False
         fundo_timer = pygame.draw.rect(
-            self.__surface, '#d08af8', (733, 20, 250, 70))    
+            self.__surface, self.__cor_fundo, (733, 20, 250, 70))    
         for i in range(1,3):
             self.text_renderer(self.__clock_values[i][0], self.__font, pygame.Rect(self.__x+(i*150)+8, self.__y+5, self.__size[0], self.__size[1]))
             self.text_renderer(self.__clock_values[i][1], self.__font, pygame.Rect(self.__x+55+(i*150)+8, self.__y+5, self.__size[0], self.__size[1]))
                     
         for i in range(1,2):
-            pygame.draw.rect(self.__surface, self.__cor_fundo, (self.__x+132+(i*150), self.__y+30, 10, 10))
-            pygame.draw.rect(self.__surface, self.__cor_fundo, (self.__x+132+(i*150), self.__y+60, 10, 10))
+            pygame.draw.rect(self.__surface, self.__cor_do_timer, (self.__x+132+(i*150), self.__y+30, 10, 10))
+            pygame.draw.rect(self.__surface, self.__cor_do_timer, (self.__x+132+(i*150), self.__y+60, 10, 10))
             
     def aumentar_tempo(self, tempo):
         self.__tempo_somado += tempo
@@ -81,7 +83,7 @@ class Timer:
         
         
         fundo_ts_valor = pygame.draw.rect(
-            self.__surface, '#d08af8', (780, 110, 250, 60))
+            self.__surface, self.__cor_fundo, (780, 110, 250, 60))
         fonte_ts_valor = pygame.font.SysFont('arial', 50, True, True)
         legenda_ts_valor = fonte_ts_valor.render(
             f'{tempo}', 1, (255, 255,255))

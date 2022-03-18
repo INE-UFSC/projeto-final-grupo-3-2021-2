@@ -17,15 +17,22 @@ sys.path.append(
 
 
 class ControladorJogo(ABC):
-    def __init__(self, tela_width: int, tela_height: int) -> None:
+    def __init__(self, tela_width: int, tela_height: int, cor_de_fundo = "#d08af8", cbh = "#e9c2ff") -> None:
+        
+        self.__cor_bola_holder = cbh
+        if self.checkModoDeJogo() == 'timeattack':
+            self.__cor_bola_holder = '#c2dbf0'
+        
         self.__bola_central = {}
         self.__campo = campo.Campo(
-            tela_width, tela_height, GeraBola())
+            tela_width, tela_height, GeraBola(), self.__cor_bola_holder)
         self.__nome = ''
+        self.__cor_de_fundo = cor_de_fundo
         self.__tela_width = tela_width
         self.__tela_height = tela_height
         self.__screen = pygame.display.set_mode(
             (self.__tela_width, self.__tela_height))
+        
 
     def rodar_jogo(self):
 
@@ -33,16 +40,23 @@ class ControladorJogo(ABC):
 
         background = pygame.Surface(self.__screen.get_size())
         background = background.convert()
-        background.fill("#d08af8")
+        
 
-        # Inicializando placar
-        self.__placar = Placar(
-            background, self.__tela_width, self.__tela_height)
+        
 
         # Inicializando timer
         if self.checkModoDeJogo() == 'timeattack':
-
-            self.__timer = Timer(background)
+            # Inicializando placar
+            self.__cor_de_fundo = '#8ab3f0'
+            background.fill(self.__cor_de_fundo)
+            self.__placar = Placar(
+            background, self.__tela_width, self.__tela_height, self.__cor_de_fundo)
+            self.__timer = Timer(background, self.__cor_de_fundo)
+        else:
+            # Inicializando placar
+            background.fill(self.__cor_de_fundo)
+            self.__placar = Placar(
+            background, self.__tela_width, self.__tela_height, self.__cor_de_fundo)
 
         # Inicializando Rank
         running = True
