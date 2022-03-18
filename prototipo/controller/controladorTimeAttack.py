@@ -3,7 +3,6 @@ import model.Bola as bola
 from model.geraBola import GeraBola
 from abc import ABC
 import pygame
-from cmath import sqrt
 import sys
 import os
 from model.BolaBranca import BolaBranca
@@ -23,16 +22,13 @@ clock = pygame.time.Clock()
 class ControladorTimeAttack(CJ):
     def __init__(self, tela_width: int, tela_height: int) -> None:
         super().__init__(tela_width, tela_height)
-     
 
     def checkModoDeJogo(self):
         return 'timeattack'
-    
+
     def checar_fim_de_jogo(self):
         fim_de_jogo = False
         if (super().campo.verificaCampo(super().campo.campo) == False) or super().timer.over:
             fim_de_jogo = True
-            
+
         return fim_de_jogo
-    
-    
